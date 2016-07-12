@@ -1,0 +1,46 @@
+<ion-view>
+    <ion-content class="login">
+        <form name="loginForm">
+        <!--     <div class="row">
+                <div class="col center">
+                    <img src="img/logo.png" class="imglogo">
+                </div>
+            </div> -->
+            <div class="list list-inset username-div">
+                <label class="item item-input username-label">
+                    <i class="icon ion-person placeholder-icon unameicon"></i>
+                    <input type="text" placeholder="Username" class="username-text" name="username" ng-model="loginData.userName" required>
+                </label>
+            </div>
+            <div ng-messages="loginForm.username.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="loginForm.username.$touched">
+                <div class="form-error" ng-message="required">Please enter your Username</div>
+            </div>
+            <div class="list list-inset password-div">
+                <label class="item item-input  username-label ">
+                    <i class="icon ion-locked placeholder-icon unameicon"></i>
+                    <input type="password" name="password" ng-model="loginData.password" placeholder="Password" class="username-text" required>
+                    <!--    <i style="padding-right: 11px;" class="icon ion-ios-help-outline placeholder-icon pwdhelp"></i> -->
+                </label>
+            </div>
+            <div ng-messages="loginForm.password.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="loginForm.password.$touched">
+                <div class="form-error" ng-message="required">Please enter your Password</div>
+            </div>
+            <div class=" pull-center">
+                <div class="btn-logindiv">
+                    <button type="submit" ng-click="doLogin(loginForm)" class="login button btn-login">Sign In</button>
+                </div>
+                <span> <a class="rm_decoration" ><span class="login-signup noaccount">Don't have an account?</span><span class="signup-color" ng-click="doRegister()"> SIGN UP</span></a>
+                </span>
+            </div>
+        </form>
+    </ion-content>
+    <div class="login-footer">
+       <!--  <div class=" pull-center">
+            <div class="login btn-logindiv">
+                <button type="submit" ng-click="doLogin(loginForm)" class="login button btn-login">Sign In</button>
+            </div>
+            <span> <a class="rm_decoration" ><span class="login-signup noaccount">Don't have an account?</span><span class="signup-color" ng-click="doRegister()"> SIGN UP</span></a>
+            </span>
+        </div> -->
+    </div>
+</ion-view>

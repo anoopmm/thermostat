@@ -1,0 +1,32 @@
+<ion-view id="selectroom">
+    <ion-nav-bar class="bar bar-positive">
+        <ion-nav-buttons side="right">
+            <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content>
+        <ul class="list">
+            <li class="item" ng-repeat="item in items" ng-click="openRooomDetails(item.id)">
+                <div class="row">
+                    <div class="col col-25 padd_0">
+                        <p style="color:white;vertical-align: middle;padding-top: 18px;">{{item.RoomName}}</p>
+                    </div>
+                    <div class="col col-25 padd_0">
+                        <p style="color:white;vertical-align: middle;padding-top: 18px;">{{item.TemperatureSetPoint}}&#x2103</p>
+                    </div>
+                    <div class="col col-25 padd_0">
+                        <p style="color:white; vertical-align: middle;padding-top: 18px;">{{item.CurrentTemperature}}&#x2103</p>
+                    </div>
+                    <div class="col col-25 padd_0">
+                        <img class="imgRound" src="../img/{{item.img}}">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </ion-content>
+</ion-view>

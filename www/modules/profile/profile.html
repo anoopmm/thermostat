@@ -1,0 +1,50 @@
+<ion-view>
+    <ion-nav-bar class="bar-postive">
+        <ion-nav-buttons side="right">
+            <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="profile">
+        <div class="newaccounttitle">
+        </div>
+        <!-- <div class="imgdiv"><img src="img/logo.png" class="imglogo"> -->
+        <div class="list list-inset username-div">
+            <!-- <span class="profilelbl">Name</span> -->
+            <label class="item item-input username-label">
+                <input type="text" placeholder="Name" ng-model="regData.name" class="username-text">
+            </label>
+        </div>
+        <div class="list list-inset username-div">
+            <!-- <span class="profilelbl">Email</span> -->
+            <label class="item item-input username-label">
+                <input type="text" placeholder="Email" ng-model="regData.email" class="username-text">
+            </label>
+        </div>
+        <div class="  list list-inset username-div">
+            <!-- <span class="profilelbl">Password</span> -->
+            <label class="item item-input  username-label ">
+                <input type="text" placeholder="Password" ng-model="regData.pwd" class="username-text">
+            </label>
+        </div>
+        <div class="list list-inset username-div">
+            <!-- <span class="profilelbl">Phonenumber</span> -->
+            <label class="item item-input username-label">
+                <input type="text" placeholder="Phonenumber" ng-model="regData.phonenum" class="username-text">
+            </label>
+        </div>
+        <div class="list list-inset username-div">
+            <!-- <span class="profilelbl">Place</span> -->
+            <label class="item item-input username-label">
+                <input type="text" placeholder="place" ng-model="regData.place" class="username-text">
+            </label>
+        </div>
+        <div class="btn-login-div">
+            <button ng-click="edit()" class="button btn-login">Edit</button>
+        </div>
+    </ion-content>
+</ion-view>

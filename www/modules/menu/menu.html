@@ -1,0 +1,53 @@
+<ion-side-menus enable-menu-with-back-views="true">
+    <ion-side-menu-content>
+        <!--   <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon-round" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+            <ion-nav-buttons side="right">
+                <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar> -->
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+        <ion-content class="sidemenu">
+            <a class="item item-avatar" href="#tab">
+                <!-- <img src="img/icon_user_mini.png"> -->
+                <h2 class="sidemenu-title">THERMOSTAT</h2>
+            </a>
+            <ion-list>
+                <ion-item menu-close href="#/app/selectroom">
+                    <i class="icon ion-home "></i>
+                    <span class="menuname"> Home</span>
+                </ion-item>
+                <ion-item menu-close href="#/app/configwifi">
+                    <i class="icon ion-wifi ion-person"></i>
+                    <span class="menuname">Configure wi-fi</span>
+                </ion-item>
+                <ion-item menu-close href="#/app/profile">
+                    <i class="icon ion-person"></i>
+                    <span class="menuname">Profile </span>
+                </ion-item>
+                <ion-item menu-close href="#/app/addroom">
+                    <i class="icon ion-thermometer"></i>
+                    <span class="menuname">Add Thermostats </span>
+                </ion-item>
+                <ion-item ng-click="showLanguages() ">
+                    <i class="icon ion-gear-b"></i>
+                    <span class="menuname">Languages</span> <i ng-class="{ 'icon ion-chevron-right':!flagLanguages, 'icon ion-chevron-down': flagLanguages} " style="float:right;font-size: 1em; "></i>
+                </ion-item>
+                <ion-item menu-close ng-repeat="lang in languages " ng-if="flagLanguages " ng-click="changeLanguage(lang.code)">{{lang.name}}
+                </ion-item>
+                <ion-item menu-close ng-click="logOut()">
+                    <i class="icon ion-log-out"></i>
+                    <span class="menuname">Logout</span>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

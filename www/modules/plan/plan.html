@@ -1,0 +1,33 @@
+<ion-view>
+    <ion-nav-bar class="bar-stable">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-title>
+        </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content scroll="true">
+        <div id="schedule" style="padding:10px;padding-bottom:50px;direction: ltr;">
+            <div id="calendar"></div>
+        </div>
+    </ion-content>
+    <div class="floating-button" ng-click="launchTimeCreator()">
+        <ionic-timepicker input-obj="timePickerObject">
+            <a class="overflowShow">+</a>
+    </div>
+    </ionic-timepicker>
+    <div class="tsb-icons">
+        <div class="tsb-ic-wrps">
+            <ion-scroll direction="x" class="tsb-hscroll">
+                <a href="javascript:;" class="{{tab.icon}}" ng-repeat="tab in tabs">
+                    <div class="date-block" ng-click="clickedOn(tab)">
+                        <div class="day-name">{{tab.day}}</div>
+                        <!-- <div class="day-num">{{tab.date}}</div> -->
+                    </div>
+                    <div ng-if="selected[tab.id]" class="selected-indication">
+                    </div>
+                </a>
+            </ion-scroll>
+        </div>
+        <!-- <div class="bottom-strip" ng-click="sync()"><i class="ion-android-sync sync"></i></div> -->
+    </div>
+</ion-view>

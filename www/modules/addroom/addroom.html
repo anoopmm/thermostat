@@ -1,0 +1,43 @@
+<ion-view class="addback">
+    <ion-nav-bar class="bar-postive">
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="addroom">
+        <form name="addForm" novalidate="">
+            <div class="list">
+                <label class="indication item item-input ">USER NAME</label>
+                <label class="item item-input selectcat ">
+                    <input name="username1" type="text" placeholder="" class="username-text" style="color: white;" ng-model="addRoomData.userName" required>
+                </label>
+                <span class="error-message" ng-show="addForm.username1.$dirty && addForm.username1.$invalid||addForm.$submitted"><span ng-show="addForm.username1.$error.required">Username is required</span></span>
+                <label class="indication item item-input ">IMAGE</label>
+                <label class="item item-input selectcat " style="border-bottom:none" ng-click="openPopUp()">
+                    <div class="col">
+                        <span name="image" class="username-text" style="color: white;" required>Choose an Image</span>
+                    </div>
+                    <div class="col">
+                        <div class="bgimg" ng-if="addRoomData.imgURI===''" style="background-image: url(img/livingroom.jpg)">
+                        </div>
+                        <div class="bgimg" ng-if="addRoomData.imgURI!==''" style="background-image: url({{addRoomData.imgURI}})">
+                        </div>
+                    </div>
+                    <!-- <i style="padding-right: 11px;" class="icon ion-ios-camera placeholder-icon camerahelp"></i> -->
+                </label>
+                <span class="error-message" ng-show="imgErrorMessgage"><span ng-show="imgErrorMessgage">Image is required</span></span>
+                <label class="indication item item-input ">THERMOSTAT</label>
+                <label class="item item-input item-select  selectdd">
+                    <select name="thermostatId" class="coloroption gender-dropdown" ng-model="addRoomData.thermostatId" ng-options="item.thermostatId as item.thermostatName for item in thermostats" required ng-click="clearValues()">
+                        <option value="">Select Thermostat</option>
+                    </select>
+                </label>
+                <span class="error-message" ng-show="addForm.thermostatId.$dirty && addForm.thermostatId.$invalid||addForm.$submitted"><span ng-show="addForm.thermostatId.$error.required">Thermostat is required</span></span>
+                <div class="btn-addroomdiv">
+                    <button type="submit" ng-click="addRoom(addForm)" class="button btn-login">Add Room</button>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

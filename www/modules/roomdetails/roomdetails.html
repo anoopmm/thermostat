@@ -1,0 +1,174 @@
+<ion-view title="Bed Room" class="roomdetails">
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-buttons side="right">
+            <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="roomdetails">
+        <div class="row">
+            <div class="col col-66 center padd-0">
+                <div class="row padd-0">
+                    <div class="col col-10">
+                    </div>
+                    <div class="col col-80 setTemp center padd-0" id="setTemp">
+                        <div ang:round:progress data-round-progress-model="setTempData" data-round-progress-width="200" data-round-progress-height="200" data-round-progress-outer-circle-width="9" data-round-progress-outer-circle-radius="80" data-round-progress-label-font="25pt Arial" data-round-progress-outer-circle-background-color="#505769" data-round-progress-outer-circle-foreground-color="#df8667" data-round-progress-label-color="#fff"></div>
+                    </div>
+                    <div class="col col-10">
+                    </div>
+                </div>
+            </div>
+            <div class="col col-33 center padd-0" id="roomTemp" style="position:relative;">
+                <div>
+                    <div ang:round:progress data-round-progress-model="roomTempData" data-round-progress-width="100" data-round-progress-height="100" data-round-progress-outer-circle-width="4" data-round-progress-outer-circle-radius="40" data-round-progress-label-font="15pt Arial" data-round-progress-outer-circle-background-color="#505769" data-round-progress-outer-circle-foreground-color="#fc3768" data-round-progress-label-color="#fff" style="    ">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-66 center padd-0">
+                <div class="row padd-0">
+                    <div class="col col-25">
+                        <i class="icon ion-chevron-down" ng-click="decrTemp()"></i>
+                    </div>
+                    <div class="col col-50 setTemp center padd-0">
+                    </div>
+                    <div class="col col-25">
+                        <i class="icon ion-chevron-up" ng-click="incrTemp()"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-33 center padd-0">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-67 center" style="color:white">
+                <span class="center">{{'Set Temp'|translate}}</span>
+            </div>
+            <div class="col col-33 center" style="color:white">
+                <span class="center">{{'Room Temp'|translate}}</span>
+            </div>
+        </div>
+        <div class="row bg-image-1 padd-0" style="padding: 5px 10px 5px 10px;margin: 5%;width: 90%; margin-top: 8vh !important;">
+            <div class="col padd-0">
+                <div class="row padd-0" style="margin-bottom: -41px;">
+                    <div class="col padd-0">
+                        <div class="row padd-0">
+                            <li class="item item-toggle toggle-auto" style="padding-right:51px">
+                                <label class="toggle toggle-assertive">
+                                    <input type="checkbox" ng-model="tempStatus.automode" ng-click="changeStatus('auto')" ng-checked="tempStatus.automode">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                            </li>
+                        </div>
+                        <div class="row">
+                            <span> {{'Auto Mode'|translate}} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col relative-img" ng-click="changeStatus('low')">
+                        <img class="img-triangle" ng-src="{{tempStatus.low?'img/trianglegreen.png':'img/trianglegray.png'}}">
+                    </div>
+                    <div class="col relative-img" ng-click="changeStatus('medium')">
+                        <img class="img-polygon-1" ng-src="{{tempStatus.medium?'img/polygon2green.png':'img/polygon1gray.png'}}">
+                    </div>
+                    <div class="col relative-img padd-10" ng-click="changeStatus('high')">
+                        <img class="img-polygon-2" ng-src="{{tempStatus.high?'img/polygon3green.png':'img/polygon3gray.png'}}">
+                    </div>
+                    <div class="col center padd-left-25">
+                        <img class="img-fan" src="img/fan.png">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col relative-img">
+                        <span>Low</span>
+                    </div>
+                    <div class="col relative-img">
+                        <span>Medium</span>
+                    </div>
+                    <div class="col relative-img">
+                        <span>High</span>
+                    </div>
+                    <div class="col">
+                        <span id="text" style="display:none">&deg;C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row bg-image-2 padd-0" style="padding: 5px 10px 5px 10px;margin: 5%;width: 90%;margin-top: 8vh !important;">
+            <div class="row margin-8 padd-0">
+                <div class="col col-50 padd-0">
+                    <div class="row center padd-0">
+                        <label class="blue-radio item item-radio ng-valid" ng-model="filter.cool" style="">
+                            <input type="checkbox" name="radio-group" disabled="true" ng-model="filter.cool" class="ng-pristine ng-valid ng-touched" value="on" style="">
+                            <div class="radio-content">
+                                <div class="item-content disable-pointer-events" style="background-color: #5775df;">
+                                </div><i class="radio-icon disable-pointer-events icon ion-checkmark"></i></div>
+                        </label>
+                    </div>
+                    <div class="row  ">
+                        <span class="center padd-top-2"> Cool</span>
+                    </div>
+                </div>
+                <!-- <div class="col  col-33">
+                    <div class="row center padd-0">
+                        <label class="gray-radio item item-radio ng-valid" ng-model="filter.cool" style="">
+                            <input type="radio" name="radio-group" ng-model="filter.hot" class="ng-pristine ng-valid ng-touched" value="on" style="">
+                            <div class="radio-content">
+                                <div class="item-content disable-pointer-events" style="background-color: #ed9072;">
+                                </div><i class="radio-icon disable-pointer-events icon ion-checkmark"></i></div>
+                        </label>
+                    </div>
+                    <div class="row  ">
+                        <span class="center padd-top-2"> Hot</span>
+                    </div>
+                </div> -->
+                <div class="col col-50 padd-0">
+                    <div class="row center padd-0">
+                        <label class="red-radio item item-radio ng-valid" ng-model="filter.sleep" style="">
+                            <input type="checkbox" name="radio-group" ng-click="sleepToggle()" ng-model="filter.sleep" class="ng-pristine ng-valid ng-touched" value="on" style="">
+                            <div class="radio-content">
+                                <div class="item-content disable-pointer-events" style="background-color: #fc456d;">
+                                </div><i class="radio-icon disable-pointer-events icon ion-checkmark"></i></div>
+                        </label>
+                    </div>
+                    <div class="row  ">
+                        <span class="center padd-top-2"> Sleep</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  <div class="row footer">
+            <div class="col-67" ng-click="setPlan()">
+                <span> WEEKLY PLAN</span>
+            </div>
+            <div class="col-33 center">
+                <ion-toggle ng-model="weeklyPlan" ng-change="changeWeekPlan()" style="border:none;background:none"></ion-toggle>
+            </div>
+        </div> -->
+    </ion-content>
+    <!--     <ion-footer-bar style="background-color: #50d2c2 !important;
+   ">
+        <div class="col-67" style="    display: flex;
+    align-items: center;
+    justify-content: center;" ng-click="setPlan()">
+            <span> WEEKLY PLAN</span>
+        </div>
+        <div class="col-33 center">
+            <ion-toggle ng-model="filter.autorun" ng-click="autorunToggle()" style="border:none;background:none"></ion-toggle>
+        </div>
+    </ion-footer-bar> -->
+    <ion-footer-bar align-title="left" class="bar-assertive" style="background-color: #50d2c2 !important;">
+        <h1 class="title" ng-click="setPlan()">WEEKLY PLAN</h1>
+        <div class="buttons" >
+            <ion-toggle ng-model="filter.autorun" ng-click="autorunToggle()" style="border:none;background:none"></ion-toggle>
+        </div>
+    </ion-footer-bar>
+</ion-view>

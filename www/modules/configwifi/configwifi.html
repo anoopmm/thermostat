@@ -1,0 +1,42 @@
+<ion-view>
+    <ion-nav-bar class="bar-postive">
+        <ion-nav-buttons side="right">
+            <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="configwifi">
+        <div class="">
+            <div class="titlecon">Configure WI-FI
+            </div>
+            <div class="dateconfg"> November 20, 2015
+            </div>
+            <div style="width: 100%; padding-top: 42px;">
+                <div class="list list-inset username-div">
+                    <label class="item item-input item-floating-label username-label">
+                        <span class="input-label unamespan">Enter User Name</span>
+                        <input type="text" ng-model="configData.uname" placeholder="Enter User Name" class="username-text" style="    color: white;">
+                    </label>
+                </div>
+                <div class="  list list-inset username-div">
+                    <label class="item item-input username-label ">
+                        <input type="password" ng-model="configData.pwd" placeholder="Enter Password" class="username-text" style="color: white;">
+                    </label>
+                </div>
+                <!-- <div class="  list list-inset username-div">
+                    <label class="item item-input username-label ">
+                        <input type="text" ng-model="configData.thermoname" placeholder="Enter Thermostat Name" class="username-text" style="    color: white;">
+                    </label>
+                </div> -->
+                <div class="btn-login-div">
+                    <button ng-click="config()" class="button btn-login">Configure</button>
+                </div>
+                <!--   <div class="sideplusbtn">+</div> -->
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
