@@ -10,8 +10,10 @@ angular.module('starter', ['ionic',
         'starter.controllers',
         'thermostat.factories',
         'thermostat.menu',
+        'thermostat.login',
         'thermostat.selectroom',
-        'thermostat.roomdetails'
+        'thermostat.roomdetails',
+        'thermostat.addroom'
     ])
     .constant('appConfig', {
         baseUrl1: 'http://52.26.95.254:1337/Thermostat1001/',
@@ -43,5 +45,5 @@ angular.module('starter', ['ionic',
         controller: 'menuCtrl'
     });
     // if none of the above states are matched, use this as the fallback
-    //$urlRouterProvider.otherwise('/app/playlists');
+    $urlRouterProvider.otherwise('/login');
 });

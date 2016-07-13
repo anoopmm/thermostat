@@ -14,16 +14,16 @@
             <li class="item" ng-repeat="item in items" ng-click="openRooomDetails(item.id)">
                 <div class="row">
                     <div class="col col-25 padd_0">
-                        <p style="color:white;vertical-align: middle;padding-top: 18px;">{{item.RoomName}}</p>
+                        <p style="color:white;vertical-align: middle;padding-top: 18px;font-weight:bold;">{{item.RoomName}}</p>
                     </div>
                     <div class="col col-25 padd_0">
-                        <p style="color:white;vertical-align: middle;padding-top: 18px;">{{item.TemperatureSetPoint}}&#x2103</p>
+                        <p style="color:white;vertical-align: middle;padding-top: 18px;font-weight:bold;">{{item.TemperatureSetPoint}}&#x2103</p>
                     </div>
                     <div class="col col-25 padd_0">
-                        <p style="color:white; vertical-align: middle;padding-top: 18px;">{{item.CurrentTemperature}}&#x2103</p>
+                        <p style="color:white; vertical-align: middle;padding-top: 18px;font-weight:bold;">{{item.CurrentTemperature}}&#x2103</p>
                     </div>
                     <div class="col col-25 padd_0">
-                        <img class="imgRound" src="../img/{{item.img}}">
+                        <img class="imgRound" src="img/{{item.img}}">
                     </div>
                 </div>
             </li>

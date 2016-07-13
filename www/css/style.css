@@ -1,7 +1,7 @@
 /* Empty. Add your own CSS if you like */
 
 ion-view {
-    background-image: url("../img/bck.jpg") !important;
+    background-image: url("../img/bck3.jpg") !important;
     background-size: cover;
 }
 
@@ -10,9 +10,11 @@ ion-view {
 }
 
 #selectroom .item {
-    background-color: transparent;
+    margin-bottom: 8px;
+    background-color: rgba(247, 246, 246, 0.45);
     padding: 0px;
     color: white !important;
+    border: none;
 }
 
 #selectroom .bar-positive {
@@ -32,6 +34,15 @@ ion-view {
 .roomdetails .setTemp canvas {
     /*     max-width: 100% !important;
     width: 100% !important; */
+}
+
+.roomdetails .toggle-small.item-toggle .toggle {
+    top: 10px;
+}
+
+.roomdetails .toggle-small input:checked + .track {
+    background: rgb(17, 193, 243);
+    border-color: rgba(76, 217, 215, 0.52);
 }
 
 .roomdetails .row + .row {
@@ -138,7 +149,7 @@ ion-view {
 .roomdetails .toggle input:checked + .track .handle {
     -webkit-transform: translate3d(20px, 0, 0);
     transform: translate3d(20px, 0, 0);
-    background-color: #FC456D;
+    background-color: #59D5DC;
 }
 
 .roomdetails .row .col .relative-img {
@@ -178,7 +189,7 @@ ion-view {
 
 .roomdetails .img-fan {
     height: 50px;
-    width: 50px
+    width: 50px;
 }
 
 .roomdetails .margin-8 {
@@ -262,6 +273,14 @@ ion-view {
     justify-content: center;
 }
 
+.roomdetails .roundbutton {
+    background: rgba(211, 211, 211, 0.52);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    padding-top: 5px;
+}
+
 .roomdetails .center {
     text-align: center;
     align-items: center;
@@ -307,3 +326,208 @@ ion-view {
     margin: 0 auto;
     display: block;
 }
+
+.login-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 25px 22px 15px 22px;
+}
+
+.pull-center {
+    text-align: center;
+}
+
+.rm_decoration {
+    text-decoration: none;
+    color: #696969;
+}
+
+.login-signup {
+    color: #B2B2B3;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.signup-color {
+    color: white;
+}
+
+.login .username-text {
+    font-size: 15px!important;
+    color: #ffffff!important;
+}
+
+.login .username-label {
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    background-color: transparent;
+    border: 0px;
+    border-bottom: 1px solid #ffffff!important;
+}
+
+.login .username-div {
+    background-color: transparent;
+    margin: 0px 22px;
+}
+
+.login .password-div {
+    background-color: transparent;
+    margin: 0px 22px;
+}
+
+.login .unameicon {
+    font-size: 25px!important;
+    color: #ffffff!important;
+}
+
+.login .btn-login {
+    color: whitesmoke;
+    /*margin-top: 50%;*/
+    border: 0px;
+    width: 100%;
+    background: #AE6BCE !important;
+    border-style: solid;
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    padding-left: 4px !important;
+    border-radius: 4px;
+    margin-bottom: 2%;
+    border-color: rgba(186, 186, 186, 0.63);
+}
+
+.login .btn-logindiv {
+    padding: 10px;
+}
+
+.addroom .indication {
+    padding: 0 !important;
+    margin-top: 32px;
+    color: white;
+    border: none;
+    font-size: 12px;
+    margin-left: 19px;
+    background-color: transparent;
+}
+
+.addroom .selectcat {
+    margin-left: 18px;
+    border: 0px;
+    margin-right: 18px;
+    border-bottom: 1px solid #DCD9D9;
+    padding: 1px;
+    margin-top: 0px;
+}
+
+.addroom .item-select {
+    border: 0;
+    border-bottom: 1px solid rgb(231, 231, 232);
+}
+
+.addroom .error-message {
+    color: red;
+    margin-left: 18px !important;
+    margin-right: 18px !important;
+}
+
+.addroom .button.button-positive {
+    border-color: transparent;
+    background-color: white !important;
+    color: #50D2C2;
+    height: 43px;
+    margin-top: 0px;
+    border-radius: 0px;
+    display: inline;
+    width: 85%;
+}
+
+.addroom .selectdd {
+    height: 44px;
+    width: auto;
+    margin-left: 18px !important;
+    margin-right: 18px !important;
+    left: 0 !important;
+    background-color: transparent !important;
+}
+
+.addroom .gender-dropdown {
+    direction: ltr !important;
+    max-width: 100% !important;
+    width: 100%;
+    float: left;
+    right: 0px !important;
+    padding-left: 0px !important;
+    color: white;
+    background-color: transparent !important;
+}
+
+.addroom .selectcat {
+    margin-left: 18px;
+    border: 0px;
+    margin-right: 18px;
+    border-bottom: 1px solid #DCD9D9;
+    padding: 1px;
+    margin-top: 6px;
+    background-color: transparent;
+}
+
+.addroom .error-message {
+    color: red;
+    margin-left: 18px !important;
+    margin-right: 18px !important;
+}
+
+.addroom .placeholder-icon:last-child {
+    padding-left: 105px;
+}
+
+.addroom .bgimg {
+    width: 66px;
+    background-image: url('../img/livingroom.jpg');
+    height: 66px;
+    float: right;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.addroom .btn-addroomdiv {
+    margin-top: 33px!important;
+    margin-right: 34px;
+    margin-left: -9px;
+}
+
+.addroom @media screen and ( min-height: 1280px) {
+    .btn-login {
+        font-size: 28px!important;
+        height: 99px!important;
+        border-radius: 50px!important;
+    }
+    .username-div {
+        height: 100px;
+        margin-left: : 5px!important;
+    }
+    .unameicon {
+        font-size: 47px;
+    }
+}
+
+.addroom .btn-login {
+    color: whitesmoke;
+    margin-top: 20px;
+    border: 0px;
+    width: 100%;
+    background: #1abc9c !important;
+    border-style: solid;
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    padding-left: 4px !important;
+    border-radius: 0px;
+    border-color: rgba(186, 186, 186, 0.63);
+    margin-left: 21px;
+}
+
+
+/*Add Room*/
