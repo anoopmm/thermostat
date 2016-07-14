@@ -13,23 +13,26 @@ angular.module('thermostat.configwifi', ['ionic'])
             })
 
     }])
-    .controller('configWifiCtrl', ['$scope', '$state', 'thermostatFactory','$ionicPopup', function($scope, $state, thermostatFactory, $ionicPopup) {
+    .controller('configWifiCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', function($scope, $state, thermostatFactory, $ionicPopup) {
 
         $scope.openAddRoom = function() {
             $state.go('app.addroom');
         };
-        $scope.configData = {};
+        $scope.configData = {
+            uname: '',
+            pwd: ''
+        };
         $scope.config = function() {
             console.log('get request');
             console.log($scope.configData);
-            thermostatFactory.connectWifi($scope.configData).then(function(responce) {
-            console.log('responce', responce);
-             var alertPopup = $ionicPopup.alert({
+            thermostatFactory.connectWifi($scope.configData1).then(function(responce) {
+                console.log('responce', responce);
+                var alertPopup = $ionicPopup.alert({
                     title: 'Wifi Credentials sent to device!!',
                     template: 'Please connect your phone to internet!'
                 });
             });
-            
+
         };
 
     }])

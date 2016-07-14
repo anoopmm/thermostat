@@ -13,7 +13,10 @@ angular.module('starter', ['ionic',
         'thermostat.login',
         'thermostat.selectroom',
         'thermostat.roomdetails',
-        'thermostat.addroom'
+        'thermostat.addroom',
+        'thermostat.configwifi',
+        'thermostat.profile',
+        'thermostat.registration'
     ])
     .constant('appConfig', {
         baseUrl1: 'http://52.26.95.254:1337/Thermostat1001/',

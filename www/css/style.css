@@ -531,3 +531,576 @@ ion-view {
 
 
 /*Add Room*/
+/*Config wifi*/
+
+.configwifi .titlecon {
+    font-size: 29px;
+    color: white;
+    padding-left: 13px;
+    padding-top: 25px;
+}
+
+.configwifi .dateconfg {
+    padding-top: 8px;
+    padding-left: 13px;
+    color: whitesmoke;
+}
+
+.configwifi .username-div {
+    background-color: transparent;
+}
+
+.configwifi @media screen and ( min-height: 1280px) {
+    .btn-login {
+        font-size: 28px!important;
+        height: 99px!important;
+        border-radius: 50px!important;
+    }
+    .username-div {
+        height: 100px;
+        margin-left: : 5px!important;
+    }
+    .unameicon {
+        font-size: 47px;
+    }
+}
+
+.configwifi .username-label {
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    background-color: transparent;
+    border: 0px;
+    border-bottom: 1px solid #bbb!important;
+}
+
+.configwifi @media screen and ( min-height: 1280px) {
+    .menuname {
+        font-size: 25px;
+        color: #444;
+    }
+}
+
+.configwifi #iconmenu .icon {
+    color: black!important;
+}
+
+.configwifi .titleadam {
+    font-size: 30px;
+    padding-left: 21px;
+    /* margin-top: 29px; */
+    padding-top: 7px;
+}
+
+.configwifi .titlesub {
+    padding-top: 6px;
+    padding-left: 21px!important;
+    color: #887171!important;
+}
+
+.configwifi .menulist {
+    border-bottom: 2px solid beige;
+    border-bottom: 2px solid beige;
+    margin-left: 21px;
+    padding-top: 8px;
+}
+
+.configwifi .menuicon {
+    font-size: 32px;
+    color: black!important;
+}
+
+.configwifi .menuname {
+    margin-left: 7px;
+    font-family: helvetica;
+}
+
+.configwifi .btn-addroomdiv {
+    margin - top: 33 px!important;
+    margin - right: 34 px;
+    margin - left: -9 px;
+}
+
+.configwifi @mediascreen and(min-height: 1280 px) {
+    .btn-login {
+        font - size: 28 px!important;
+        height: 99 px!important;
+        border - radius: 50 px!important;
+    }
+    .username - div {
+        height: 100 px;
+        margin - left: : 5 px!important;
+    }
+    .unameicon {
+        font - size: 47 px;
+    }
+}
+
+.configwifi .btn-login {
+    color: whitesmoke;
+    margin - top: 20 px;
+    border: 0 px;
+    width: 100 %;
+    background: #1abc9c !important;
+    border-style: solid;
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    padding-left: 4px !important;
+    border-radius: 24px;
+    border-color: rgba(186, 186, 186, 0.63);
+    margin-left: 21px;
+}
+
+.configwifi .btn-login-div {
+    margin-right: 34px;
+    margin-left: -9px;
+}
+
+.configwifi @media screen and ( min-height: 1280px) {
+    .btn-login {
+        font-size: 28px!important;
+        height: 99px!important;
+        border-radius: 50px!important;
+    }
+    .username-div {
+        height: 100px;
+        margin-left: : 5px!important;
+    }
+    .unameicon {
+        font-size: 47px;
+    }
+}
+
+.configwifi .btn-login {
+    color: whitesmoke;
+    margin-top: 20px;
+    border: 0px;
+    width: 100%;
+    background: #1abc9c;
+    border-style: solid;
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    padding-left: 4px !important;
+    border-radius: 0px;
+    border-color: rgba(186, 186, 186, 0.63);
+    margin-left: 21px;
+}
+
+.configwifi .btn-login:activated {
+    background: #444 !important;
+}
+
+
+/*Config wifi*/
+
+
+
+/*profile*/
+
+.profile .imgdiv {
+    text-align: center;
+    padding-top: 39px;
+}
+
+.profile .username-div {
+    margin: 22px 22px;
+    background-color: transparent;
+}
+
+.profile @media screen and ( min-height: 1280px) {
+    .btn-login {
+        font-size: 28px!important;
+        height: 99px!important;
+        border-radius: 50px!important;
+    }
+    .username-div {
+        height: 100px;
+        margin-left: : 5px!important;
+    }
+    .unameicon {
+        font-size: 47px;
+    }
+}
+
+.profile .profilelbl {
+    color: white;
+}
+
+.profile .username-label {
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    background-color: transparent;
+    border: 0px;
+    border-bottom: 1px solid #bbb!important;
+}
+
+.profile .regdiv {
+    /* bottom: 0;
+    width: 100 %;
+    padding - bottom: 17 px;*/
+}
+
+.profile .regback {
+    margin - top: 8 px;
+    margin - left: 4 px;
+    color: #101010!important;
+}
+
+.profile .newaccounttitle {
+    font-size: 23px;
+    color: white;
+    /* margin-top: 48px; */
+    margin-left: 22px;
+    /* padding-left: 13px; */
+    padding-top: 25px;
+}
+
+.profile .input-style {
+    margin-left: 12px;
+    width: 91%;
+    padding-left: 9px !important;
+    margin-top: 16px;
+}
+
+.profile .selectopt {
+    height: 30px;
+    margin-top: 16px;
+    margin-left: 12px;
+    margin-right: 38px;
+}
+
+.profile .reg-btndiv {
+    margin-top: 44px;
+    border-top: 0px;
+    padding: 0px;
+    height: 35px;
+    width: 215px;
+    margin-left: 160px;
+}
+
+.profile .reg-btn {
+    width: 55%;
+    height: 43px;
+    border-radius: 12px;
+    margin-top: 35px;
+    margin-left: 86px;
+    font-size: 17px;
+}
+
+.profile .noaccount {
+    margin-top: 47px;
+    font-size: 15px;
+    text-align: center;
+    color: # CEC9C9;
+}
+
+.profile .btn-login-div {
+    margin-right: 34px;
+    margin-left: -9px;
+}
+
+.profile @media screen and ( min-height: 1280px) {
+    .btn-login {
+        font-size: 28px!important;
+        height: 99px!important;
+        border-radius: 50px!important;
+    }
+    .username-div {
+        height: 100px;
+        margin-left: : 5px!important;
+    }
+    .unameicon {
+        font-size: 47px;
+    }
+}
+
+.profile .btn-login {
+    color: whitesmoke;
+    margin-top: 20px;
+    border: 0px;
+    width: 100%;
+    background: #1abc9c !important;
+    border-style: solid;
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    padding-left: 4px !important;
+    border-radius: 0px;
+    border-color: rgba(186, 186, 186, 0.63);
+    margin-left: 21px;
+}
+
+
+/*profile*/
+
+
+.registration .form-errors {
+    margin: 5px 0;
+}
+
+.registration .form-error {
+    padding: 2px 0 2px 22px;
+    color: red;
+}
+
+.registration .imglogo {
+    width: 120px;
+    padding-top: 40px;
+}
+
+.registration .imgdiv {
+    text-align: center;
+    /*padding-top: 39px;*/
+}
+
+.registration .regdiv {
+    /*bottom: 0;*/
+    width: 100%;
+    /* padding-bottom: 17px;*/
+}
+
+.registration .regback {
+    margin-top: 8px;
+    margin-left: 4px;
+    color: #101010!important;
+}
+
+.registration .newaccounttitle {
+    font-size: 23px;
+    color: white;
+    /* margin-top: 48px; */
+    margin-left: 22px;
+    /* padding-left: 13px; */
+    padding-top: 25px;
+}
+
+.registration .username-div {
+    background-color: transparent;
+    margin: 22px 22px;
+}
+
+.registration .username-label {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    background-color: transparent;
+    border: 0px;
+    border-bottom: 1px solid #bbb!important;
+}
+
+.registration .username-text {
+    /*margin-left: 10px !important;*/
+    font-size: 13px!important;
+    color: #ffffff!important;
+}
+
+.registration .input-style {
+    margin-left: 12px;
+    width: 91%;
+    padding-left: 9px !important;
+    margin-top: 16px;
+}
+
+.registration .selectopt {
+    height: 30px;
+    margin-top: 16px;
+    margin-left: 12px;
+    margin-right: 38px;
+}
+
+.registration .reg-btndiv {
+    margin-top: 44px;
+    border-top: 0px;
+    padding: 0px;
+    height: 35px;
+    width: 215px;
+    margin-left: 160px;
+}
+
+.registration .reg-btn {
+    width: 55%;
+    height: 43px;
+    border-radius: 12px;
+    margin-top: 35px;
+    margin-left: 86px;
+    font-size: 17px;
+}
+
+.registration .pop-model-review {
+    position: absolute;
+    margin: auto;
+    top: 0px;
+    bottom: 0;
+    border-radius: 3px;
+    min-height: 100px !important;
+    height: 80%;
+    background-color: transparent;
+}
+
+.registration .pop-model {
+    position: absolute;
+    margin: auto;
+    top: -100px;
+    bottom: 0;
+    border-radius: 3px;
+    min-height: 100px !important;
+    height: 227px;
+    background-color: transparent;
+}
+
+.registration .pop-close {
+    position: absolute;
+    z-index: 100;
+    top: 6px;
+    width: 40px;
+    right: 10px;
+}
+
+.registration .notification-title {
+    border-bottom: 1px solid #bababa;
+    height: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.registration .pop-box-password {
+    margin-left: 25px;
+    background: #fff;
+    margin-right: 25px;
+    height: 285px;
+    top: 25px;
+}
+
+.registration .pop-box {
+    margin-left: 25px;
+    background: #fff;
+    margin-right: 25px;
+    height: 210px;
+    top: 25px;
+    /*border-radius: 15px;*/
+}
+
+.registration .pop-box-alert {
+    background: #fff;
+    height: 140px;
+    width: 82%;
+    margin-left: auto;
+    margin-right: auto;
+    top: 25px;
+}
+
+.registration .noaccount {
+    margin-top: 47px;
+    font-size: 15px;
+    text-align: center;
+    color: #CEC9C9;
+}
+
+.registration .btn-login-div {
+    margin-right: 34px;
+    margin-left: -9px;
+}
+
+.registration @media screen and ( min-height: 1280px) {
+    .btn-login {
+        font-size: 28px!important;
+        height: 99px!important;
+        border-radius: 50px!important;
+    }
+    .username-div {
+        height: 100px;
+        margin-left: : 5px!important;
+    }
+    .unameicon {
+        font-size: 47px;
+    }
+}
+
+.registration .btn-login {
+    color: whitesmoke;
+    margin-top: 20px;
+    border: 0px;
+    width: 100%;
+    background: #1abc9c !important;
+    border-style: solid;
+    padding-top: 0px !important;
+    padding-bottom: 0px;
+    padding-left: 4px !important;
+    border-radius: 0px;
+    border-color: rgba(186, 186, 186, 0.63);
+    margin-left: 21px;
+}
+
+
+/*Registration*/
+
+/*sidemenu*/
+
+.sidemenu {
+    background-image: url("../img/bck3.jpg") !important;
+}
+
+.sidemenu * {
+    background-color: transparent !important;
+}
+
+.sidemenu-title {
+    font-size: 22px !important;
+    color: white;
+}
+
+.sidemenu .item {
+    color: white;
+    border-color: rgba(239, 233, 233, 0.36);;
+}
+
+.sidemenu .item-avatar {
+    background-color: lightgray;
+    border-style: none !important;
+}
+
+.selected-indication {
+    background: #aaaaaa;
+    margin-top: -9px;
+    margin-right: -3px;
+    margin-left: -3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.floating-button {
+    background: #d23f31;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    z-index: 111111;
+    position: absolute;
+    border-radius: 62px;
+    bottom: 38px;
+    right: 3px;
+    font-size: 30px;
+    color: #fff;
+}
+
+.overflowShow {
+    color: white;
+}
+
+.cols {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: block;
+    padding: 5px;
+    width: 100%;
+}

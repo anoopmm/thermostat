@@ -1,5 +1,5 @@
-<ion-view>
-    <ion-nav-bar class="bar-postive">
+<ion-view title="">
+<!--     <ion-nav-bar class="bar-postive">
         <ion-nav-buttons side="right">
             <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
             </button>
@@ -8,7 +8,7 @@
             <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
             </button>
         </ion-nav-buttons>
-    </ion-nav-bar>
+    </ion-nav-bar> -->
     <ion-content class="configwifi">
         <div class="">
             <div class="titlecon">Configure WI-FI
@@ -19,12 +19,12 @@
                 <div class="list list-inset username-div">
                     <label class="item item-input item-floating-label username-label">
                         <span class="input-label unamespan">Enter User Name</span>
-                        <input type="text" ng-model="configData.uname" placeholder="Enter User Name" class="username-text" style="    color: white;">
+                        <input type="text" ng-model="configData1.uname" placeholder="Enter User Name" class="username-text" autocomplete="off" style="    color: white;">
                     </label>
                 </div>
                 <div class="  list list-inset username-div">
                     <label class="item item-input username-label ">
-                        <input type="password" ng-model="configData.pwd" placeholder="Enter Password" class="username-text" style="color: white;">
+                        <input type="password" ng-model="configData1.pwd" placeholder="Enter Password" class="username-text" autocomplete="off" style="color: white;">
                     </label>
                 </div>
                 <!-- <div class="  list list-inset username-div">

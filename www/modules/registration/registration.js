@@ -1,4 +1,4 @@
-angular.module('thermostat.registration', ['ionic'])
+angular.module('thermostat.registration', ['ionic','ngMessages'])
     .config(['$stateProvider', function($stateProvider) {
         'use strict';
         $stateProvider
