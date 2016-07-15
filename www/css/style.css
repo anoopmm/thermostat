@@ -1,5 +1,23 @@
 /* Empty. Add your own CSS if you like */
 
+::-webkit-input-placeholder {
+    color: red;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: red;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: red;
+}
+
+:-ms-input-placeholder {
+    color: red;
+}
+
 ion-view {
     background-image: url("../img/bck3.jpg") !important;
     background-size: cover;
@@ -531,6 +549,8 @@ ion-view {
 
 
 /*Add Room*/
+
+
 /*Config wifi*/
 
 .configwifi .titlecon {
@@ -695,7 +715,6 @@ ion-view {
 /*Config wifi*/
 
 
-
 /*profile*/
 
 .profile .imgdiv {
@@ -834,7 +853,6 @@ ion-view {
 
 
 /*profile*/
-
 
 .registration .form-errors {
     margin: 5px 0;
@@ -1038,6 +1056,7 @@ ion-view {
 
 /*Registration*/
 
+
 /*sidemenu*/
 
 .sidemenu {
@@ -1055,7 +1074,8 @@ ion-view {
 
 .sidemenu .item {
     color: white;
-    border-color: rgba(239, 233, 233, 0.36);;
+    border-color: rgba(239, 233, 233, 0.36);
+    ;
 }
 
 .sidemenu .item-avatar {
