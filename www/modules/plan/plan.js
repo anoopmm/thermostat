@@ -13,7 +13,7 @@ angular.module('thermostat.plan', ['ionic'])
             })
 
     }])
-    .controller('setplanCtrl', ['$scope', '$ionicModal', function($scope, $ionicModal) {
+    .controller('setplanCtrl', ['$scope', '$ionicModal','ionicTimePicker', function($scope, $ionicModal,ionicTimePicker) {
         $scope.tabs = [];
         $scope.events = [];
         $scope.eventByDate = [];
@@ -67,7 +67,9 @@ angular.module('thermostat.plan', ['ionic'])
                 timePickerCallback(val1, val12);
             }
         };
-
+        $scope.test = function() {
+            ionicTimePicker.openTimePicker($scope.timePickerObject);
+        }
         $ionicModal.fromTemplateUrl('modules/plan/settime.html', {
             scope: $scope
         }).then(function(modal) {

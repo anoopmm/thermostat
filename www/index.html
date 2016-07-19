@@ -7,6 +7,7 @@
     <title></title>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.weekcalendar.css">
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
@@ -23,6 +24,18 @@
     <script src="lib/underscore/underscore-min.js"></script>
     <script src="lib/angular-underscore-module/angular-underscore-module.js"></script>
     <script src="lib/angular-messages/angular-messages.min.js"></script>
+    <!-- Time Controller -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <!-- your app's js -->
+    <script type="text/javascript" src="lib/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui-1.8.11.custom.min.js"></script>
+    <script src="lib/ionic-timepicker/dist/ionic-timepicker.bundle.min.js"></script>
+    <script>
+    var $i = jQuery.noConflict();
+    </script>
+    <script type="text/javascript" src="js/jquery.weekcalendar.js"></script>
+    <!-- swipe tab -->
+    <link href="css/tabSlideBox.css" rel="stylesheet">
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
@@ -37,7 +50,7 @@
     <script src="modules/configwifi/configwifi.js"></script>
     <script src="modules/profile/profile.js"></script>
     <script src="modules/registration/registration.js"></script>
-
+    <script src="modules/plan/plan.js"></script>
 </head>
 
 <body ng-app="starter">

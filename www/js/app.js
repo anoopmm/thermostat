@@ -16,7 +16,9 @@ angular.module('starter', ['ionic',
         'thermostat.addroom',
         'thermostat.configwifi',
         'thermostat.profile',
-        'thermostat.registration'
+        'thermostat.registration',
+        'ionic-timepicker',
+        'thermostat.plan'
     ])
     .constant('appConfig', {
         baseUrl1: 'http://52.26.95.254:1337/Thermostat1001/',

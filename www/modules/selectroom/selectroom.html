@@ -10,24 +10,36 @@
         </ion-nav-buttons>
     </ion-nav-bar> -->
     <ion-nav-buttons side="primary">
-        <button class="button button-icon icon ion-plus-round" ng-click="openAddRoom()">
+        <button class="button button-icon icon ion-plus-round" ng-click="openAddRoom1($event)">
         </button>
     </ion-nav-buttons>
     <ion-content>
-        <ul class="list">
+        <div class="row" style="color:white;">
+            <div class="col col-33" style="background: rgba(255, 255, 255, 0.43);text-align:center;">
+                LOGGER
+            </div>
+            <div class="col col-33"  style="background: rgba(255, 255, 255, 0.61);text-align:center;">
+                THERMOSTAT
+            </div>
+            <div class="col col-33"  style="background: rgba(255, 255, 255, 0.43);text-align:center;">
+                ISOLATOR
+            </div>
+        </div>
+        <ul class="list" style="padding:10px">
             <li class="item " ng-repeat="item in items" ng-click="openRooomDetails(item.id)">
                 <div class="row">
                     <div class="col col-25 padd_0">
-                        <p style="color:white;vertical-align: middle;padding-top: 18px;font-weight:bold;">{{item.RoomName}}</p>
+                        <p style="color:white;vertical-align: middle;font-weight:bold;">{{item.RoomName}}</p>
                     </div>
                     <div class="col col-25 padd_0">
-                        <p style="color:white;vertical-align: middle;padding-top: 18px;font-weight:bold;">{{item.TemperatureSetPoint}}&#x2103</p>
+                        <p style="color:white;vertical-align: middle;font-weight:bold;">{{item.TemperatureSetPoint}}&#x2103</p>
                     </div>
                     <div class="col col-25 padd_0">
-                        <p style="color:white; vertical-align: middle;padding-top: 18px;font-weight:bold;">{{item.CurrentTemperature}}&#x2103</p>
+                        <p style="color:white; vertical-align: middle;font-weight:bold;">{{item.CurrentTemperature}}&#x2103</p>
                     </div>
                     <div class="col col-25 padd_0">
-                        <img class="imgRound" src="img/{{item.img}}">
+                        <img style="width:25px;height:25px;    margin: 0 auto;
+    display: block" src="img/{{item.img}}">
                     </div>
                 </div>
             </li>

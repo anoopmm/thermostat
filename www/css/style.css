@@ -26,13 +26,24 @@ ion-view {
 .padd_0 {
     padding: 0px !important;
 }
-
+.popover {
+    height: auto !important;
+}
+.popover ion-header-bar {
+    position: relative;
+}
+.popover ion-content {
+    top: 0;
+    position: relative;
+}
 #selectroom .item {
-    margin-bottom: 8px;
-    background-color: rgba(247, 246, 246, 0.45);
-    padding: 0px;
+    /*margin-bottom: 8px;*/
+    background-color: transparent;
+    padding: 4px;
     color: white !important;
-    border: none;
+    /*border: none;*/
+     border-right: none;
+    border-left: none;
 }
 
 #selectroom .bar-positive {
@@ -1123,4 +1134,56 @@ ion-view {
     display: block;
     padding: 5px;
     width: 100%;
+}
+
+.bottom-strip {
+    height: 40px;
+    background: #47D9BF;
+}
+
+.day-name {
+    font-size: 13px;
+    color: #000;
+}
+
+.day-num {
+    font-size: 12px;
+    color: #b2b2b2;
+}
+
+.tabbed-slidebox .tsb-icons:after {
+    display: none;
+}
+
+.tsb-icons {
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+}
+
+.tsb-icons a {
+    display: inline-block;
+    width: 54px;
+    font-size: 2.5em;
+    color: rgba(0, 0, 0, 0.3);
+    -webkit-transform: translate3d(0, 8px, 0);
+}
+
+.tsb-ic-wrp {
+    display: flex;
+    position: relative;
+    -webkit-transition: -webkit-transform 0.3s;
+    /* For Safari 3.1 to 6.0 */
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+.tsb-icons .scroll a {
+    width: auto;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    text-decoration: none;
+    margin: 0 15px;
+    border-bottom: 3px solid transparent;
 }
