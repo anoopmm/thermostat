@@ -18,7 +18,8 @@ angular.module('starter', ['ionic',
         'thermostat.profile',
         'thermostat.registration',
         'ionic-timepicker',
-        'thermostat.plan'
+        'thermostat.plan',
+        'angular-svg-round-progressbar'
     ])
     .constant('appConfig', {
         baseUrl1: 'http://52.26.95.254:1337/Thermostat1001/',
@@ -28,9 +29,15 @@ angular.module('starter', ['ionic',
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
-            if (window.cordova && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                cordova.plugins.Keyboard.disableScroll(true);
+            // if (window.cordova && window.cordova.plugins.Keyboard) {
+            //     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            //     cordova.plugins.Keyboard.disableScroll(true);
+
+            // }
+            if (window.cordova) {
+                setTimeout(function() {
+                    navigator.splashscreen.hide();
+                }, 1);
 
             }
             if (window.StatusBar) {

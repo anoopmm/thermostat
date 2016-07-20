@@ -19,30 +19,34 @@
 }
 
 ion-view {
-    background-image: url("../img/bck3.jpg") !important;
+    background-image: url("../img/bck3.png") !important;
     background-size: cover;
 }
 
 .padd_0 {
     padding: 0px !important;
 }
+
 .popover {
     height: auto !important;
 }
+
 .popover ion-header-bar {
     position: relative;
 }
+
 .popover ion-content {
     top: 0;
     position: relative;
 }
+
 #selectroom .item {
     /*margin-bottom: 8px;*/
     background-color: transparent;
     padding: 4px;
     color: white !important;
     /*border: none;*/
-     border-right: none;
+    border-right: none;
     border-left: none;
 }
 
@@ -1186,4 +1190,22 @@ ion-view {
     text-decoration: none;
     margin: 0 15px;
     border-bottom: 3px solid transparent;
+}
+
+.progress-wrapper {
+    position: relative;
+}
+
+.progress-wrapper .text {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
 }

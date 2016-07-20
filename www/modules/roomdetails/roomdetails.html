@@ -15,8 +15,12 @@
                 <div class="row padd-0">
                     <div class="col col-10">
                     </div>
-                    <div class="col col-80 setTemp center padd-0" id="setTemp">
-                        <div ang:round:progress data-round-progress-model="setTempData" data-round-progress-width="150" data-round-progress-height="150" data-round-progress-outer-circle-width="9" data-round-progress-outer-circle-radius="70" data-round-progress-label-font="25pt Arial" data-round-progress-outer-circle-background-color="#505769" data-round-progress-outer-circle-foreground-color="#fff" data-round-progress-label-color="#fff"></div>
+                    <div class="col col-80 setTemp center padd-0" id="setTemp" style="">
+                        <div class="progress-wrapper">
+                            <round-progress max="30" current="setTempData.label" color="#45ccce" bgcolor="#eaeaea" radius="100" stroke="20" semi="false" rounded="true" clockwise="false" responsive="true" duration="800" animation="easeInOutQuart" animation-delay="0"></round-progress>
+                            <div class="text">{{setTempData.label}}&#x2103</div>
+                            <!--  <div ang:round:progress data-round-progress-model="setTempData" data-round-progress-width="150" data-round-progress-height="150" data-round-progress-outer-circle-width="9" data-round-progress-outer-circle-radius="70" data-round-progress-label-font="25pt Arial" data-round-progress-outer-circle-background-color="#505769" data-round-progress-outer-circle-foreground-color="#fff" data-round-progress-label-color="#fff"></div> -->
+                        </div>
                     </div>
                     <div class="col col-10">
                     </div>

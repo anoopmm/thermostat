@@ -1,5 +1,5 @@
-<ion-view>
-<!--     <ion-nav-bar class="bar-stable">
+<ion-view title="Weekly plan">
+    <!--     <ion-nav-bar class="bar-stable">
         <ion-nav-back-button>
         </ion-nav-back-button>
         <ion-nav-title>
@@ -10,8 +10,13 @@
             <div id="calendar"></div>
         </div>
     </ion-content>
-    <div class="floating-button" ng-click="test()">
+    <!--     <div class="floating-button" ng-click="test()">
 
+    </div> -->
+    <div class="floating-button" ng-click="launchTimeCreator()">
+        <ionic-timepicker input-obj="timePickerObject" style="margin-top: -5px;">
+            <a class="overflowShow">+</a>
+        </ionic-timepicker>
     </div>
     <div class="tsb-icons">
         <div class="tsb-ic-wrps">

@@ -13,7 +13,7 @@ angular.module('thermostat.plan', ['ionic'])
             })
 
     }])
-    .controller('setplanCtrl', ['$scope', '$ionicModal','ionicTimePicker', function($scope, $ionicModal,ionicTimePicker) {
+    .controller('setplanCtrl', ['$scope', '$ionicModal', function($scope, $ionicModal) {
         $scope.tabs = [];
         $scope.events = [];
         $scope.eventByDate = [];
