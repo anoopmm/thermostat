@@ -1,21 +1,16 @@
 /* Empty. Add your own CSS if you like */
 
-::-webkit-input-placeholder {
-    color: red;
+input::-webkit-input-placeholder {
+    color: white;
 }
 
-:-moz-placeholder {
-    /* Firefox 18- */
-    color: red;
+input:-moz-placeholder {
+    color: white;
 }
 
-::-moz-placeholder {
-    /* Firefox 19+ */
-    color: red;
-}
-
-:-ms-input-placeholder {
-    color: red;
+input:-ms-input-placeholder {
+    /* IE10+ */
+    color: white;
 }
 
 ion-view {
