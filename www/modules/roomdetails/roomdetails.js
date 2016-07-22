@@ -226,7 +226,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
         };
         $scope.decrTemp = function() {
             console.log('dcr1');
-            if ($scope.setTempData.label >= 5 && $scope.setTempData.label <=30) {
+            if ($scope.setTempData.label >= 5 && $scope.setTempData.label <= 30) {
                 console.log('dcr2');
                 $scope.setTempData.label -= 1;
                 temp = $scope.setTempData.label;

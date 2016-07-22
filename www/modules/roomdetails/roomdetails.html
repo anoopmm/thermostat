@@ -5,7 +5,7 @@
                 <div class="row padd-0">
                     <div class="col col-10">
                     </div>
-                    <div class="col col-80 setTemp center padd-0" id="setTemp" style="">
+                    <div class="col col-80 setTemp center padd-0 degree1" id="setTemp" style="">
                         <div class="progress-wrapper">
                             <round-progress max="30" current="setTempData.label" color="#45ccce" bgcolor="#eaeaea" radius="100" stroke="20" semi="false" rounded="true" clockwise="false" responsive="true" duration="800" animation="easeInOutQuart" animation-delay="0"></round-progress>
                             <div class="text">{{setTempData.label}}&#x2103</div>
@@ -19,11 +19,11 @@
             <div class="col col-33 center padd-0" id="roomTemp" style="position:relative;">
                 <!--                 <div ang:round:progress data-round-progress-model="roomTempData" data-round-progress-width="100" data-round-progress-height="100" data-round-progress-outer-circle-width="4" data-round-progress-outer-circle-radius="40" data-round-progress-label-font="15pt Arial" data-round-progress-outer-circle-background-color="#505769" data-round-progress-outer-circle-foreground-color="#fc3768" data-round-progress-label-color="#fff" style="    ">
                 </div> -->
-                <div style="">
-                <div class="progress-wrapper" style="">
-                    <round-progress max="30" current="roomTempData.label" color="#45ccce" bgcolor="#eaeaea" radius="100" stroke="10" semi="false" rounded="true" clockwise="false" responsive="true" duration="800" animation="easeInOutQuart" animation-delay="0"></round-progress>
-                    <div class="text">{{roomTempData.label}}&#x2103</div>
-                </div>
+                <div class="degree" style="position:absolute !important;width:100%;bottom:0;right:0">
+                    <div class="progress-wrapper" style="position:relative !important;">
+                        <round-progress max="30" current="roomTempData.label" color="#45ccce" bgcolor="#eaeaea" radius="100" stroke="10" semi="false" rounded="true" clockwise="false" responsive="true" duration="800" animation="easeInOutQuart" animation-delay="0"></round-progress>
+                        <div class="text">{{roomTempData.label}}&#x2103</div>
+                    </div>
                 </div>
             </div>
         </div>
