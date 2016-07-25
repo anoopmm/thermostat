@@ -1,12 +1,22 @@
 <ion-popover-view>
     <ion-content>
-        <ul class="list">
+        <!--         <ul class="list">
             <li class="item">
-                Configure and add
+                <a> Configure and add</a>
             </li>
             <li class="item">
                 Manual add
             </li>
-        </ul>
+        </ul> -->
+        <ion-list>
+            <ion-item menu-close ng-click="goNext('app.configwifi')">
+                <!-- <i class="icon ion-home "></i> -->
+                <span class="menuname"> Configure and add</span>
+            </ion-item>
+            <ion-item menu-close ng-click="goNext('app.configwifi')">
+                <!-- <i class="icon ion-wifi ion-person"></i> -->
+                <span class="menuname">Configure wi-fi</span>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-popover-view>

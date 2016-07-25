@@ -1,7 +1,7 @@
 <ion-view>
     <ion-content class="registration">
         <form name="registrationForm">
-            <div class="newaccounttitle">New Account11
+            <div class="newaccounttitle">Sign up
             </div>
             <!-- <div class="imgdiv"><img src="img/logo.png" class="imglogo">
             </div> -->
@@ -9,11 +9,15 @@
                 <div class="list list-inset username-div">
                     <label class="item item-input username-label">
                         <i class="icon ion-android-person placeholder-icon unameicon"></i>
-                        <input type="text" name="username" placeholder="Username" ng-model="regData.username" ng-minlength="5" ng-maxlength="30" class="username-text" required>
+                        <input type="text" name="username" placeholder="Username" ng-model="regData.firstname" ng-minlength="5" ng-maxlength="30" class="username-text" required>
                     </label>
                 </div>
-                <div ng-messages="registrationForm.username.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="registrationForm.username.$touched">
+                <div ng-messages="registrationForm.username.$error" class="form-errors" ng-if="registrationForm.username.$touched">
                     <div class="form-error" ng-message="required">Please enter your Username</div>
+                    <!-- <div class="form-error" ng-message="required">You left the field blank...</div> -->
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <div class="form-error" ng-message="email">Your field has an invalid email address</div>
                 </div>
                 <div class="list list-inset username-div">
                     <label class="item item-input username-label">
@@ -21,17 +25,23 @@
                         <input type="email" name="email" placeholder="Email" ng-model="regData.email" class="username-text" required>
                     </label>
                 </div>
-                <div ng-messages="registrationForm.email.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="registrationForm.email.$touched">
+                <div ng-messages="registrationForm.email.$error" class="form-errors" ng-if="registrationForm.email.$touched">
                     <div class="form-error" ng-message="required">Please enter your Email</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <div class="form-error" ng-message="email">Your field has an invalid email address</div>
                 </div>
                 <div class="  list list-inset username-div">
                     <label class="item item-input  username-label ">
                         <i class="icon ion-ios-locked-outline placeholder-icon unameicon"></i>
-                        <input name="password" type="password" placeholder="Password" ng-model="regData.pwd" class="username-text" ng-minlength="6" required>
+                        <input name="password" type="password" placeholder="Password" ng-model="regData.password" class="username-text" ng-minlength="6" required>
                     </label>
                 </div>
-                <div ng-messages="registrationForm.password.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="registrationForm.password.$touched">
+                <div ng-messages="registrationForm.password.$error" class="form-errors" ng-if="registrationForm.password.$touched">
                     <div class="form-error" ng-message="required">Please enter your Password</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <div class="form-error" ng-message="email">Your field has an invalid email address</div>
                 </div>
                 <div class="  list list-inset username-div">
                     <label class="item item-input  username-label ">
@@ -39,17 +49,23 @@
                         <input name="confirmpassword" type="password" placeholder="Confirm Password" ng-model="regData.confirmpassword" class="username-text" required>
                     </label>
                 </div>
-                <div ng-messages="registrationForm.confirmpassword.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="registrationForm.confirmpassword.$touched">
+                <div ng-messages="registrationForm.confirmpassword.$error" class="form-errors" ng-if="registrationForm.confirmpassword.$touched">
                     <div class="form-error" ng-message="required">ssscdsu</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <div class="form-error" ng-message="email">Your field has an invalid email address</div>
                 </div>
                 <div class="list list-inset username-div">
                     <label class="item item-input username-label">
                         <i class="icon ion-iphone placeholder-icon unameicon"></i>
-                        <input name="phonenum" type="number" placeholder="Phonenumber" ng-model="regData.phonenum" class="username-text" required>
+                        <input name="phonenum" type="number" placeholder="Phonenumber" ng-model="regData.mobile" class="username-text" required>
                     </label>
                 </div>
-                <div ng-messages="registrationForm.phonenum.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="registrationForm.phonenum.$touched">
+                <div ng-messages="registrationForm.phonenum.$error" class="form-errors" ng-if="registrationForm.phonenum.$touched">
                     <div class="form-error" ng-message="required">Please enter your Mobile Number</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <div class="form-error" ng-message="email">Your field has an invalid email address</div>
                 </div>
                 <div class="list list-inset username-div">
                     <label class="item item-input username-label">
@@ -57,11 +73,14 @@
                         <input name="place" type="text" placeholder="place" ng-model="regData.place" class="username-text" required>
                     </label>
                 </div>
-                <div ng-messages="registrationForm.place.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="registrationForm.place.$touched">
+                <div ng-messages="registrationForm.place.$error" class="form-errors" ng-if="registrationForm.place.$touched">
                     <div class="form-error" ng-message="required">Please enter your place</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <div class="form-error" ng-message="email">Your field has an invalid email address</div>
                 </div>
-                <div class="btn-login-div">
-                    <button ng-click="create()" type="submit" class="button btn-login">Create</button>
+                <div class="btn-login-div" >
+                    <button ng-click="signUp()" type="submit" class="button btn-login" ng-disabled="regData.confirmpassword!=regData.password">Create</button>
                 </div>
             </div>
         </form>

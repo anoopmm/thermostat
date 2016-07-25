@@ -23,11 +23,11 @@ angular.module('thermostat.factories', [])
         'use strict';
         return {
             connectWifi: function(wifiData) {
-                 console.log('http://192.168.4.1/ssid='+wifiData.uname+'&password='+wifiData.pwd+'&groupid=sensomate1&thermostatid=thermostat2&');
+                console.log('http://192.168.4.1/ssid=' + wifiData.uname + '&password=' + wifiData.pwd + '&groupid=sensomate1&thermostatid=thermostat2&');
                 return $http({
                     method: 'GET',
                     //url: "http://192.168.4.1/sensomate",
-                    url:'http://192.168.4.1/ssid='+wifiData.uname+'&password='+wifiData.pwd+'&groupid=sensomate1&thermostatid=thermostat2&',
+                    url: 'http://192.168.4.1/ssid=' + wifiData.uname + '&password=' + wifiData.pwd + '&groupid=sensomate1&thermostatid=thermostat2&',
                     'Content-Type': 'application/x-www-form-urlencoded'
                 });
             },
@@ -70,5 +70,45 @@ angular.module('thermostat.factories', [])
                 });
             }
 
+        };
+    }])
+    .factory('userFactory', ['$http', 'appConfig', function($http, appConfig) {
+        'use strict';
+        return {
+            doLogin: function(loginDetails) {
+                var data = {
+                    "pass": loginDetails.password,
+                    "phone_number": loginDetails.phoneNumber,
+
+                }
+                return $http({
+                    method: 'POST',
+                    url: appConfig.baseUrl + 'rpc/login',
+                    data: data,
+                    'Content-Type': 'application/json'
+                });
+            },
+            signUp: function(registerDetails) {
+
+                return $http({
+                    method: 'POST',
+                    url: appConfig.baseUrl + 'rpc/signup',
+                    data: registerDetails,
+
+                });
+            },
+            getProfileDetails: function(phoneNumberDetails) {
+                console.log('phoneNumberDetails', phoneNumberDetails);
+                return $http({
+                    method: 'POST',
+                    url: appConfig.baseUrl + 'rpc/get_profile',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    data: phoneNumberDetails
+
+                });
+            }
         };
     }])

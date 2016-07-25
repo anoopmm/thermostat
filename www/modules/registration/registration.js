@@ -1,4 +1,4 @@
-angular.module('thermostat.registration', ['ionic','ngMessages'])
+angular.module('thermostat.registration', ['ionic'])
     .config(['$stateProvider', function($stateProvider) {
         'use strict';
         $stateProvider
@@ -8,9 +8,49 @@ angular.module('thermostat.registration', ['ionic','ngMessages'])
                 controller: 'registerCtrl'
             })
     }])
-    .controller('registerCtrl', ['$scope', '$state', function($scope, $state) {
+    .controller('registerCtrl', ['$scope', '$state','userFactory','$ionicLoading','$ionicPopup',function($scope, $state,userFactory,$ionicLoading,$ionicPopup) {
         $scope.openLogin = function() {
             $state.go('login');
         };
+        $scope.regData={};
+
+        $scope.signUp = function() {
+            userFactory.signUp($scope.regData).then(function() {
+                $ionicLoading.hide();
+                alertPopup = $ionicPopup.alert({
+                    title: 'User registerd successfully',
+                    buttons: [{
+                        text: 'OK',
+                        type: 'button-assertive'
+                    }]
+                });
+                alertPopup.then(function() {
+                    $state.go('login');
+                    $localStorage.setObject('registrationDetails', $scope.registrationDetails);
+                });
+            }).catch(function(error) {
+                $ionicLoading.hide();
+                console.log('error', error);
+                if (error.status === 409) {
+                    alertPopup = $ionicPopup.alert({
+                        title: 'Email or phone number already exists',
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {});
+                } else {
+                    alertPopup = $ionicPopup.alert({
+                        title: 'No internet access',
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {});
+                }
+            });
+        }
 
     }]);

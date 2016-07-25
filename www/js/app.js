@@ -6,6 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic',
         'ngCordova',
+        'ngMessages',
         'pascalprecht.translate',
         'starter.controllers',
         'thermostat.factories',
@@ -22,7 +23,7 @@ angular.module('starter', ['ionic',
         'angular-svg-round-progressbar'
     ])
     .constant('appConfig', {
-        baseUrl1: 'http://52.26.95.254:1337/Thermostat1001/',
+        baseUrl1: 'http://52.26.95.254:1337/api/v1/',
         baseUrl2: 'http://api.insmonitor.hospifi.co/ahu/deviceupdate/11/'
     })
     .run(function($ionicPlatform) {

@@ -14,7 +14,7 @@ angular.module('thermostat.selectroom', ['ionic'])
             })
 
     }])
-    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup','$ionicPopover', function($scope, $state, thermostatFactory, $ionicPopup,$ionicPopover) {
+    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover) {
         $scope.addedRooms = [{
             thermostatId: '1',
             imgURI: 'img/livingroom.png',
@@ -114,8 +114,12 @@ angular.module('thermostat.selectroom', ['ionic'])
         }).then(function(popover) {
             $scope.popover = popover;
         });
-                $scope.openAddRoom1 = function($event) {
+        $scope.openAddRoom1 = function($event) {
             $scope.popover.show($event);
 
         };
+        $scope.goNext = function(path) {
+            $state.go(path);
+            $scope.popover.hide();
+        }
     }])
