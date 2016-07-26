@@ -5,9 +5,9 @@
                 <div class="list list-inset username-div">
                     <label class="item item-input username-label">
                         <i class="icon ion-person placeholder-icon unameicon"></i>
-                        <input type="text" placeholder="Username" class="username-text" name="username" ng-model="loginData.userName" required>
+                        <input type="email" placeholder="Email" class="username-text" name="username" ng-model="loginData.email" required>
                     </label>
-                    <div ng-messages="loginForm.username.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="loginForm.username.$touched">
+                    <div ng-messages="loginForm.username.$error"  class="form-errors" ng-if="loginForm.username.$touched">
                         <div class="form-error" ng-message="required">Please enter your Username</div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
                         <input type="password" name="password" ng-model="loginData.password" placeholder="Password" class="username-text" required>
                         <!--    <i style="padding-right: 11px;" class="icon ion-ios-help-outline placeholder-icon pwdhelp"></i> -->
                     </label>
-                    <div ng-messages="loginForm.password.$error" ng-messages-include="templates/error-messages.html" class="form-errors" ng-if="loginForm.password.$touched">
+                    <div ng-messages="loginForm.password.$error"   class="form-errors" ng-if="loginForm.password.$touched">
                         <div class="form-error" ng-message="required">Please enter your Password</div>
                     </div>
                 </div>

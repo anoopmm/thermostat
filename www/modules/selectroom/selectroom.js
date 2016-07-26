@@ -14,7 +14,7 @@ angular.module('thermostat.selectroom', ['ionic'])
             })
 
     }])
-    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover) {
+    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', 'userProductFactory', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover, userProductFactory) {
         $scope.addedRooms = [{
             thermostatId: '1',
             imgURI: 'img/livingroom.png',
@@ -53,38 +53,15 @@ angular.module('thermostat.selectroom', ['ionic'])
             "img": "ot4.jpg",
             "id": 4
         });
-        // thermostatFactory.getAll().then(function(responce) {
-        //     console.log('responce', responce);
+        if (window.localStorage.getItem('userdetails')) {
+            var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
+        }
+        userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
+            console.log('responce', responce);
 
-        //     for (var i = 0; i < responce.data.length; i++) {
-        //         responce.data[i].RoomName = 'O.T-1';
-        //         responce.data[i].img = 'livingroom.jpg';
-        //         $scope.items.push(responce.data[i]);
-        //     }
-        //     $scope.items.push({
-        //         CurrentTemperature: "0",
-        //         FanSpeed: "0",
-        //         TemperatureSetPoint: "0",
-        //         "RoomName": "N.A",
-        //         "img": "Camera-icon.png"
-        //     });
-        //     $scope.items.push({
-        //         CurrentTemperature: "0",
-        //         FanSpeed: "0",
-        //         TemperatureSetPoint: "0",
-        //         "RoomName": "N.A",
-        //         "img": "Camera-icon.png"
-        //     });
-        //     $scope.items.push({
-        //         CurrentTemperature: "0",
-        //         FanSpeed: "0",
-        //         TemperatureSetPoint: "0",
-        //         "RoomName": "N.A",
-        //         "img": "Camera-icon.png"
-        //     });
-        //     console.log('items', $scope.items);
 
-        // });
+
+        });
 
         // $localstorage.setObject('addedRooms', $scope.addedRooms);
         $scope.openRooomDetails = function(itemId) {

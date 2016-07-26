@@ -23,7 +23,7 @@ angular.module('starter', ['ionic',
         'angular-svg-round-progressbar'
     ])
     .constant('appConfig', {
-        baseUrl1: 'http://52.26.95.254:1337/api/v1/',
+        baseUrl: 'http://192.168.0.108:3000/api/v1/',
         baseUrl2: 'http://api.insmonitor.hospifi.co/ahu/deviceupdate/11/'
     })
     .run(function($ionicPlatform) {

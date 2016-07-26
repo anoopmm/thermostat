@@ -76,39 +76,41 @@ angular.module('thermostat.factories', [])
         'use strict';
         return {
             doLogin: function(loginDetails) {
-                var data = {
-                    "pass": loginDetails.password,
-                    "phone_number": loginDetails.phoneNumber,
-
-                }
+                console.log('-------------------', loginDetails);
                 return $http({
                     method: 'POST',
-                    url: appConfig.baseUrl + 'rpc/login',
-                    data: data,
-                    'Content-Type': 'application/json'
+                    url: appConfig.baseUrl + 'user/auth',
+                    data: loginDetails,
                 });
             },
             signUp: function(registerDetails) {
 
                 return $http({
                     method: 'POST',
-                    url: appConfig.baseUrl + 'rpc/signup',
+                    url: appConfig.baseUrl + 'user/signup',
                     data: registerDetails,
-
-                });
-            },
-            getProfileDetails: function(phoneNumberDetails) {
-                console.log('phoneNumberDetails', phoneNumberDetails);
-                return $http({
-                    method: 'POST',
-                    url: appConfig.baseUrl + 'rpc/get_profile',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Prefer': 'return=representation'
-                    },
-                    data: phoneNumberDetails
 
                 });
             }
         };
-    }])
+    }])  
+      .factory('userProductFactory', ['$http', 'appConfig', function($http, appConfig) {
+        'use strict';
+        return {
+            assignProduct: function(Details) {
+                console.log('-------------------', Details);
+                return $http({
+                    method: 'POST',
+                    url: appConfig.baseUrl + 'userproduct/allocate',
+                    data: Details,
+                });
+            },
+            getAssignedProducts: function(id) {
+
+                return $http({
+                    method: 'GET',
+                    url: appConfig.baseUrl + 'userproduct/'+id,
+                });
+            }
+        };
+    }]);

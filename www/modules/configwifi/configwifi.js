@@ -13,26 +13,43 @@ angular.module('thermostat.configwifi', ['ionic'])
             })
 
     }])
-    .controller('configWifiCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', function($scope, $state, thermostatFactory, $ionicPopup) {
+    .controller('configWifiCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', 'userProductFactory', function($scope, $state, thermostatFactory, $ionicPopup, userProductFactory) {
+        if(window.localStorage.getItem('userdetails')){
+            var userdetails=JSON.parse(window.localStorage.getItem('userdetails'));
+        }
 
         $scope.openAddRoom = function() {
             $state.go('app.addroom');
         };
-        $scope.configData = {
-            uname: '',
-            pwd: ''
-        };
+        $scope.configData = {};
         $scope.config = function() {
             console.log('get request');
             console.log($scope.configData);
-            thermostatFactory.connectWifi($scope.configData1).then(function(responce) {
-                console.log('responce', responce);
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Wifi Credentials sent to device!!',
-                    template: 'Please connect your phone to internet!'
-                });
-            });
+            allocateProduct();
+            // thermostatFactory.connectWifi($scope.configData1).then(function(responce) {
+            //     console.log('responce', responce);
+            //     var alertPopup = $ionicPopup.alert({
+            //         title: 'Wifi Credentials sent to device!!',
+            //         template: 'Please connect your phone to internet!'
+            //     });
+            // });
 
+        };
+
+        function allocateProduct() { 
+            var data={
+                userId:userdetails.userId,
+                productId:$scope.configData.product_id
+            };
+            userProductFactory.assignProduct(data).then(function(res) {
+
+
+
+            }).catch(function(error) {
+                console.log('error', error);
+
+
+            });
         };
 
     }])

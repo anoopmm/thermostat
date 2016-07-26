@@ -1,14 +1,4 @@
-<ion-view title="">
-    <!--     <ion-nav-bar class="bar-postive">
-        <ion-nav-buttons side="right">
-            <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
-            </button>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
-            </button>
-        </ion-nav-buttons>
-    </ion-nav-bar> -->
+<!-- <ion-view title="">
     <ion-content class="configwifi">
         <div class="">
             <div class="titlecon">Configure WI-FI
@@ -40,16 +30,71 @@
                         <input type="text" ng-model="configData1.uname4" placeholder="Wi-fi password" class="username-text" autocomplete="off" style="    color: white;">
                     </label>
                 </div>
-                <!-- <div class="  list list-inset username-div">
-                    <label class="item item-input username-label ">
-                        <input type="text" ng-model="configData.thermoname" placeholder="Enter Thermostat Name" class="username-text" style="    color: white;">
-                    </label>
-                </div> -->
                 <div class="btn-login-div">
                     <button ng-click="config()" class="button btn-login">Configure</button>
                 </div>
-                <!--   <div class="sideplusbtn">+</div> -->
+                
             </div>
         </div>
+    </ion-content>
+</ion-view> -->
+<ion-view>
+    <ion-content class="registration">
+        <form name="registrationForm">
+            <div class="newaccounttitle">Configure
+            </div>
+            <div class="regdiv">
+                <div class="list list-inset username-div">
+                    <label class="item item-input username-label">
+                        <i class="icon ion-android-person placeholder-icon unameicon"></i>
+                        <input type="text" name="productid" placeholder="Product Id" ng-model="configData.product_id" ng-minlength="5" ng-maxlength="30" class="username-text" required>
+                    </label>
+                </div>
+                <div ng-messages="registrationForm.productid.$error" class="form-errors" ng-if="registrationForm.productid.$touched">
+                    <div class="form-error" ng-message="required">Please enter product id</div>
+                    <!-- <div class="form-error" ng-message="required">You left the field blank...</div> -->
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <!-- <div class="form-error" ng-message="email">Your field has an invalid email address</div> -->
+                </div>
+                <div class="list list-inset username-div">
+                    <label class="item item-input username-label">
+                        <i class="icon ion-ios-email-outline placeholder-icon unameicon"></i>
+                        <input type="password" name="password_deafult" placeholder="Default password" ng-model="configData.password_deafult" class="username-text" required>
+                    </label>
+                </div>
+                <div ng-messages="registrationForm.password_deafult.$error" class="form-errors" ng-if="registrationForm.password_deafult.$touched">
+                    <div class="form-error" ng-message="required">Please enter password</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                    <!-- <div class="form-error" ng-message="email">Your field has an invalid email address</div> -->
+                </div>
+                <div class="  list list-inset username-div">
+                    <label class="item item-input  username-label ">
+                        <i class="icon ion-ios-locked-outline placeholder-icon unameicon"></i>
+                        <input name="wifi_name" type="text" placeholder="wifi_name" ng-model="configData.wifi_name" class="username-text" ng-minlength="6" required>
+                    </label>
+                </div>
+                <div ng-messages="registrationForm.wifi_name.$error" class="form-errors" ng-if="registrationForm.wifi_name.$touched">
+                    <div class="form-error" ng-message="required">Please enter your wifi name</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                </div>
+                <div class="  list list-inset username-div">
+                    <label class="item item-input  username-label ">
+                        <i class="icon ion-ios-locked-outline placeholder-icon unameicon"></i>
+                        <input name="wifi_password" type="password" placeholder="Confirm Password" ng-model="configData.wifi_password" class="username-text" required>
+                    </label>
+                </div>
+                <div ng-messages="registrationForm.wifi_password.$error" class="form-errors" ng-if="registrationForm.wifi_password.$touched">
+                    <div class="form-error" ng-message="required">ssscdsu</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                </div>
+                <div class="btn-login-div">
+                    <button ng-click="config()" type="submit" class="button btn-login" >Create</button>
+                </div>
+            </div>
+        </form>
     </ion-content>
 </ion-view>
