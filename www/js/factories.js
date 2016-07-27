@@ -23,12 +23,23 @@ angular.module('thermostat.factories', [])
         'use strict';
         return {
             connectWifi: function(wifiData) {
-                console.log('http://192.168.4.1/ssid=' + wifiData.uname + '&password=' + wifiData.pwd + '&groupid=sensomate1&thermostatid=thermostat2&');
+                console.log(wifiData);
                 return $http({
                     method: 'GET',
                     //url: "http://192.168.4.1/sensomate",
-                    url: 'http://192.168.4.1/ssid=' + wifiData.uname + '&password=' + wifiData.pwd + '&groupid=sensomate1&thermostatid=thermostat2&',
+                    url: 'http://192.168.4.1/ssid=' + wifiData.wifi_name + '&password=' + wifiData.wifi_password + '&groupid=' + wifiData.groupId + '&thermostatid=' + wifiData.product_id + '&',
                     'Content-Type': 'application/x-www-form-urlencoded'
+                });
+            },
+            checkWifi: function(wifiData) {
+                console.log('http://192.168.4.1/sensomate');
+                return $http({
+                    method: 'GET',
+                    //url: "http://192.168.4.1/sensomate",
+                    url: 'http://192.168.4.1/sensomate',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                     timeout: 5000 
+
                 });
             },
             getAll: function() {
@@ -93,8 +104,8 @@ angular.module('thermostat.factories', [])
                 });
             }
         };
-    }])  
-      .factory('userProductFactory', ['$http', 'appConfig', function($http, appConfig) {
+    }])
+    .factory('userProductFactory', ['$http', 'appConfig', function($http, appConfig) {
         'use strict';
         return {
             assignProduct: function(Details) {
@@ -109,7 +120,7 @@ angular.module('thermostat.factories', [])
 
                 return $http({
                     method: 'GET',
-                    url: appConfig.baseUrl + 'userproduct/'+id,
+                    url: appConfig.baseUrl + 'userproduct/' + id,
                 });
             }
         };

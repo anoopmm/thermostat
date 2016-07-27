@@ -14,8 +14,8 @@ angular.module('thermostat.configwifi', ['ionic'])
 
     }])
     .controller('configWifiCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', 'userProductFactory', function($scope, $state, thermostatFactory, $ionicPopup, userProductFactory) {
-        if(window.localStorage.getItem('userdetails')){
-            var userdetails=JSON.parse(window.localStorage.getItem('userdetails'));
+        if (window.localStorage.getItem('userdetails')) {
+            var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
         }
 
         $scope.openAddRoom = function() {
@@ -25,22 +25,32 @@ angular.module('thermostat.configwifi', ['ionic'])
         $scope.config = function() {
             console.log('get request');
             console.log($scope.configData);
-            allocateProduct();
-            // thermostatFactory.connectWifi($scope.configData1).then(function(responce) {
-            //     console.log('responce', responce);
-            //     var alertPopup = $ionicPopup.alert({
-            //         title: 'Wifi Credentials sent to device!!',
-            //         template: 'Please connect your phone to internet!'
-            //     });
-            // });
+            configureProduct();
 
         };
+        thermostatFactory.checkWifi().then(function(res) {
+            console.log('thermostat data', res.data);
+          $scope.configData.product_id = res.data.ThermostatID;
+          $scope.configData.groupId = res.data.Groupname;
+          }).catch(function(error) {
+              var alertPopup = $ionicPopup.alert({
+                  title: 'Please connect to device wi-fi',
+                  buttons: [{
+                      text: 'OK',
+                      type: 'button-assertive'
+                  }]
+              });
+              alertPopup.then(function() {});
 
-        function allocateProduct() { 
-            var data={
-                userId:userdetails.userId,
-                productId:$scope.configData.product_id
-            };
+          });
+
+
+
+
+
+
+        function assignProduct() {
+
             userProductFactory.assignProduct(data).then(function(res) {
 
 
@@ -50,6 +60,42 @@ angular.module('thermostat.configwifi', ['ionic'])
 
 
             });
+        }
+
+
+
+
+
+
+
+        function configureProduct() {
+            var data = {
+                userId: userdetails.userId,
+                productId: $scope.configData.product_id
+            };
+
+            thermostatFactory.connectWifi($scope.configData).then(function(res) {
+                console.log('thermostat data', res.data);
+                //$scope.configData.product_id = res.data.ThermostatID;
+
+               var  alertPopup = $ionicPopup.alert({
+                    title: 'Your device successfully configured',
+                    template: 'Please connect to internet',
+                    buttons: [{
+                        text: 'OK',
+                        type: 'button-assertive'
+                    }]
+                });
+                alertPopup.then(function() {
+
+                    assignProduct();
+
+
+                });
+
+
+            });
+
         };
 
     }])

@@ -19,12 +19,21 @@ angular.module('thermostat.login', ['ionic', 'ngMessages'])
     console.log('userDetails', $scope.loginData);
     $scope.doLogin = function(loginForm) {
         userFactory.doLogin($scope.loginData).then(function(res) {
-            //   $ionicLoading.hide();
-            console.log(res);
-            $state.go('app.selectroom');
 
-            if(res.data.userId){
-                localStorage.setItem('userdetails', JSON.stringify(res.data));
+            //   $ionicLoading.hide();
+            if (res.data.status == 200) {
+                console.log(res);
+                $state.go('app.selectroom');
+
+                if (res.data.userId) {
+                    localStorage.setItem('userdetails', JSON.stringify(res.data));
+                }
+            } else if (res.data.status == 401) {
+
+            } else if (res.data.status == 422) {
+
+            } else {
+
             }
 
 

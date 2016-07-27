@@ -55,13 +55,14 @@ angular.module('thermostat.selectroom', ['ionic'])
         });
         if (window.localStorage.getItem('userdetails')) {
             var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
+            userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
+                console.log('responce', responce);
+
+
+
+            });
         }
-        userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
-            console.log('responce', responce);
 
-
-
-        });
 
         // $localstorage.setObject('addedRooms', $scope.addedRooms);
         $scope.openRooomDetails = function(itemId) {
