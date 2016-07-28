@@ -320,6 +320,11 @@ ion-view {
     background-color: #5775df;
     color: white;
 }
+.roomdetails .orange-radio {
+    border-color: #FC8245;
+    background-color: #FC8245;
+    color: white;
+}
 
 .roomdetails .gray-radio {
     border-color: #ed9072;
@@ -338,7 +343,7 @@ ion-view {
 }
 
 .roomdetails .icon {
-    font-size: 29px;
+    font-size: 60px;
     color: white;
 }
 

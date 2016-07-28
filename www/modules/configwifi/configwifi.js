@@ -54,13 +54,24 @@ angular.module('thermostat.configwifi', ['ionic'])
                     }]
                 });
                 alertPopup.then(function() {
-                    $ste.go('app.selectroom');
+                    $state.go('app.selectroom');
 
                 });
 
             }).catch(function(error) {
                 console.log('error', error);
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Some error occcured',
+                    template: 'Please reconfigure your device',
+                    buttons: [{
+                        text: 'OK',
+                        type: 'button-assertive'
+                    }]
+                });
+                alertPopup.then(function() {
+                    $state.go('app.selectroom');
 
+                });
 
             });
         }
@@ -89,7 +100,6 @@ angular.module('thermostat.configwifi', ['ionic'])
                 alertPopup.then(function() {
 
                     assignProduct();
-                    $ste.go('app.selectroom');
 
 
                 });
