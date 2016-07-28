@@ -20,7 +20,8 @@ angular.module('starter', ['ionic',
         'thermostat.registration',
         'ionic-timepicker',
         'thermostat.plan',
-        'angular-svg-round-progressbar'
+        'angular-svg-round-progressbar',
+        'thermostat.checkpassword'
     ])
     .constant('appConfig', {
         baseUrl: 'http://192.168.0.108:3000/api/v1/',
@@ -58,5 +59,5 @@ angular.module('starter', ['ionic',
         controller: 'menuCtrl'
     });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('app/selectroom');
 });

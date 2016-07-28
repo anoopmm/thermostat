@@ -38,28 +38,22 @@
         </div>
     </ion-content>
 </ion-view> -->
-<ion-view>
+<ion-view title="Configure Wi-fi">
     <ion-content class="registration">
         <form name="registrationForm">
-            <div class="newaccounttitle">Configure
-            </div>
             <div class="regdiv">
-                <div class="list list-inset username-div">
+<!--                 <div class="list list-inset username-div">
                     <label class="item item-input username-label">
-                        <!-- <i class="icon ion-android-person placeholder-icon unameicon"></i> -->
                         <input type="text" name="productid" placeholder="Product Id" ng-model="configData.product_id" ng-minlength="5" ng-maxlength="30" class="username-text" required>
                     </label>
                 </div>
                 <div ng-messages="registrationForm.productid.$error" class="form-errors" ng-if="registrationForm.productid.$touched">
                     <div class="form-error" ng-message="required">Please enter product id</div>
-                    <!-- <div class="form-error" ng-message="required">You left the field blank...</div> -->
                     <div class="form-error" ng-message="minlength">Your field is too short</div>
                     <div class="form-error" ng-message="maxlength">Your field is too long</div>
-                    <!-- <div class="form-error" ng-message="email">Your field has an invalid email address</div> -->
                 </div>
                 <div class="list list-inset username-div">
                     <label class="item item-input username-label">
-                        <!-- <i class="icon ion-ios-email-outline placeholder-icon unameicon"></i> -->
                         <input type="password" name="password_deafult" placeholder="Default password" ng-model="configData.password_deafult" class="username-text" required>
                     </label>
                 </div>
@@ -67,12 +61,10 @@
                     <div class="form-error" ng-message="required">Please enter password</div>
                     <div class="form-error" ng-message="minlength">Your field is too short</div>
                     <div class="form-error" ng-message="maxlength">Your field is too long</div>
-                    <!-- <div class="form-error" ng-message="email">Your field has an invalid email address</div> -->
-                </div>
+                </div> -->
                 <div class="  list list-inset username-div">
                     <label class="item item-input  username-label ">
-                        <!-- <i class="icon ion-ios-locked-outline placeholder-icon unameicon"></i> -->
-                        <input name="wifi_name" type="text" placeholder="wifi_name" ng-model="configData.wifi_name" class="username-text" ng-minlength="6" required>
+                        <input name="wifi_name" type="text" placeholder="Wifi name" ng-model="configData.wifi_name" class="username-text" ng-minlength="6" required>
                     </label>
                 </div>
                 <div ng-messages="registrationForm.wifi_name.$error" class="form-errors" ng-if="registrationForm.wifi_name.$touched">
@@ -82,7 +74,6 @@
                 </div>
                 <div class="  list list-inset username-div">
                     <label class="item item-input  username-label ">
-                        <!-- <i class="icon ion-ios-locked-outline placeholder-icon unameicon"></i> -->
                         <input name="wifi_password" type="password" placeholder="Confirm Password" ng-model="configData.wifi_password" class="username-text" required>
                     </label>
                 </div>
@@ -92,7 +83,7 @@
                     <div class="form-error" ng-message="maxlength">Your field is too long</div>
                 </div>
                 <div class="btn-login-div">
-                    <button ng-click="config()" type="submit" class="button btn-login" >Create</button>
+                    <button ng-click="config()" type="submit" class="button btn-login">Create</button>
                 </div>
             </div>
         </form>

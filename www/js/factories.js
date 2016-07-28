@@ -27,18 +27,37 @@ angular.module('thermostat.factories', [])
                 return $http({
                     method: 'GET',
                     //url: "http://192.168.4.1/sensomate",
-                    url: 'http://192.168.4.1/ssid=' + wifiData.wifi_name + '&password=' + wifiData.wifi_password + '&groupid=' + wifiData.groupId + '&thermostatid=' + wifiData.product_id + '&',
+                    url: 'http://192.168.4.1/ssid=' + wifiData.wifi_name + '&password=' + encodeURIComponent(wifiData.wifi_password) + '&groupid=' + wifiData.groupId + '&thermostatid=' + wifiData.product_id + '&',
                     'Content-Type': 'application/x-www-form-urlencoded'
                 });
             },
             checkWifi: function(wifiData) {
-                console.log('http://192.168.4.1/sensomate');
                 return $http({
                     method: 'GET',
                     //url: "http://192.168.4.1/sensomate",
-                    url: 'http://192.168.4.1/sensomate',
+                    url: 'http://192.168.4.1/getdevicedetails',
                     'Content-Type': 'application/x-www-form-urlencoded',
-                     timeout: 5000 
+                    timeout: 5000
+
+                });
+            },
+            checkPassword: function(value) {
+                return $http({
+                    method: 'GET',
+                    //url: "http://192.168.4.1/sensomate",
+                    url: 'http://192.168.4.1/checkdevicepwd=' + encodeURIComponent(value) + '&',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    timeout: 5000
+
+                });
+            },
+            changePassword: function(data) {
+                return $http({
+                    method: 'GET',
+                    //url: "http://192.168.4.1/sensomate",
+                    url: 'http://192.168.4.1/olddevicepwd='+encodeURIComponent(data.old)+'&newdevicepwd='+encodeURIComponent(data.new)+'&',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    timeout: 5000
 
                 });
             },

@@ -18,28 +18,61 @@
             <div class="col col-33" style="background: rgba(255, 255, 255, 0.43);text-align:center;">
                 LOGGER
             </div>
-            <div class="col col-33"  style="background: rgba(255, 255, 255, 0.61);text-align:center;">
+            <div class="col col-33" style="background: rgba(255, 255, 255, 0.61);text-align:center;">
                 THERMOSTAT
             </div>
-            <div class="col col-33"  style="background: rgba(255, 255, 255, 0.43);text-align:center;">
+            <div class="col col-33" style="background: rgba(255, 255, 255, 0.43);text-align:center;">
                 ISOLATOR
             </div>
         </div>
         <ul class="list" style="padding:10px">
             <li class="item " ng-repeat="item in items" ng-click="openRooomDetails(item.id)">
                 <div class="row">
-                    <div class="col col-25 padd_0">
-                        <p style="color:white;vertical-align: middle;font-weight:bold;">{{item.RoomName}}</p>
+                    <div class="col col-10">
+                        <div style="    width: 14px;
+    height: 14px;
+    background-color: #5CFD5C;
+    border-radius: 7px;
+    margin-top: 50%;">
+                        </div>
                     </div>
-                    <div class="col col-25 padd_0">
-                        <p style="color:white;vertical-align: middle;font-weight:bold;">{{item.TemperatureSetPoint}}&#x2103</p>
-                    </div>
-                    <div class="col col-25 padd_0">
-                        <p style="color:white; vertical-align: middle;font-weight:bold;">{{item.CurrentTemperature}}&#x2103</p>
-                    </div>
-                    <div class="col col-25 padd_0">
-                        <img style="width:25px;height:25px;    margin: 0 auto;
-    display: block" src="img/{{item.img}}">
+                    <div class="col col-90">
+                        <div class="row padd_0">
+                            <div class="col col-25 padd_0">
+                                <p style="color:white;vertical-align: middle;font-weight:bold;    font-size: 21px;
+    margin-top: 12%;">{{item.RoomName}}</p>
+                            </div>
+                            <div class="col col-25 padd_0">
+                                <!-- <img style="width:25px;height:25px;    margin: 0 auto;display: block" src="img/{{item.img}}"> -->
+                                <p style="color:rgba(255, 255, 255, 0.46);vertical-align: middle;font-weight:bold;margin-top: 15%;">Cool</p>
+                            </div>
+                            <div class="col col-25 padd_0">
+                                <div class="row padd_0">
+                                    <div class="col padd_0">
+                                        <p style="color:white;vertical-align: middle;font-size: 22px;">{{item.TemperatureSetPoint}}&#x2103</p>
+                                    </div>
+                                </div>
+                                <div class="row padd_0">
+                                    <div class="col" style="padding-left: 0px;">
+                                        <div>
+                                            <img class="img-fan" src="img/fan.png" style="    width: 17%;"> Low
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-25 padd_0">
+                                <div class="row padd_0">
+                                    <div class="col padd_0">
+                                        <p style="color:white; vertical-align: middle;float:right;font-size: 22px;">{{item.CurrentTemperature}}&#x2103</p>
+                                    </div>
+                                </div>
+                                <div class="row padd_0">
+                                    <div class="col" style="font-size: 99px;">
+                                        <p style="color:rgba(255, 255, 255, 0.46); vertical-align: middle;font-weight:bold;float:right;">set</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </li>
