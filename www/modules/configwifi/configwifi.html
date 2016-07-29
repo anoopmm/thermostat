@@ -83,7 +83,7 @@
                     <div class="form-error" ng-message="maxlength">Your field is too long</div>
                 </div>
                 <div class="btn-login-div">
-                    <button ng-click="config()" type="submit" class="button btn-login">Create</button>
+                    <button ng-click="config()" type="submit" class="button btn-login" ng-disabled="registrationForm.$invalid">Create</button>
                 </div>
             </div>
         </form>

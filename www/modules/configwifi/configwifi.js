@@ -105,6 +105,21 @@ angular.module('thermostat.configwifi', ['ionic'])
                 });
 
 
+            }).catch(function(error) {
+                console.log('error', error);
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Some error occcured',
+                    template: 'Please reconfigure your device',
+                    buttons: [{
+                        text: 'OK',
+                        type: 'button-assertive'
+                    }]
+                });
+                alertPopup.then(function() {
+                    $state.go('app.selectroom');
+
+                });
+
             });
 
         };
