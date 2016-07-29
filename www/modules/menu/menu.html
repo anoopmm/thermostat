@@ -12,7 +12,7 @@
                 </button>
             </ion-nav-buttons>
         </ion-nav-bar> -->
-        <ion-nav-bar class="bar-clear">
+        <ion-nav-bar class="bar-clear" align-title="center">
             <ion-nav-back-button>
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
@@ -33,18 +33,18 @@
                     <i class="icon ion-home "></i>
                     <span class="menuname"> Home</span>
                 </ion-item>
-                <ion-item menu-close href="#/app/configwifi">
+<!--                 <ion-item menu-close href="#/app/configwifi">
                     <i class="icon ion-wifi ion-person"></i>
                     <span class="menuname">Configure wi-fi</span>
-                </ion-item>
+                </ion-item> -->
                 <ion-item menu-close href="#/app/profile">
                     <i class="icon ion-person"></i>
                     <span class="menuname">Profile </span>
                 </ion-item>
-                <ion-item menu-close href="#/app/addroom">
+<!--                 <ion-item menu-close href="#/app/addroom">
                     <i class="icon ion-thermometer"></i>
                     <span class="menuname">Add Thermostats </span>
-                </ion-item>
+                </ion-item> -->
                 <ion-item ng-click="showLanguages() ">
                     <i class="icon ion-gear-b"></i>
                     <span class="menuname">Languages</span> <i ng-class="{ 'icon ion-chevron-right':!flagLanguages, 'icon ion-chevron-down': flagLanguages} " style="float:right;font-size: 1em; "></i>

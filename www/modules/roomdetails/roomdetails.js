@@ -20,14 +20,13 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
     }])
     .controller('roomDetailsCtrl', ['$scope', '$state', 'thermostatFactory', '_', '$interval', '$stateParams', function($scope, $state, thermostatFactory, _, $interval, $stateParams) {
         'use strict';
-        // constants
-        $scope.settings = {
+ $scope.settings = {
             mode: "00",
             fan: "00",
             autorun: "00"
         }
         $scope.filter = {
-            cool: true,
+            cool: false,
             sleep: false,
             autorun: false
         }
@@ -50,94 +49,188 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             automode: false
         };
 
-        var mqttBrokerURI = "m10.cloudmqtt.com";
-        var mqttClientName = "browser-" + (new Date().getTime());
-        var mqttUsername = "sensomate"; // sxnrjvjw  your MQTT username
-        var mqttPassword = "senso123"; // 3Y2818zm5B1- your MQTT password
-        var mqttTopic = "thermostat2/#"; // your MQTT topic /<username>/topic
+        // var mqttBrokerURI = "m10.cloudmqtt.com";
+        // var mqttClientName = "browser-" + (new Date().getTime());
+        // var mqttUsername = "sensomate"; // sxnrjvjw  your MQTT username
+        // var mqttPassword = "senso123"; // 3Y2818zm5B1- your MQTT password
+        var mqttTopic = "thermostat3/#"; // your MQTT topic /<username>/topic
         var temp = 15;
         var client;
         var message;
-        // wait for page to be ready
-        // document.addEventListener("DOMContentLoaded", function(event) {
 
-        // Create a client instance,
-        // uses the paho library (https://www.eclipse.org/paho/clients/js/)
-        client = new Paho.MQTT.Client(mqttBrokerURI, 37682, "/wss", mqttClientName);
-        // set callback handlers
-        client.onConnectionLost = onConnectionLost;
-        client.onMessageArrived = onMessageArrived;
-        // connect the client
-        client.connect({
-            userName: mqttUsername,
-            password: mqttPassword,
-            onSuccess: onConnect,
-            onFailure: onFail
-        });
-        // called when the client connects
-        function onConnect() {
-            // Once a connection has been made, subscribe to the topic.
-            console.log("connected");
-            client.subscribe(mqttTopic);
-            console.log("subscribed to " + mqttTopic);
-        }
+        //Using the HiveMQ public Broker, with a random client Id
+        var client = new Messaging.Client("hospifi.spotsense.co", 9001, "myclientid_" + parseInt(Math.random() * 100, 10));
 
-        function onFail() {
-            // Once a connection has been made, subscribe to the topic.
-            console.log("failed");
-            client.connect({
-                userName: mqttUsername,
-                password: mqttPassword,
-                onSuccess: onConnect,
-                onFailure: onFail
-            });
-            //client.subscribe(mqttTopic);
-            //console.log("subscribed to " + mqttTopic);
-        }
-        // called when the client loses it's connection
-        function onConnectionLost(responseObject) {
-            if (responseObject.errorCode !== 0) {
-                console.log("connection lost:" + responseObject.errorMessage);
-                client.connect({
-                    userName: mqttUsername,
-                    password: mqttPassword,
-                    onSuccess: onConnect,
-                    onFailure: onFail
-                });
+        // var mqttTopic = "thermostat2/#";
+        var options = {
 
+            //connection attempt timeout in seconds
+            timeout: 10,
+
+            //Gets Called if the connection has successfully been established
+            onSuccess: function() {
+                console.log("Connected");
+                client.subscribe(mqttTopic);
+                console.log("subscribed to " + mqttTopic);
+            },
+
+            //Gets Called if the connection could not be established
+            onFailure: function(message) {
+                console.log("Connection failed: " + message.errorMessage);
             }
-        }
 
-        function onMessageArrived(message) {
-            switch (message.destinationName) {
-                case "thermostat2/pub/roomtemp":
-                    console.log(message.payloadString);
-                    $scope.roomTempData.label = parseInt(message.payloadString.substr(2, 2));
-                    $scope.setTempData.label = parseInt(message.payloadString.substr(0, 2));
+        };
 
+        //Attempt to connect
+        client.connect(options)
+
+        client.onMessageArrived = function(message) {
+            console.log(message);
+            var topic = message.destinationName;
+            var data = message.payloadString;
+            console.log('Message:' + topic + '--->' + data);
+            var topic = topic.split('/');
+            var topicLength = topic.length;
+            var data1 = data;
+
+            console.log('values', topic);
+            //Published from Device
+
+            if (topicLength === 3) {
+                var method = topic[2];
+                if (method === "roomtemp") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[2],
+                    //     source: 'Device'
+
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData.label = parseInt(data.slice(0, 2));
+                    $scope.roomTempData.label = parseInt(data1.slice(2, 4));
+                    console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                     $scope.$apply();
-                    break;
-                case "thermostat2/pub/mode":
-                    $scope.recmode = parseInt(message.payloadString.substr(0, 2));
-                    $scope.recautorun = parseInt(message.payloadString.substr(4, 2))
-                    if ($scope.recmode === 1) {
-                        $scope.filter.sleep = true;
-                    } else if ($scope.recmode == 0) {
-                        $scope.filter.autorun = false;
-                    }
-                    if ($scope.recautorun === 1) {
-                        $scope.filter.autorun = true;
-                    } else if ($scope.recautorun == 0) {
+                };
+                if (method === "settemp") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[2],
+                    //     source: 'Device'
+
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData.label = parseInt(data.slice(0, 2));
+                    console.log('values', typeof($scope.setTempData), $scope.roomTempData);
+                    $scope.$apply();
+                };
+                if (method === "mode") {
+                    console.log('data', data);
+                    var sleepOrCool = data.substr(0, 2);
+                    var fanLevel = data.substr(2, 2);
+                    var autorun = data.substr(4, 2);
+                    console.log('sleepOrCool-->', sleepOrCool);
+                    console.log('fanLevel-->', fanLevel);
+                    console.log('autorun-->', autorun);
+                    if (sleepOrCool === '00') {
+                        $scope.filter.cool = true;
                         $scope.filter.sleep = false;
+
+                    } else if (sleepOrCool == '01') {
+                        $scope.filter.sleep = true;
+                        $scope.filter.cool = false;
                     }
+                    if (fanLevel === '00') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = false;
+                        $scope.tempStatus.high = false;
+
+                    } else if (fanLevel === '01') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = true;
+                        $scope.tempStatus.high = false;
+
+                    } else if (fanLevel === '02') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = true;
+                        $scope.tempStatus.high = true;
+
+                    } else if (fanLevel === '03') {
+                        $scope.tempStatus.automode = true;
+
+                    }
+                    if (autorun == '00') {
+                        $scope.filter.autorun = false;
+                    } else if (autorun === '01') {
+                        $scope.filter.autorun = true;
+                    }
+                    // $scope.recmode = parseInt(data.substr(0, 2));
+                    // $scope.recautorun = parseInt(data.substr(4, 2))
+                    // console.log($scope.recmode);
+                    // console.log($scope.recautorun);
+                    // if ($scope.recmode === 1) {
+                    //     $scope.filter.sleep = true;
+                    // } else if ($scope.recmode == 0) {
+                    //     $scope.filter.autorun = false;
+                    // }
+                    // if ($scope.recautorun === 1) {
+                    //     $scope.filter.autorun = true;
+                    // } else if ($scope.recautorun == 0) {
+                    //     $scope.filter.sleep = false;
+                    // }
                     $scope.$apply();
-                    console.log('mode', $scope.recmode);
-                    break;
-
+                };
             }
-        }
+            //Published from device
+            else if (topicLength === 4) {
+                var method = topic[3];
+                if (method === "onoff" || method === "mode" || method === "roomtemp" || method === "weeklymon" || method === "weeklytue" || method === "weeklywed" || method === "weeklythurs" || method === "weeklyfri" || method === "weeklysat") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[3],
+                    //     source: 'Mobile'
 
-        //****************************************************************************************//
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData = parseInt(data.slice(0, 2));
+                    $scope.roomTempData = parseInt(data1.slice(2, 4));
+                    var setTempNew = data.slice(0, 2);
+                    var roomTempNew = data1.slice(2, 4);
+                    console.log('values', setTempNew, roomTempNew);
+
+                };
+            }
+
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         function calculateTempSetPoint() {
@@ -206,33 +299,38 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 }
             }
             var msg_str = $scope.settings.mode + $scope.settings.fan + $scope.settings.autorun;
-            message = new Paho.MQTT.Message(msg_str);
-            message.destinationName = "thermostat2/mode";
+            // message = new Paho.MQTT.Message(msg_str);
+            // message.destinationName = "thermostat2/mode";
+            // client.send(message);
+            var message = new Messaging.Message(msg_str);
+            message.destinationName = 'thermostat3/mode';
+            message.qos = 0;
             client.send(message);
         };
 
         $scope.incrTemp = function() {
-            console.log('inc1');
             if ($scope.setTempData.label >= 4 && $scope.setTempData.label < 30) {
-                console.log('inc2');
                 $scope.setTempData.label += 1;
                 temp = $scope.setTempData.label;
                 var msg_str = temp.toFixed(2);
-                message = new Paho.MQTT.Message(msg_str);
-                message.destinationName = "thermostat2/settemp";
+                var message = new Messaging.Message(msg_str);
+                message.destinationName = 'thermostat3/settemp';
+                message.qos = 0;
                 client.send(message);
             }
 
         };
         $scope.decrTemp = function() {
-            console.log('dcr1');
             if ($scope.setTempData.label >= 5 && $scope.setTempData.label <= 30) {
-                console.log('dcr2');
                 $scope.setTempData.label -= 1;
                 temp = $scope.setTempData.label;
                 var msg_str = temp.toFixed(2);
-                message = new Paho.MQTT.Message(msg_str);
-                message.destinationName = "thermostat2/settemp";
+                // message = new Paho.MQTT.Message(msg_str);
+                // message.destinationName = "thermostat2/settemp";
+                // client.send(message);
+                var message = new Messaging.Message(msg_str);
+                message.destinationName = 'thermostat3/settemp';
+                message.qos = 0;
                 client.send(message);
             }
 
@@ -244,8 +342,12 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 $scope.settings.mode = "00";
             }
             var msg_str = $scope.settings.mode + $scope.settings.fan + $scope.settings.autorun;
-            message = new Paho.MQTT.Message(msg_str);
-            message.destinationName = "thermostat2/mode";
+            // message = new Paho.MQTT.Message(msg_str);
+            // message.destinationName = "thermostat2/mode";
+            // client.send(message);
+            var message = new Messaging.Message(msg_str);
+            message.destinationName = 'thermostat3/mode';
+            message.qos = 0;
             client.send(message);
         };
         $scope.autorunToggle = function() {
@@ -255,8 +357,12 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 $scope.settings.autorun = "00";
             }
             var msg_str = $scope.settings.mode + $scope.settings.fan + $scope.settings.autorun;
-            message = new Paho.MQTT.Message(msg_str);
-            message.destinationName = "thermostat2/mode";
+            // message = new Paho.MQTT.Message(msg_str);
+            // message.destinationName = "thermostat2/mode";
+            // client.send(message);
+            var message = new Messaging.Message(msg_str);
+            message.destinationName = 'thermostat3/settemp';
+            message.qos = 0;
             client.send(message);
 
         };

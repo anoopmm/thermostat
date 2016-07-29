@@ -24,7 +24,7 @@ angular.module('starter', ['ionic',
         'thermostat.checkpassword'
     ])
     .constant('appConfig', {
-        baseUrl: 'http://192.168.0.108:3000/api/v1/',
+        baseUrl: 'http://52.38.6.216:3000/api/v1/',
         baseUrl2: 'http://api.insmonitor.hospifi.co/ahu/deviceupdate/11/'
     })
     .run(function($ionicPlatform) {
@@ -59,5 +59,5 @@ angular.module('starter', ['ionic',
         controller: 'menuCtrl'
     });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('app/selectroom');
+    $urlRouterProvider.otherwise('/login');
 });

@@ -8,13 +8,16 @@ angular.module('thermostat.registration', ['ionic'])
                 controller: 'registerCtrl'
             })
     }])
-    .controller('registerCtrl', ['$scope', '$state','userFactory','$ionicLoading','$ionicPopup',function($scope, $state,userFactory,$ionicLoading,$ionicPopup) {
+    .controller('registerCtrl', ['$scope', '$state', 'userFactory', '$ionicLoading', '$ionicPopup', function($scope, $state, userFactory, $ionicLoading, $ionicPopup) {
         $scope.openLogin = function() {
             $state.go('login');
         };
-        $scope.regData={};
+        $scope.regData = {};
 
         $scope.signUp = function() {
+            $ionicLoading.show({
+                template: 'Loading...'
+            });
             userFactory.signUp($scope.regData).then(function() {
                 $ionicLoading.hide();
                 alertPopup = $ionicPopup.alert({

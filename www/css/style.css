@@ -14,8 +14,46 @@ input:-ms-input-placeholder {
 }
 
 ion-view {
-    background-image: url("../img/bck3.png") !important;
+    background: transparent;
+    background-color: transparent !important;
+    /*     background-image: url("../img/bg.png") !important;
+    background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden; */
+}
+
+ion-nav-view {
+    background: transparent;
+    background-color: transparent !important;
+    /*     background-image: url("../img/bg.png") !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden; */
+}
+
+ion-side-menu-content {
+    background-image: url("../img/bck3.png") !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.login {
+    background-image: url("../img/bck3.png") !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.registration {
+    background-image: url("../img/bck3.png") !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.registration .placeholder-icon {
+    color: white;
 }
 
 .padd_0 {
@@ -320,6 +358,7 @@ ion-view {
     background-color: #5775df;
     color: white;
 }
+
 .roomdetails .orange-radio {
     border-color: #FC8245;
     background-color: #FC8245;
@@ -421,7 +460,7 @@ ion-view {
     /*margin-top: 50%;*/
     border: 0px;
     width: 100%;
-    background: #AE6BCE !important;
+    background: #C352BE !important;
     border-style: solid;
     padding-top: 0px !important;
     padding-bottom: 0px;
@@ -904,9 +943,9 @@ ion-view {
     font-size: 23px;
     color: white;
     /* margin-top: 48px; */
-    margin-left: 22px;
     /* padding-left: 13px; */
     padding-top: 25px;
+    text-align: center;
 }
 
 .registration .username-div {

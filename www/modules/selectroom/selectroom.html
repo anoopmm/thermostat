@@ -1,14 +1,4 @@
-<ion-view id="selectroom">
-    <!--     <ion-nav-bar class="bar bar-positive">
-        <ion-nav-buttons side="right">
-            <button ng-click="openAddRoom()" class="button button-icon button-clear ion-plus">
-            </button>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear  ion-navicon-round" menu-toggle="left">
-            </button>
-        </ion-nav-buttons>
-    </ion-nav-bar> -->
+<ion-view id="selectroom" title="Devices">
     <ion-nav-buttons side="secondary">
         <button class="button button-icon icon ion-plus-round" ng-click="openAddRoom1($event)">
         </button>
@@ -29,18 +19,13 @@
             <li class="item " ng-repeat="item in items" ng-click="openRooomDetails(item.id)">
                 <div class="row">
                     <div class="col col-10">
-                        <div style="    width: 14px;
-    height: 14px;
-    background-color: #5CFD5C;
-    border-radius: 7px;
-    margin-top: 50%;">
+                        <div style="    width: 14px; height: 14px;background-color: #5CFD5C; border-radius: 7px;margin-top: 50%;">
                         </div>
                     </div>
                     <div class="col col-90">
                         <div class="row padd_0">
                             <div class="col col-25 padd_0">
-                                <p style="color:white;vertical-align: middle;font-weight:bold;    font-size: 21px;
-    margin-top: 12%;">{{item.RoomName}}</p>
+                                <p style="color:white;vertical-align: middle;font-weight:bold;    font-size: 21px;margin-top: 12%;">{{item.RoomName}}</p>
                             </div>
                             <div class="col col-25 padd_0">
                                 <!-- <img style="width:25px;height:25px;    margin: 0 auto;display: block" src="img/{{item.img}}"> -->
