@@ -98,122 +98,226 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             var productId = topic[1];
             console.log('productId-->', productId);
             // if (productId === 'thermostat3') {
-                if (topicLength === 3) {
-                    var method = topic[2];
-                    if (method === "roomtemp") {
-                        // var logdata = {
-                        //     created_at: new Date(),
-                        //     product_product_id: topic[1],
-                        //     message: data,
-                        //     change_type: topic[2],
-                        //     source: 'Device'
+            if (topicLength === 3) {
+                var method = topic[2];
+                if (method === "roomtemp") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[2],
+                    //     source: 'Device'
 
-                        // };
-                        // console.log('data', logdata);
-                        // $scope.roomData.push(logdata);
-                        // $scope.$apply();
-                        $scope.setTempData.label = parseInt(data.slice(0, 2));
-                        $scope.roomTempData.label = parseInt(data1.slice(2, 4));
-                        console.log('values', typeof($scope.setTempData), $scope.roomTempData);
-                        $scope.$apply();
-                    };
-                    if (method === "settemp") {
-                        // var logdata = {
-                        //     created_at: new Date(),
-                        //     product_product_id: topic[1],
-                        //     message: data,
-                        //     change_type: topic[2],
-                        //     source: 'Device'
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData.label = parseInt(data.slice(0, 2));
+                    $scope.roomTempData.label = parseInt(data1.slice(2, 4));
+                    console.log('values', typeof($scope.setTempData), $scope.roomTempData);
+                    $scope.$apply();
+                };
+                if (method === "settemp") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[2],
+                    //     source: 'Device'
 
-                        // };
-                        // console.log('data', logdata);
-                        // $scope.roomData.push(logdata);
-                        // $scope.$apply();
-                        $scope.setTempData.label = parseInt(data.slice(0, 2));
-                        console.log('values', typeof($scope.setTempData), $scope.roomTempData);
-                        $scope.$apply();
-                    };
-                    if (method === "mode") {
-                        console.log('data', data);
-                        var sleepOrCool = data.substr(0, 2);
-                        var fanLevel = data.substr(2, 2);
-                        var autorun = data.substr(4, 2);
-                        console.log('sleepOrCool-->', sleepOrCool);
-                        console.log('fanLevel-->', fanLevel);
-                        console.log('autorun-->', autorun);
-                        if (sleepOrCool === '00') {
-                            $scope.filter.cool = true;
-                            $scope.filter.sleep = false;
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData.label = parseInt(data.slice(0, 2));
+                    console.log('values', typeof($scope.setTempData), $scope.roomTempData);
+                    $scope.$apply();
+                };
+                if (method === "mode") {
+                    console.log('data', data);
+                    var sleepOrCool = data.substr(0, 2);
+                    var fanLevel = data.substr(2, 2);
+                    var autorun = data.substr(4, 2);
+                    console.log('sleepOrCool-->', sleepOrCool);
+                    console.log('fanLevel-->', fanLevel);
+                    console.log('autorun-->', autorun);
+                    if (sleepOrCool === '00') {
+                        $scope.filter.cool = true;
+                        $scope.filter.sleep = false;
 
-                        } else if (sleepOrCool == '01') {
-                            $scope.filter.sleep = true;
-                            $scope.filter.cool = false;
-                        }
-                        if (fanLevel === '00') {
-                            $scope.tempStatus.low = true;
-                            $scope.tempStatus.medium = false;
-                            $scope.tempStatus.high = false;
+                    } else if (sleepOrCool == '01') {
+                        $scope.filter.sleep = true;
+                        $scope.filter.cool = false;
+                    }
+                    if (fanLevel === '00') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = false;
+                        $scope.tempStatus.high = false;
+                        $scope.tempStatus.automode = false;
 
-                        } else if (fanLevel === '01') {
-                            $scope.tempStatus.low = true;
-                            $scope.tempStatus.medium = true;
-                            $scope.tempStatus.high = false;
+                    } else if (fanLevel === '01') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = true;
+                        $scope.tempStatus.high = false;
+                        $scope.tempStatus.automode = false;
 
-                        } else if (fanLevel === '02') {
-                            $scope.tempStatus.low = true;
-                            $scope.tempStatus.medium = true;
-                            $scope.tempStatus.high = true;
+                    } else if (fanLevel === '02') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = true;
+                        $scope.tempStatus.high = true;
+                        $scope.tempStatus.automode = false;
 
-                        } else if (fanLevel === '03') {
-                            $scope.tempStatus.automode = true;
+                    } else if (fanLevel === '03') {
+                        $scope.tempStatus.automode = true;
+                        $scope.tempStatus.low = false;
+                        $scope.tempStatus.medium = false;
+                        $scope.tempStatus.high = false;
 
-                        }
-                        if (autorun == '00') {
-                            $scope.filter.autorun = false;
-                        } else if (autorun === '01') {
-                            $scope.filter.autorun = true;
-                        }
-                        // $scope.recmode = parseInt(data.substr(0, 2));
-                        // $scope.recautorun = parseInt(data.substr(4, 2))
-                        // console.log($scope.recmode);
-                        // console.log($scope.recautorun);
-                        // if ($scope.recmode === 1) {
-                        //     $scope.filter.sleep = true;
-                        // } else if ($scope.recmode == 0) {
-                        //     $scope.filter.autorun = false;
-                        // }
-                        // if ($scope.recautorun === 1) {
-                        //     $scope.filter.autorun = true;
-                        // } else if ($scope.recautorun == 0) {
-                        //     $scope.filter.sleep = false;
-                        // }
-                        $scope.$apply();
-                    };
-                }
-                //Published from device
-                else if (topicLength === 4) {
+                    }
+                    if (autorun == '00') {
+                        $scope.filter.autorun = false;
+                    } else if (autorun === '01') {
+                        $scope.filter.autorun = true;
+                    }
+                    // $scope.recmode = parseInt(data.substr(0, 2));
+                    // $scope.recautorun = parseInt(data.substr(4, 2))
+                    // console.log($scope.recmode);
+                    // console.log($scope.recautorun);
+                    // if ($scope.recmode === 1) {
+                    //     $scope.filter.sleep = true;
+                    // } else if ($scope.recmode == 0) {
+                    //     $scope.filter.autorun = false;
+                    // }
+                    // if ($scope.recautorun === 1) {
+                    //     $scope.filter.autorun = true;
+                    // } else if ($scope.recautorun == 0) {
+                    //     $scope.filter.sleep = false;
+                    // }
+                    $scope.$apply();
+                };
+            } else if (topicLength === 2) {
+                var method = topic[1];
+                if (method === "roomtemp") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[2],
+                    //     source: 'Device'
 
-                    var method = topic[3];
-                    if (method === "onoff" || method === "mode" || method === "roomtemp" || method === "weeklymon" || method === "weeklytue" || method === "weeklywed" || method === "weeklythurs" || method === "weeklyfri" || method === "weeklysat") {
-                        // var logdata = {
-                        //     created_at: new Date(),
-                        //     product_product_id: topic[1],
-                        //     message: data,
-                        //     change_type: topic[3],
-                        //     source: 'Mobile'
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData.label = parseInt(data.slice(0, 2));
+                    $scope.roomTempData.label = parseInt(data1.slice(2, 4));
+                    console.log('values', typeof($scope.setTempData), $scope.roomTempData);
+                    $scope.$apply();
+                };
+                if (method === "settemp") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[2],
+                    //     source: 'Device'
 
-                        // };
-                        // console.log('data', logdata);
-                        // $scope.roomData.push(logdata);
-                        // $scope.$apply();
-                        $scope.setTempData = parseInt(data.slice(0, 2));
-                        $scope.roomTempData = parseInt(data1.slice(2, 4));
-                        var setTempNew = data.slice(0, 2);
-                        var roomTempNew = data1.slice(2, 4);
-                        console.log('values', setTempNew, roomTempNew);
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData.label = parseInt(data.slice(0, 2));
+                    console.log('values', typeof($scope.setTempData), $scope.roomTempData);
+                    $scope.$apply();
+                };
+                if (method === "mode") {
+                    console.log('data', data);
+                    var sleepOrCool = data.substr(0, 2);
+                    var fanLevel = data.substr(2, 2);
+                    var autorun = data.substr(4, 2);
+                    console.log('sleepOrCool-->', sleepOrCool);
+                    console.log('fanLevel-->', fanLevel);
+                    console.log('autorun-->', autorun);
+                    if (sleepOrCool === '00') {
+                        $scope.filter.cool = true;
+                        $scope.filter.sleep = false;
 
-                    };
-                }
+                    } else if (sleepOrCool == '01') {
+                        $scope.filter.sleep = true;
+                        $scope.filter.cool = false;
+                    }
+                    if (fanLevel === '00') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = false;
+                        $scope.tempStatus.high = false;
+                        $scope.tempStatus.automode = false;
+
+                    } else if (fanLevel === '01') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = true;
+                        $scope.tempStatus.high = false;
+                        $scope.tempStatus.automode = false;
+
+                    } else if (fanLevel === '02') {
+                        $scope.tempStatus.low = true;
+                        $scope.tempStatus.medium = true;
+                        $scope.tempStatus.high = true;
+                        $scope.tempStatus.automode = false;
+
+                    } else if (fanLevel === '03') {
+                        $scope.tempStatus.low = false;
+                        $scope.tempStatus.medium = false;
+                        $scope.tempStatus.high = false;
+                        $scope.tempStatus.automode = true;
+
+                    }
+                    if (autorun == '00') {
+                        $scope.filter.autorun = false;
+                    } else if (autorun === '01') {
+                        $scope.filter.autorun = true;
+                    }
+                    // $scope.recmode = parseInt(data.substr(0, 2));
+                    // $scope.recautorun = parseInt(data.substr(4, 2))
+                    // console.log($scope.recmode);
+                    // console.log($scope.recautorun);
+                    // if ($scope.recmode === 1) {
+                    //     $scope.filter.sleep = true;
+                    // } else if ($scope.recmode == 0) {
+                    //     $scope.filter.autorun = false;
+                    // }
+                    // if ($scope.recautorun === 1) {
+                    //     $scope.filter.autorun = true;
+                    // } else if ($scope.recautorun == 0) {
+                    //     $scope.filter.sleep = false;
+                    // }
+                    $scope.$apply();
+                };
+            }
+            //Published from device
+            else if (topicLength === 4) {
+
+                var method = topic[3];
+                if (method === "onoff" || method === "mode" || method === "roomtemp" || method === "weeklymon" || method === "weeklytue" || method === "weeklywed" || method === "weeklythurs" || method === "weeklyfri" || method === "weeklysat") {
+                    // var logdata = {
+                    //     created_at: new Date(),
+                    //     product_product_id: topic[1],
+                    //     message: data,
+                    //     change_type: topic[3],
+                    //     source: 'Mobile'
+
+                    // };
+                    // console.log('data', logdata);
+                    // $scope.roomData.push(logdata);
+                    // $scope.$apply();
+                    $scope.setTempData = parseInt(data.slice(0, 2));
+                    $scope.roomTempData = parseInt(data1.slice(2, 4));
+                    var setTempNew = data.slice(0, 2);
+                    var roomTempNew = data1.slice(2, 4);
+                    console.log('values', setTempNew, roomTempNew);
+
+                };
+            }
+
             // }
         };
 
@@ -314,7 +418,9 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             if ($scope.setTempData.label >= 4 && $scope.setTempData.label < 30) {
                 $scope.setTempData.label += 1;
                 temp = $scope.setTempData.label;
-                var msg_str = temp.toFixed(2);
+                var msg_str = temp.toString();
+                console.log('msg-------------', msg_str);
+
                 var message = new Messaging.Message(msg_str);
                 message.destinationName = 'thermostat3/settemp';
                 message.qos = 0;
@@ -326,7 +432,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             if ($scope.setTempData.label >= 5 && $scope.setTempData.label <= 30) {
                 $scope.setTempData.label -= 1;
                 temp = $scope.setTempData.label;
-                var msg_str = temp.toFixed(2);
+                var msg_str = temp.toString();
                 // message = new Paho.MQTT.Message(msg_str);
                 // message.destinationName = "thermostat2/settemp";
                 // client.send(message);
