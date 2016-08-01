@@ -29,7 +29,7 @@ angular.module('thermostat.registration', ['ionic'])
                 });
                 alertPopup.then(function() {
                     $state.go('login');
-                    $localStorage.setObject('registrationDetails', $scope.registrationDetails);
+                   // $localStorage.setObject('registrationDetails', $scope.registrationDetails);
                 });
             }).catch(function(error) {
                 $ionicLoading.hide();

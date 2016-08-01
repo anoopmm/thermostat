@@ -69,7 +69,6 @@ angular.module('thermostat.configwifi', ['ionic'])
                     }]
                 });
                 alertPopup.then(function() {
-                    $state.go('app.selectroom');
 
                 });
 
@@ -99,9 +98,14 @@ angular.module('thermostat.configwifi', ['ionic'])
                 });
                 alertPopup.then(function() {
 
-                    assignProduct();
+                    // assignProduct();
+                    var data1 = {
+                        status: true
+                    };
 
-
+                    localStorage.setItem('configure', JSON.stringify(data1));
+                    $state.go('app.selectroom');
+                    
                 });
 
 

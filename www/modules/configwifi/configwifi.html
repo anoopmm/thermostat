@@ -74,11 +74,11 @@
                 </div>
                 <div class="  list list-inset username-div">
                     <label class="item item-input  username-label ">
-                        <input name="wifi_password" type="password" placeholder="Confirm Password" ng-model="configData.wifi_password" class="username-text" required>
+                        <input name="wifi_password" type="password" placeholder="Password" ng-model="configData.wifi_password" class="username-text" required>
                     </label>
                 </div>
                 <div ng-messages="registrationForm.wifi_password.$error" class="form-errors" ng-if="registrationForm.wifi_password.$touched">
-                    <div class="form-error" ng-message="required">ssscdsu</div>
+                    <div class="form-error" ng-message="required">Please enter your Wi-fi passaword</div>
                     <div class="form-error" ng-message="minlength">Your field is too short</div>
                     <div class="form-error" ng-message="maxlength">Your field is too long</div>
                 </div>

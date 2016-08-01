@@ -59,7 +59,21 @@ angular.module('thermostat.checkpassword', ['ionic'])
                 });
                 thermostatFactory.changePassword(data).then(function(res) {
                     $ionicLoading.hide();
-                    $state.go('app.configwifi');
+                    // $state.go('app.configwifi');
+                    if (res.data.susmsg) {
+                        $state.go('app.configwifi');
+                    }
+                    if (res.data.errmsg) {
+
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Please check your password..',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
+                    }
                 }).catch(function(error) {
                     $ionicLoading.hide();
                     var alertPopup = $ionicPopup.alert({
@@ -78,7 +92,22 @@ angular.module('thermostat.checkpassword', ['ionic'])
             } else {
                 thermostatFactory.checkPassword($scope.setpassword.password_deafult).then(function(res) {
 
-                    $state.go('app.configwifi');
+                    //$state.go('app.configwifi');
+                    console.log(res);
+                    if (res.data.susmsg) {
+                        $state.go('app.configwifi');
+                    }
+                    if (res.data.errmsg) {
+
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Please check your password..',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
+                    }
 
                 }).catch(function(error) {
                     var alertPopup = $ionicPopup.alert({
