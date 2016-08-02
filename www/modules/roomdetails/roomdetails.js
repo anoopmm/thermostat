@@ -25,6 +25,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             fan: "00",
             autorun: "00"
         }
+        $scope.deviceStatus = { on: true };
         $scope.filter = {
             cool: false,
             sleep: false,
@@ -53,7 +54,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
         // var mqttClientName = "browser-" + (new Date().getTime());
         // var mqttUsername = "sensomate"; // sxnrjvjw  your MQTT username
         // var mqttPassword = "senso123"; // 3Y2818zm5B1- your MQTT password
-        var mqttTopic = "thermostat3/#"; // your MQTT topic /<username>/topic
+        var mqttTopic = "thermostat4/#"; // your MQTT topic /<username>/topic
         var temp = 15;
         var client;
         var message;
@@ -195,6 +196,21 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     // }
                     $scope.$apply();
                 };
+                if (method == 'onoff') {
+                    console.log('-----------', data);
+                    if (data == '00') {
+                        console.log('-----------111', data);
+                        $scope.deviceStatus.on = false;
+                        $scope.$apply();
+
+                    } else if (data == '01') {
+                        console.log('-----------222', data);
+                        $scope.deviceStatus.on = true;
+                        $scope.$apply();
+
+                    }
+
+                }
             } else if (topicLength === 2) {
                 var method = topic[1];
                 if (method === "roomtemp") {
@@ -409,27 +425,27 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             // message.destinationName = "thermostat2/mode";
             // client.send(message);
             var message = new Messaging.Message(msg_str);
-            message.destinationName = 'thermostat3/mode';
+            message.destinationName = 'thermostat4/mode';
             message.qos = 0;
             client.send(message);
         };
 
         $scope.incrTemp = function() {
-            if ($scope.setTempData.label >= 4 && $scope.setTempData.label < 30) {
+            if ($scope.setTempData.label >= 15 && $scope.setTempData.label < 30) {
                 $scope.setTempData.label += 1;
                 temp = $scope.setTempData.label;
                 var msg_str = temp.toString();
                 console.log('msg-------------', msg_str);
 
                 var message = new Messaging.Message(msg_str);
-                message.destinationName = 'thermostat3/settemp';
+                message.destinationName = 'thermostat4/settemp';
                 message.qos = 0;
                 client.send(message);
             }
 
         };
         $scope.decrTemp = function() {
-            if ($scope.setTempData.label >= 5 && $scope.setTempData.label <= 30) {
+            if ($scope.setTempData.label >= 16 && $scope.setTempData.label <= 30) {
                 $scope.setTempData.label -= 1;
                 temp = $scope.setTempData.label;
                 var msg_str = temp.toString();
@@ -437,7 +453,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 // message.destinationName = "thermostat2/settemp";
                 // client.send(message);
                 var message = new Messaging.Message(msg_str);
-                message.destinationName = 'thermostat3/settemp';
+                message.destinationName = 'thermostat4/settemp';
                 message.qos = 0;
                 client.send(message);
             }
@@ -454,10 +470,33 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             // message.destinationName = "thermostat2/mode";
             // client.send(message);
             var message = new Messaging.Message(msg_str);
-            message.destinationName = 'thermostat3/mode';
+            message.destinationName = 'thermostat4/mode';
             message.qos = 0;
             client.send(message);
         };
+        $scope.deviceOn = function() {
+            // $scope.deviceStatus.on = !$scope.deviceStatus.on;
+            var msg_str = '00';
+            if ($scope.deviceStatus.on) {
+                msg_str = '01';
+            } else {
+                msg_str = '00';
+            }
+            //var msg_str = '00';
+            var message = new Messaging.Message(msg_str);
+            message.destinationName = 'thermostat4/onoff';
+            message.qos = 0;
+            client.send(message);
+        };
+        // $scope.deviceOff = function() {
+        //     $scope.deviceStatus.on = false;
+
+        //     var msg_str = '01';
+        //     var message = new Messaging.Message(msg_str);
+        //     message.destinationName = 'thermostat4/onoff';
+        //     message.qos = 0;
+        //     client.send(message);
+        // };
         $scope.autorunToggle = function() {
             if ($scope.filter.autorun == true) {
                 $scope.settings.autorun = "01";
@@ -469,7 +508,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             // message.destinationName = "thermostat2/mode";
             // client.send(message);
             var message = new Messaging.Message(msg_str);
-            message.destinationName = 'thermostat3/mode';
+            message.destinationName = 'thermostat4/mode';
             message.qos = 0;
             client.send(message);
 

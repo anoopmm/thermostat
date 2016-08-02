@@ -14,10 +14,63 @@ angular.module('thermostat.selectroom', ['ionic'])
             })
 
     }])
-    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', 'userProductFactory', '$ionicPlatform', '$interval', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover, userProductFactory, $ionicPlatform, $interval) {
+    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', 'userProductFactory', '$ionicPlatform', '$interval', '$ionicPopup', '$timeout', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover, userProductFactory, $ionicPlatform, $interval, $ionicPopup, $timeout) {
         var interval;
+        $scope.shouldShowDelete = false;
+        $scope.shouldShowReorder = false;
+        $scope.listCanSwipe = true
+        $scope.onSwipeLeft = function() {
+            console.log(1);
+        }
+        $scope.onSwipeRight = function() {
+            console.log(2);
+        }
+        $scope.onSwipeRight = function() {
+            console.log(3);
+            $("ion-option-button").addClass("invisible")
+        }
+        $scope.onSwipeLeft = function() {
+            console.log(3);
+            $("ion-option-button").removeClass("invisible")
+        }
+        $scope.delete = function(index) {
+            $scope.items.splice(index, 1);
+        }
+        $scope.edit = function(index) {
+            // Triggered on a button click, or some other target
+            $scope.data = {};
 
+            // An elaborate, custom popup
+            var myPopup = $ionicPopup.show({
+                template: '<input type="text" ng-model="data.wifi">',
+                title: 'Enter new room name',
+                subTitle: '',
+                scope: $scope,
+                buttons: [
+                    { text: 'Cancel' }, {
+                        text: '<b>Save</b>',
+                        type: 'button-positive',
+                        onTap: function(e) {
+                            if (!$scope.data.wifi) {
+                                //don't allow the user to close unless he enters wifi password
+                                e.preventDefault();
+                            } else {
+                                $scope.items[index].RoomName = $scope.data.wifi;
+                                return $scope.data.wifi;
+                            }
+                        }
+                    }
+                ]
+            });
 
+            myPopup.then(function(res) {
+                console.log('Tapped!', res);
+            });
+
+            // $timeout(function() {
+            //     myPopup.close(); //close the popup after 3 seconds for some reason
+            // }, 8000);
+        };
         $scope.addedRooms = [{
             thermostatId: '1',
             imgURI: 'img/livingroom.png',
@@ -56,13 +109,13 @@ angular.module('thermostat.selectroom', ['ionic'])
             "img": "ot4.jpg",
             "id": 4
         });
-        $scope.configData={};
+        $scope.configData = {};
         if (window.localStorage.getItem('userdetails')) {
             var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
             userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
                 console.log('responce', responce);
 
-
+               $scope.items = responce.data;
 
             });
         }
@@ -77,7 +130,7 @@ angular.module('thermostat.selectroom', ['ionic'])
 
         // $localstorage.setObject('addedRooms', $scope.addedRooms);
         $scope.openRooomDetails = function(itemId) {
-             $interval.cancel(interval);
+            $interval.cancel(interval);
             if (itemId) {
                 $state.go('app.roomdetails', {
                     itemId: itemId
@@ -109,7 +162,7 @@ angular.module('thermostat.selectroom', ['ionic'])
 
         };
         $scope.goNext = function(path) {
-             $interval.cancel(interval);
+            $interval.cancel(interval);
             $state.go(path);
             $scope.popover.hide();
         }
@@ -179,7 +232,7 @@ angular.module('thermostat.selectroom', ['ionic'])
                     }
                 }
             }
-            interval=$interval(function() {
+            interval = $interval(function() {
                 checkConnection();
             }, 5000)
 

@@ -2,6 +2,15 @@
     <ion-content class="roomdetails">
         <div class="row">
             <div class="col col-25 center" id="roomTemp" style="position:relative;">
+                <label class="toggle toggle-assertive">
+                    <input type="checkbox" ng-model="deviceStatus.on" ng-click="deviceOn()" ng-checked="tempStatus.automode">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+                <div class="row">
+                    <span> {{'ON/OFF'|translate}} </span>
+                </div>
                 <div class="degree" style="position:absolute !important;width:100%;bottom:0;right:0;padding:5px;">
                     <div class="progress-wrapper" style="position:relative !important;">
                         <round-progress max="30" current="roomTempData.label" color="#45ccce" bgcolor="#eaeaea" stroke="10" semi="false" rounded="true" clockwise="false" responsive="true" duration="800" animation="easeInOutQuart" animation-delay="0"></round-progress>
@@ -127,7 +136,7 @@
                         <span class="center padd-top-2"> Cool</span>
                     </div>
                 </div>
-<!--                 <div class="col col-3 padd-0">
+                <!--                 <div class="col col-3 padd-0">
                     <div class="row center padd-0">
                         <label class="orange-radio item item-radio ng-valid" ng-model="filter.sleep" style="">
                             <input type="checkbox" name="radio-group" ng-click="sleepToggle()" ng-model="filter.hot" class="ng-pristine ng-valid ng-touched" value="on" style="">
@@ -159,7 +168,7 @@
     <ion-footer-bar align-title="left" class="bar-light" style="background-color: rgba(233, 236, 236, 0.44) !important;">
         <h1 class="title" ng-click="setPlan()" style="color: white;">WEEKLY PLAN</h1>
         <div class="buttons">
-            <ion-toggle ng-model="filter.autorun" ng-click="autorunToggle()" style="border:none;background:none"></ion-toggle>
+            <!--  <ion-toggle ng-model="filter.autorun" ng-click="autorunToggle()" style="border:none;background:none"></ion-toggle> -->
         </div>
     </ion-footer-bar>
 </ion-view>
