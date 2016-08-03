@@ -15,7 +15,9 @@ input:-ms-input-placeholder {
     /* IE10+ */
     color: white;
 }
-
+.item-select:after {
+color: white;
+}
 ion-view {
     background: transparent;
     background-color: transparent !important;

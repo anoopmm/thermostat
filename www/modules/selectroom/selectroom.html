@@ -80,7 +80,8 @@
                             <div class="col col-25 padd_0">
                                 <div class="row padd_0">
                                     <div class="col padd_0">
-                                        <p style="color:white;vertical-align: middle;font-size: 22px;">{{item.product.values.roomtemp}}&#x2103</p>
+                                        <p style="color:white;vertical-align: middle;font-size: 22px;" ng-if="appSettings.temperatureUnits=='degree'">{{item.product.values.roomtemp | celsius| number:0}}&#x2103</p>
+                                        <p style="color:white;vertical-align: middle;font-size: 22px;" ng-if="appSettings.temperatureUnits=='faren'">{{item.product.values.roomtemp| fahrenheit| number:0}}&#x2109</p>
                                     </div>
                                 </div>
                                 <div class="row padd_0">
@@ -94,7 +95,8 @@
                             <div class="col col-25 padd_0">
                                 <div class="row padd_0">
                                     <div class="col padd_0">
-                                        <p style="color:white; vertical-align: middle;float:right;font-size: 22px;">{{item.product.values.settemp}}&#x2103</p>
+                                        <p style="color:white; vertical-align: middle;float:right;font-size: 22px;" ng-if="appSettings.temperatureUnits=='degree'">{{item.product.values.settemp| celsius| number:0}}&#x2103</p>
+                                        <p style="color:white; vertical-align: middle;float:right;font-size: 22px;" ng-if="appSettings.temperatureUnits=='faren'">{{item.product.values.settemp| fahrenheit| number:0}}&#x2109</p>
                                     </div>
                                 </div>
                                 <div class="row padd_0">

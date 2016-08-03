@@ -1,6 +1,14 @@
 <ion-view title="Profile">
     <ion-content class="profile">
-        <div class="newaccounttitle">
+<!--         <div class="row">
+            <div class="col">
+                <button class="button button-icon icon ion-edit" style="color:white;    margin-left: 75px;" ng-click="edit()"></button>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col">
+                <img src="{{profile.imgURI}}" style="    width: 120px;height: 120px;border-radius: 50%; background-color: gray;margin: 0 auto;display:block;" ng-click="edit()">
+            </div>
         </div>
         <!-- <div class="imgdiv"><img src="img/logo.png" class="imglogo"> -->
         <div class="list list-inset username-div">
@@ -30,7 +38,7 @@
         <div class="list list-inset username-div">
             <!-- <span class="profilelbl">Place</span> -->
             <label class="item item-input username-label">
-                <input type="text" placeholder="place" ng-model="regData.place" class="username-text">
+                <input type="text" placeholder="Place" ng-model="regData.place" class="username-text">
             </label>
         </div>
         <div class="list list-inset username-div" style="margin-left:0px;">

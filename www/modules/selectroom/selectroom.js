@@ -115,7 +115,7 @@ angular.module('thermostat.selectroom', ['ionic'])
             userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
                 console.log('responce', responce);
 
-               $scope.items = responce.data;
+                $scope.items = responce.data;
 
             });
         }
@@ -190,6 +190,16 @@ angular.module('thermostat.selectroom', ['ionic'])
                 //     $state.go('app.selectroom');
 
                 // });
+
+                if (window.localStorage.getItem('userdetails')) {
+                    var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
+                    userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
+                        console.log('responce', responce);
+
+                        $scope.items = responce.data;
+
+                    });
+                }
 
             }).catch(function(error) {
                 // console.log('error', error);

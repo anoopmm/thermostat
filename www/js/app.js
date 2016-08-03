@@ -10,6 +10,7 @@ angular.module('starter', ['ionic',
         'pascalprecht.translate',
         'starter.controllers',
         'thermostat.factories',
+        'thermostat.filters',
         'thermostat.menu',
         'thermostat.login',
         'thermostat.selectroom',
@@ -21,13 +22,18 @@ angular.module('starter', ['ionic',
         'ionic-timepicker',
         'thermostat.plan',
         'angular-svg-round-progressbar',
-        'thermostat.checkpassword'
+        'thermostat.checkpassword',
+        'thermostat.settings'
     ])
     .constant('appConfig', {
         baseUrl: 'http://192.168.0.151:3000/api/v1/',
         baseUrl2: 'http://api.insmonitor.hospifi.co/ahu/deviceupdate/11/'
     })
-    .run(function($ionicPlatform) {
+    .run(function($ionicPlatform, $rootScope) {
+        $rootScope.appSettings = {
+            temperatureUnits: 'degree',
+            language:'en'
+        };
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -49,7 +55,14 @@ angular.module('starter', ['ionic',
         });
     })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$translateProvider ) {
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'i18n/',
+        suffix: '.json'
+    });
+    $translateProvider.preferredLanguage("en");
+    $translateProvider.useSanitizeValueStrategy('escaped');
+    $translateProvider.fallbackLanguage("en");
     $stateProvider
 
         .state('app', {
