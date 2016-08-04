@@ -23,7 +23,8 @@ angular.module('starter', ['ionic',
         'thermostat.plan',
         'angular-svg-round-progressbar',
         'thermostat.checkpassword',
-        'thermostat.settings'
+        'thermostat.settings',
+        'thermostat.weeklyplan'
     ])
     .constant('appConfig', {
         baseUrl: 'http://192.168.0.151:3000/api/v1/',

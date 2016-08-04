@@ -77,38 +77,6 @@ angular.module('thermostat.selectroom', ['ionic'])
             userName: ''
         }];
         $scope.items = [];
-        $scope.items.push({
-            CurrentTemperature: "0",
-            FanSpeed: "0",
-            TemperatureSetPoint: "20",
-            "RoomName": "O.T-1",
-            "img": "ot1.jpg",
-            "id": 1
-        });
-        $scope.items.push({
-            CurrentTemperature: "0",
-            FanSpeed: "0",
-            TemperatureSetPoint: "20",
-            "RoomName": "O.T-2",
-            "img": "ot2.jpg",
-            "id": 2
-        });
-        $scope.items.push({
-            CurrentTemperature: "0",
-            FanSpeed: "0",
-            TemperatureSetPoint: "20",
-            "RoomName": "O.T-3",
-            "img": "ot3.jpg",
-            "id": 3
-        });
-        $scope.items.push({
-            CurrentTemperature: "0",
-            FanSpeed: "0",
-            TemperatureSetPoint: "20",
-            "RoomName": "O.T-4",
-            "img": "ot4.jpg",
-            "id": 4
-        });
         $scope.configData = {};
         if (window.localStorage.getItem('userdetails')) {
             var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));

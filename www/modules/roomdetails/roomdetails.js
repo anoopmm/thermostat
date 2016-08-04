@@ -18,9 +18,9 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             });
 
     }])
-    .controller('roomDetailsCtrl', ['$scope', '$state', 'thermostatFactory', '_', '$interval', '$stateParams','$rootScope', function($scope, $state, thermostatFactory, _, $interval, $stateParams,$rootScope) {
+    .controller('roomDetailsCtrl', ['$scope', '$state', 'thermostatFactory', '_', '$interval', '$stateParams', '$rootScope', '$timeout', function($scope, $state, thermostatFactory, _, $interval, $stateParams, $rootScope, $timeout) {
         'use strict';
-        console.log('unit',$rootScope.appSettings.temperatureUnits)
+        console.log('unit', $rootScope.appSettings.temperatureUnits)
         $scope.settings = {
             mode: "00",
             fan: "00",
@@ -31,7 +31,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             cool: false,
             sleep: false,
             autorun: false,
-            hot:true
+            hot: true
         }
         $scope.setTempData = {
             label: 5,
@@ -41,7 +41,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             label: 40,
             percentage: 40
         };
-        $scope.setTempData.label = 22;
+        $scope.setTempData.label = 16;
         $scope.roomTempData.label = 20;
 
         $scope.weeklyPlan = false;
@@ -51,12 +51,37 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             high: false,
             automode: false
         };
-var thermostatId=$stateParams.itemId;
+        $scope.title = $stateParams.itemId;
+        var thermostatId = $stateParams.itemId;
+
+
+
+
+
+        var timerCount = 0;
+        var timerCount1 = 0;
+        var timerRef = 3;
+        var msgSend = false;
+        var msgSendAndRply=false;
+        var counter = $interval(function() {
+            timerCount++;
+            //console.log(timerCount);
+        }, 1000)
+        var counter1 = $interval(function() {
+            timerCount1++;
+            //console.log(timerCount1);
+        }, 1000)
+
+
+
+
+
+
         // var mqttBrokerURI = "m10.cloudmqtt.com";
         // var mqttClientName = "browser-" + (new Date().getTime());
         // var mqttUsername = "sensomate"; // sxnrjvjw  your MQTT username
         // var mqttPassword = "senso123"; // 3Y2818zm5B1- your MQTT password
-        var mqttTopic = thermostatId+"/#"; // your MQTT topic /<username>/topic
+        var mqttTopic = thermostatId + "/#"; // your MQTT topic /<username>/topic
         var temp = 15;
         var client;
         var message;
@@ -100,38 +125,17 @@ var thermostatId=$stateParams.itemId;
             //Published from Device
             var productId = topic[1];
             console.log('productId-->', productId);
-            // if (productId === 'thermostat3') {
+  
             if (topicLength === 3) {
                 var method = topic[2];
                 if (method === "roomtemp") {
-                    // var logdata = {
-                    //     created_at: new Date(),
-                    //     product_product_id: topic[1],
-                    //     message: data,
-                    //     change_type: topic[2],
-                    //     source: 'Device'
-
-                    // };
-                    // console.log('data', logdata);
-                    // $scope.roomData.push(logdata);
-                    // $scope.$apply();
                     $scope.setTempData.label = parseInt(data.slice(0, 2));
                     $scope.roomTempData.label = parseInt(data1.slice(2, 4));
                     console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                     $scope.$apply();
                 };
                 if (method === "settemp") {
-                    // var logdata = {
-                    //     created_at: new Date(),
-                    //     product_product_id: topic[1],
-                    //     message: data,
-                    //     change_type: topic[2],
-                    //     source: 'Device'
-
-                    // };
-                    // console.log('data', logdata);
-                    // $scope.roomData.push(logdata);
-                    // $scope.$apply();
+                    alert();
                     $scope.setTempData.label = parseInt(data.slice(0, 2));
                     console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                     $scope.$apply();
@@ -184,20 +188,6 @@ var thermostatId=$stateParams.itemId;
                     } else if (autorun === '01') {
                         $scope.filter.autorun = true;
                     }
-                    // $scope.recmode = parseInt(data.substr(0, 2));
-                    // $scope.recautorun = parseInt(data.substr(4, 2))
-                    // console.log($scope.recmode);
-                    // console.log($scope.recautorun);
-                    // if ($scope.recmode === 1) {
-                    //     $scope.filter.sleep = true;
-                    // } else if ($scope.recmode == 0) {
-                    //     $scope.filter.autorun = false;
-                    // }
-                    // if ($scope.recautorun === 1) {
-                    //     $scope.filter.autorun = true;
-                    // } else if ($scope.recautorun == 0) {
-                    //     $scope.filter.sleep = false;
-                    // }
                     $scope.$apply();
                 };
                 if (method == 'onoff') {
@@ -218,34 +208,13 @@ var thermostatId=$stateParams.itemId;
             } else if (topicLength === 2) {
                 var method = topic[1];
                 if (method === "roomtemp") {
-                    // var logdata = {
-                    //     created_at: new Date(),
-                    //     product_product_id: topic[1],
-                    //     message: data,
-                    //     change_type: topic[2],
-                    //     source: 'Device'
 
-                    // };
-                    // console.log('data', logdata);
-                    // $scope.roomData.push(logdata);
-                    // $scope.$apply();
                     $scope.setTempData.label = parseInt(data.slice(0, 2));
                     $scope.roomTempData.label = parseInt(data1.slice(2, 4));
                     console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                     $scope.$apply();
                 };
                 if (method === "settemp") {
-                    // var logdata = {
-                    //     created_at: new Date(),
-                    //     product_product_id: topic[1],
-                    //     message: data,
-                    //     change_type: topic[2],
-                    //     source: 'Device'
-
-                    // };
-                    // console.log('data', logdata);
-                    // $scope.roomData.push(logdata);
-                    // $scope.$apply();
                     $scope.setTempData.label = parseInt(data.slice(0, 2));
                     console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                     $scope.$apply();
@@ -261,10 +230,12 @@ var thermostatId=$stateParams.itemId;
                     if (sleepOrCool === '00') {
                         $scope.filter.cool = true;
                         $scope.filter.sleep = false;
+                        $scope.filter.hot = false;
 
                     } else if (sleepOrCool == '01') {
                         $scope.filter.sleep = true;
                         $scope.filter.cool = false;
+                        $scope.filter.hot = true;
                     }
                     if (fanLevel === '00') {
                         $scope.tempStatus.low = true;
@@ -296,20 +267,6 @@ var thermostatId=$stateParams.itemId;
                     } else if (autorun === '01') {
                         $scope.filter.autorun = true;
                     }
-                    // $scope.recmode = parseInt(data.substr(0, 2));
-                    // $scope.recautorun = parseInt(data.substr(4, 2))
-                    // console.log($scope.recmode);
-                    // console.log($scope.recautorun);
-                    // if ($scope.recmode === 1) {
-                    //     $scope.filter.sleep = true;
-                    // } else if ($scope.recmode == 0) {
-                    //     $scope.filter.autorun = false;
-                    // }
-                    // if ($scope.recautorun === 1) {
-                    //     $scope.filter.autorun = true;
-                    // } else if ($scope.recautorun == 0) {
-                    //     $scope.filter.sleep = false;
-                    // }
                     $scope.$apply();
                 };
             }
@@ -318,17 +275,7 @@ var thermostatId=$stateParams.itemId;
 
                 var method = topic[3];
                 if (method === "onoff" || method === "mode" || method === "roomtemp" || method === "weeklymon" || method === "weeklytue" || method === "weeklywed" || method === "weeklythurs" || method === "weeklyfri" || method === "weeklysat") {
-                    // var logdata = {
-                    //     created_at: new Date(),
-                    //     product_product_id: topic[1],
-                    //     message: data,
-                    //     change_type: topic[3],
-                    //     source: 'Mobile'
 
-                    // };
-                    // console.log('data', logdata);
-                    // $scope.roomData.push(logdata);
-                    // $scope.$apply();
                     $scope.setTempData = parseInt(data.slice(0, 2));
                     $scope.roomTempData = parseInt(data1.slice(2, 4));
                     var setTempNew = data.slice(0, 2);
@@ -429,7 +376,7 @@ var thermostatId=$stateParams.itemId;
             // message.destinationName = "thermostat2/mode";
             // client.send(message);
             var message = new Messaging.Message(msg_str);
-            message.destinationName = thermostatId+'/mode';
+            message.destinationName = thermostatId + '/mode';
             message.qos = 0;
             client.send(message);
         };
@@ -437,29 +384,76 @@ var thermostatId=$stateParams.itemId;
         $scope.incrTemp = function() {
             if ($scope.setTempData.label >= 15 && $scope.setTempData.label < 30) {
                 $scope.setTempData.label += 1;
-                temp = $scope.setTempData.label;
-                var msg_str = temp.toString();
-                console.log('msg-------------', msg_str);
+                if (timerCount > timerRef) {
+                    temp = $scope.setTempData.label;
+                    var msg_str = temp.toString();
+                    console.log('msg-------------', msg_str);
 
-                var message = new Messaging.Message(msg_str);
-                message.destinationName = thermostatId+'/settemp';
-                message.qos = 0;
-                client.send(message);
+                    var message = new Messaging.Message(msg_str);
+                    message.destinationName = thermostatId + '/settemp';
+                    message.qos = 0;
+                    client.send(message);
+                    msgSend = true;
+                    msgSendAndRply=true
+                } else {
+                    msgSend = false;
+                }
+                var timeout = $timeout(function() {
+                    if (msgSend == false) {
+                        temp = $scope.setTempData.label;
+                        var msg_str = temp.toString();
+                        console.log('msg-------------', msg_str);
+
+                        var message = new Messaging.Message(msg_str);
+                        message.destinationName = thermostatId + '/settemp';
+                        message.qos = 0;
+                        client.send(message);
+                        msgSend = true;
+                        msgSendAndRply=true;
+                    }
+                }, 3000)
+                timerCount = 0;
+
             }
 
         };
         $scope.decrTemp = function() {
             if ($scope.setTempData.label >= 16 && $scope.setTempData.label <= 30) {
                 $scope.setTempData.label -= 1;
-                temp = $scope.setTempData.label;
-                var msg_str = temp.toString();
-                // message = new Paho.MQTT.Message(msg_str);
-                // message.destinationName = "thermostat2/settemp";
-                // client.send(message);
-                var message = new Messaging.Message(msg_str);
-                message.destinationName = thermostatId+'/settemp';
-                message.qos = 0;
-                client.send(message);
+
+
+
+
+                if (timerCount > timerRef) {
+                    temp = $scope.setTempData.label;
+                    var msg_str = temp.toString();
+                    var message = new Messaging.Message(msg_str);
+                    message.destinationName = thermostatId + '/settemp';
+                    message.qos = 0;
+                    client.send(message);
+                    msgSend = true;
+                    msgSendAndRply=true;
+                } else {
+                    msgSend = false;
+                }
+                var timeout1 = $timeout(function() {
+                    if (msgSend == false) {
+                        temp = $scope.setTempData.label;
+                        var msg_str = temp.toString();
+                        var message = new Messaging.Message(msg_str);
+                        message.destinationName = thermostatId + '/settemp';
+                        message.qos = 0;
+                        client.send(message);
+                        msgSend = true;
+                        msgSendAndRply=true;
+                    }
+                }, 3000)
+                timerCount = 0;
+
+
+
+
+
             }
 
         };
@@ -474,7 +468,7 @@ var thermostatId=$stateParams.itemId;
             // message.destinationName = "thermostat2/mode";
             // client.send(message);
             var message = new Messaging.Message(msg_str);
-            message.destinationName = thermostatId+'/mode';
+            message.destinationName = thermostatId + '/mode';
             message.qos = 0;
             client.send(message);
         };
@@ -488,7 +482,7 @@ var thermostatId=$stateParams.itemId;
             }
             //var msg_str = '00';
             var message = new Messaging.Message(msg_str);
-            message.destinationName = thermostatId+'/onoff';
+            message.destinationName = thermostatId + '/onoff';
             message.qos = 0;
             client.send(message);
         };
@@ -512,7 +506,7 @@ var thermostatId=$stateParams.itemId;
             // message.destinationName = "thermostat2/mode";
             // client.send(message);
             var message = new Messaging.Message(msg_str);
-            message.destinationName = thermostatId+'/mode';
+            message.destinationName = thermostatId + '/mode';
             message.qos = 0;
             client.send(message);
 
