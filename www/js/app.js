@@ -73,5 +73,5 @@ angular.module('starter', ['ionic',
         controller: 'menuCtrl'
     });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('app/selectroom');
+    $urlRouterProvider.otherwise('app/weeklyplan');
 });

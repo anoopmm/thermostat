@@ -1,25 +1,127 @@
 <ion-view title="">
-    <ion-content class="settings" padding="true">
-        <div class="row" ng-repeat="item in timeSheet ">
-            <div class="col">
-                <div class="row">
-                    <div class="col col-20">
-                        {{item.time}}
+    <ion-content class="weeklyplan" padding="true">
+        <div class="">
+            <div class="row padd_0" ng-repeat="item in timeSheetItems">
+                <div class="col padd_0">
+                    <div class="row">
+                        <div class="col col-20 padd_0 whitetext">
+                            12:00
+                        </div>
+                        <div class="col col-80 padd_0">
+                            <hr>
+                        </div>
                     </div>
-                    <div class="col col-80">
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="item range" style="background:transparent;border:none ;width:100%">
-                            0
-                            <input type="range" ng-model="item.value "> 100
+                    <div class="row">
+                        <div class="col col-10">
+                            <p style="    padding-top: 15px;color:white;" ng-if="item.on==false"> OFF</p>
+                            <p style="    padding-top: 15px;color:white;" ng-if="item.on==true"> ON</p>
+                        </div>
+                        <div class="col col-90">
+                            <input type="text" id="{{item.elementId}}" name="example_name" value="" class=" verticalline" />
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- <div class="row padd_0">
+                <div class="col padd_0">
+                    <div class="row">
+                        <div class="col col-20 whitetext">
+                            12:30
+                        </div>
+                        <div class="col col-80">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-10">
+                            <p> OFF</p>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="range_02" name="example_name" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row padd_0">
+                <div class="col padd_0">
+                    <div class="row">
+                        <div class="col col-20 whitetext">
+                            01:00
+                        </div>
+                        <div class="col col-80">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-10">
+                            <p> OFF</p>
+                        </div>
+                        <div class="col col-90">
+                            <input type="text" id="range_03" name="example_name" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row padd_0">
+                <div class="col padd_0">
+                    <div class="row">
+                        <div class="col col-20 whitetext">
+                            01:30
+                        </div>
+                        <div class="col col-80">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-10">
+                            <p> OFF</p>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="range_04" name="example_name" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row padd_0">
+                <div class="col padd_0">
+                    <div class="row">
+                        <div class="col col-20 whitetext">
+                            02:00
+                        </div>
+                        <div class="col col-80">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-10">
+                            <p> OFF</p>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="range_05" name="example_name" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row padd_0">
+                <div class="col padd_0">
+                    <div class="row">
+                        <div class="col col-20 whitetext">
+                            02:30
+                        </div>
+                        <div class="col col-80">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-10">
+                            <p> OFF</p>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="range_06" name="example_name" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div> -->
         </div>
-        <input type="text" id="example_id" name="example_name" value="" />
     </ion-content>
 </ion-view>
