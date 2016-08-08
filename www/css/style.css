@@ -1365,23 +1365,36 @@ ion-side-menu-content {
 .irs-bar-edge {
     height: 3px !important;
 }
-.weeklyplan .whitetext{
+
+.weeklyplan .whitetext {
     color: white;
 }
-.weeklyplan .irs-single{
-    background-color:#da821f; 
+
+.weeklyplan .irs-single {
+    background-color: #da821f;
     height: 24px;
     width: 24px;
     border-radius: 50%;
     text-align: center;
     padding-top: 5px;
 }
-.verticalline:after{
-    content:"";
+
+.verticalline:after {
+    content: "";
     position: absolute;
     z-index: -1;
     top: 0;
     bottom: 0;
     left: 20%;
     border-left: 2px dotted #ff0000;
+}
+
+.weeklyplan ion-slide {
+    background: transparent;
+    background-color: transparent;
+}
+
+.weeklyplan .slidingTabs ul {
+    background: transparent;
+    background-color: transparent;
 }
