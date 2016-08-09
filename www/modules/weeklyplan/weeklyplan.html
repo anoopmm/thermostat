@@ -1,44 +1,13 @@
 <ion-view title="Weekly plan">
-    <ion-content class="weeklyplan">
-        <!--         <ion-slide-box show-pager="false" ion-slide-tabs>
-            <ion-slide ion-slide-tab-label="SUN">
-                <div class="row padd_0" ng-repeat="item in timeSheetItems[0]">
-                    <div class="col padd_0">
-                        <div class="row">
-                            <div class="col col-20 padd_0 whitetext">
-                                {{item.time}}
-                            </div>
-                            <div class="col col-80 padd_0">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-10">
-                                <p style="    padding-top: 15px;color:white;" ng-if="item.on==false"> OFF</p>
-                                <p style="    padding-top: 15px;color:white;" ng-if="item.on==true"> ON</p>
-                            </div>
-                            <div class="col col-90">
-                                <input type="text" id="{{item.elementId}}" name="example_name" value="" class=" verticalline" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ion-slide>
-            <ion-slide ion-slide-tab-label="MON">
-                <h1>Tab 2</h1></ion-slide>
-            <ion-slide ion-slide-tab-label="TUE">
-                <h1>Tab 3</h1></ion-slide>
-            <ion-slide ion-slide-tab-label="WED">
-                <h1>Tab 1</h1></ion-slide>
-            <ion-slide ion-slide-tab-label="THU">
-                <h1>Tab 2</h1></ion-slide>
-            <ion-slide ion-slide-tab-label="FRI">
-                <h1>Tab 3</h1></ion-slide>
-            <ion-slide ion-slide-tab-label="SAT">
-                <h1>Tab 3</h1></ion-slide>
-        </ion-slide-box> -->
+    <ion-content class="weeklyplan has-footer">
+        <div class="row" style="color:white;">
+            <div class="col" style="background: rgba(255, 255, 255, 0.43);text-align:center;" ng-repeat="item in weeks2" ng-click="changeWeek($index)">
+                {{item.name}}
+                <div style="border-bottom: 2px solid red;" ng-if="item.tabSelected==true"></div>
+            </div>
+        </div>
         <div>
-            <canvas style="    background: rgba(35, 36, 37, 0.22);" id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick" chart-colors="colors">  </canvas>
+            <canvas style="    background: rgba(35, 36, 37, 0.22);" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick" chart-colors="colors" height="100"> </canvas>
         </div>
         <div class="">
             <div class="row padd_0" ng-repeat="item in timeSheetItems[0]">
@@ -57,132 +26,15 @@
                             <p style="    padding-top: 15px;color:white;" ng-if="item.on==true"> ON</p>
                         </div>
                         <div class="col col-90">
-                            <input type="text" id="{{item.elementId}}" name="example_name" value="" class=" verticalline" />
+                            <input type="text" id="{{item.elementId}}"  value="" class=" verticalline" />
                         </div>
                     </div>
                 </div>
             </div>
-            <!--             <div class="row padd_0" ng-repeat="item in timeSheetItems">
-                <div class="col padd_0">
-                    <div class="row">
-                        <div class="col col-20 padd_0 whitetext">
-                            {{item.time}}
-                        </div>
-                        <div class="col col-80 padd_0">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-10">
-                            <p style="    padding-top: 15px;color:white;" ng-if="item.on==false"> OFF</p>
-                            <p style="    padding-top: 15px;color:white;" ng-if="item.on==true"> ON</p>
-                        </div>
-                        <div class="col col-90">
-                            <input type="text" id="{{item.elementId}}" name="example_name" value="" class=" verticalline" />
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="row padd_0">
-                <div class="col padd_0">
-                    <div class="row">
-                        <div class="col col-20 whitetext">
-                            12:30
-                        </div>
-                        <div class="col col-80">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-10">
-                            <p> OFF</p>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="range_02" name="example_name" value="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row padd_0">
-                <div class="col padd_0">
-                    <div class="row">
-                        <div class="col col-20 whitetext">
-                            01:00
-                        </div>
-                        <div class="col col-80">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-10">
-                            <p> OFF</p>
-                        </div>
-                        <div class="col col-90">
-                            <input type="text" id="range_03" name="example_name" value="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row padd_0">
-                <div class="col padd_0">
-                    <div class="row">
-                        <div class="col col-20 whitetext">
-                            01:30
-                        </div>
-                        <div class="col col-80">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-10">
-                            <p> OFF</p>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="range_04" name="example_name" value="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row padd_0">
-                <div class="col padd_0">
-                    <div class="row">
-                        <div class="col col-20 whitetext">
-                            02:00
-                        </div>
-                        <div class="col col-80">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-10">
-                            <p> OFF</p>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="range_05" name="example_name" value="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row padd_0">
-                <div class="col padd_0">
-                    <div class="row">
-                        <div class="col col-20 whitetext">
-                            02:30
-                        </div>
-                        <div class="col col-80">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-10">
-                            <p> OFF</p>
-                        </div>
-                        <div class="col">
-                            <input type="text" id="range_06" name="example_name" value="" />
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </ion-content>
+    <div class="bar bar-footer" style="background: #b66aea;">
+        <button class="button button-clear pull-right" style="    color: white;
+    background: chocolate" ng-click="submit()">Set weekly plan</button>
+    </div>
 </ion-view>

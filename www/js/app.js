@@ -25,7 +25,8 @@ angular.module('starter', ['ionic',
         'thermostat.checkpassword',
         'thermostat.settings',
         'thermostat.weeklyplan',
-        'chart.js'
+        'chart.js',
+        'tabSlideBox'
     ])
     .constant('appConfig', {
         baseUrl: 'http://192.168.0.151:3000/api/v1/',
