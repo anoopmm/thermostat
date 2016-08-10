@@ -26,6 +26,9 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             fan: "00",
             autorun: "00"
         }
+        var weekIndex = 0;
+        $scope.sendWeeklyPlan = {};
+        $scope.sendWeeklyPlan.status = false;
         $scope.deviceStatus = { on: true };
         $scope.filter = {
             cool: false,
@@ -62,7 +65,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
         var timerCount1 = 0;
         var timerRef = 3;
         var msgSend = false;
-        var msgSendAndRply=false;
+        var msgSendAndRply = false;
         var counter = $interval(function() {
             timerCount++;
             //console.log(timerCount);
@@ -125,7 +128,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             //Published from Device
             var productId = topic[1];
             console.log('productId-->', productId);
-  
+
             if (topicLength === 3) {
                 var method = topic[2];
                 if (method === "roomtemp") {
@@ -204,6 +207,13 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
                     }
 
+                }
+                if (method == 'Ack') {
+                    if (data.indexOf('Program Updated') !== -1) {
+
+                        sendWeeklyplans();
+
+                    }
                 }
             } else if (topicLength === 2) {
                 var method = topic[1];
@@ -394,7 +404,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     message.qos = 0;
                     client.send(message);
                     msgSend = true;
-                    msgSendAndRply=true
+                    msgSendAndRply = true
                 } else {
                     msgSend = false;
                 }
@@ -409,7 +419,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         message.qos = 0;
                         client.send(message);
                         msgSend = true;
-                        msgSendAndRply=true;
+                        msgSendAndRply = true;
                     }
                 }, 3000)
                 timerCount = 0;
@@ -432,7 +442,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     message.qos = 0;
                     client.send(message);
                     msgSend = true;
-                    msgSendAndRply=true;
+                    msgSendAndRply = true;
                 } else {
                     msgSend = false;
                 }
@@ -445,7 +455,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         message.qos = 0;
                         client.send(message);
                         msgSend = true;
-                        msgSendAndRply=true;
+                        msgSendAndRply = true;
                     }
                 }, 3000)
                 timerCount = 0;
@@ -521,7 +531,60 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             $state.go('app.addroom');
         };
         $scope.setPlan = function() {
-            $state.go('app.setplan');
+            $state.go('app.weeklyplan');
         };
+        $scope.sendWeekly = function() {
+            $scope.weeks = [{
+                w: 'SUN',
+                msgStr: 'weeklysun'
+            }, {
+                w: 'MON',
+                msgStr: 'weeklymon'
+            }, {
+                w: 'TUE',
+                msgStr: 'weeklytue'
+            }, {
+                w: 'WED',
+                msgStr: 'weeklywed'
+            }, {
+                w: 'THU',
+                msgStr: 'weeklythurs'
+            }, {
+                w: 'FRI',
+                msgStr: 'weeklyfri'
+            }, {
+                w: 'SAT',
+                msgStr: 'weeklysat'
+            }];
+            if ($scope.sendWeeklyPlan.status) {
+                sendWeeklyplans();
+            }
+
+
+        };
+
+        function sendWeeklyplans() {
+            if (weekIndex < 7) { //  if the counter < 10, call the loop function
+                console.log('+++++');
+                if (localStorage.getItem($scope.weeks[weekIndex].w)) {
+                    var arrayToSend = JSON.parse(localStorage.getItem($scope.weeks[weekIndex].w));
+                    var msg_str = '';
+                    for (var m = 0; m < 48; m++) {
+                        if (arrayToSend[m] >= 15) {
+                            msg_str = msg_str + arrayToSend[m];
+                        } else {
+                            msg_str = msg_str + '31';
+                        }
+                    }
+                    console.log(msg_str);
+                    var message = new Messaging.Message(msg_str);
+                    message.destinationName = 'thermostat3/' + $scope.weeks[weekIndex].msgStr;
+                    message.qos = 0;
+                    client.send(message);
+                }
+                weekIndex++; //  increment the counter
+
+            }
+        }
 
     }]);

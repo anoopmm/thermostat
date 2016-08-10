@@ -36,15 +36,11 @@ angular.module('thermostat.weeklyplan', ['ionic'])
 
             //Gets Called if the connection has successfully been established
             onSuccess: function() {
-                console.log("Connected");
                 client.subscribe(mqttTopic);
-                console.log("subscribed to " + mqttTopic);
             },
 
             //Gets Called if the connection could not be established
-            onFailure: function(message) {
-                console.log("Connection failed: " + message.errorMessage);
-            }
+            onFailure: function(message) {}
 
         };
 
@@ -53,9 +49,7 @@ angular.module('thermostat.weeklyplan', ['ionic'])
 
 
 
-        $scope.onClick = function(points, evt) {
-            console.log(points, evt);
-        };
+        $scope.onClick = function(points, evt) {};
         $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
         $scope.options = {
             scales: {
@@ -74,12 +68,18 @@ angular.module('thermostat.weeklyplan', ['ionic'])
             },
 
         };
-
+        // if (window.cordova) {
+        //     WifiWizard.listNetworks(function(res) {
+        //         console.log('wifires', res)
+        //     }, function(res) {
+        //         console.log('wifireserror', res)
+        //     })
+        // }
         $scope.colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'];
 
         $scope.timeSheetItems = [];
         $scope.weeks = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-        $scope.selectedWeekIndex=0;
+        $scope.selectedWeekIndex = 0;
 
         $scope.weeks2 = [{
             name: 'SUN',
@@ -152,7 +152,6 @@ angular.module('thermostat.weeklyplan', ['ionic'])
 
             }
             $scope.timeSheetItems[i] = daydata;
-            console.log('---------------', $scope.timeSheetItems);
         }
         $scope.daydataInit = $scope.timeSheetItems[0];
         $scope.populatePlan = $scope.timeSheetItems[1]
@@ -160,7 +159,6 @@ angular.module('thermostat.weeklyplan', ['ionic'])
             for (var k = 0; k < 7; k++) {
 
                 for (var i = 0; i < 48; i++) {
-                    console.log($scope.weeks[k] + '_' + k + '_' + (i));
                     $("#" + $scope.weeks[k] + '_' + k + '_' + (i)).ionRangeSlider({
                         min: 14,
                         max: 30,
@@ -168,14 +166,10 @@ angular.module('thermostat.weeklyplan', ['ionic'])
                         from_min: 14,
                         index: i,
                         onChange: function(data) {
-                            console.log(data);
                             if (data.from >= 15) {
-                                console.log('-------------', i);
                                 var res = data.input[0].id.split("_");
-                                console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrr', res);
                                 $scope.data[res[2]] = data.from;
                                 localStorage.setItem($scope.weeks[$scope.selectedWeekIndex], JSON.stringify($scope.data));
-                                console.log($scope.data);
                                 $scope.timeSheetItems[res[1]][res[2]].on = true;
                                 $scope.timeSheetItems[res[1]][res[2]].value = data.from;
                                 $scope.$apply();
@@ -199,21 +193,19 @@ angular.module('thermostat.weeklyplan', ['ionic'])
                     msg_str = msg_str + '31';
                 }
             }
-            console.log(msg_str);
             var message = new Messaging.Message(msg_str);
             message.destinationName = 'thermostat3' + '/weeklysun';
             message.qos = 0;
             client.send(message);
         };
         $scope.changeWeek = function(index) {
-             $scope.selectedWeekIndex=index;
+            $scope.selectedWeekIndex = index;
             $scope.data = [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14];
             for (var l = 0; l < 7; l++) {
                 $scope.weeks2[l].tabSelected = false;
             }
             $scope.weeks2[index].tabSelected = true;
             $scope.populatePlan = $scope.daydataInit;
-            // console.log($scope.daydataInit)
             $(document).ready(function() {
                 for (var i = 0; i < 48; i++) {
 
