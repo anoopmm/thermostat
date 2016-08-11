@@ -29,6 +29,13 @@ angular.module('thermostat.checkpassword', ['ionic'])
             $scope.setpassword.groupId = res.data.Groupname;
             localStorage.setItem('deviceDetails', JSON.stringify(res.data));
             $ionicLoading.hide();
+            // thermostatFactory.readPwd().then(function(res) {
+            //     alert();
+            // }).catch(function(error) {
+
+
+            // });
+
         }).catch(function(error) {
             $ionicLoading.hide();
 

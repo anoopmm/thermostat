@@ -29,13 +29,13 @@ angular.module('starter', ['ionic',
         'tabSlideBox'
     ])
     .constant('appConfig', {
-        baseUrl: 'http://192.168.0.151:3000/api/v1/',
+        baseUrl: 'http://thermostat.sensomate.com/api/v1/',
         baseUrl2: 'http://api.insmonitor.hospifi.co/ahu/deviceupdate/11/'
     })
     .run(function($ionicPlatform, $rootScope) {
         $rootScope.appSettings = {
             temperatureUnits: 'degree',
-            language:'en'
+            language: 'en'
         };
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -58,7 +58,7 @@ angular.module('starter', ['ionic',
         });
     })
 
-.config(function($stateProvider, $urlRouterProvider,$translateProvider ) {
+.config(function($stateProvider, $urlRouterProvider, $translateProvider) {
     $translateProvider.useStaticFilesLoader({
         prefix: 'i18n/',
         suffix: '.json'
@@ -75,5 +75,11 @@ angular.module('starter', ['ionic',
         controller: 'menuCtrl'
     });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('app/weeklyplan');
+    $urlRouterProvider.otherwise(function() {
+        if (window.localStorage.getItem('userdetails')) {
+            return 'app/selectroom'
+        } else {
+            return '/login'
+        }
+    });
 });

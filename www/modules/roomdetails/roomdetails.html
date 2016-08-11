@@ -38,21 +38,21 @@
             </div>
         </div> -->
         <div class="row">
-            <div class="col col-25 center" id="roomTemp" style="position:relative;">
-                <div class="text" style="position: absolute;width: 100%; z-index: 1;font-size: 35px;color: white;bottom:0;" ng-if="appSettings.temperatureUnits=='degree'">{{roomTempData.label| celsius| number:0}}&#x2103</div>
-                <div class="text" style="position: absolute;width: 100%; z-index: 1;font-size: 35px;color: white;bottom:0;" ng-if="appSettings.temperatureUnits=='faren'">{{roomTempData.label | fahrenheit| number:0}}&#x2109</div>
+            <div class="col col-25 center" id="roomTemp" style="position:relative;font-family:sans-serif;">
+                <div class="text" style="position: absolute;width: 100%; z-index: 1;font-size: 35px;color: white;bottom:0;" ng-if="appSettings.temperatureUnits=='degree'">{{roomTempData.label| celsius| number:0}}<span style="font-size: 15px;">&#x2103</span></div>
+                <div class="text" style="position: absolute;width: 100%; z-index: 1;font-size: 35px;color: white;bottom:0;" ng-if="appSettings.temperatureUnits=='faren'">{{roomTempData.label | fahrenheit| number:0}}<span style="font-size: 15px;">&#x2109</span></div>
             </div>
             <div class="col col-75 center">
                 <div class="row padd-0">
-                    <div class="col col-75 setTemp center" id="setTemp" style="position:relative;">
-                        <div class="text" ng-if="appSettings.temperatureUnits=='degree'" style="position: absolute;width: 100%; z-index: 1;font-size: 67px;font-weight: bold;color: white;bottom:0;">{{setTempData.label| celsius| number:0}}&#x2103</div>
-                        <div class="text" ng-if="appSettings.temperatureUnits=='faren'" style="position: absolute;width: 100%; z-index: 1;font-size: 67px;font-weight: bold;color: white;bottom:0;">{{setTempData.label| fahrenheit| number:0}}&#x2109</div>
+                    <div class="col col-75 setTemp center" id="setTemp" style="position:relative;font-family:sans-serif;">
+                        <div class="text" ng-if="appSettings.temperatureUnits=='degree'" style="position: absolute;width: 100%; z-index: 1;font-size: 90px;font-weight: bold;color: white;bottom:0;">{{setTempData.label| celsius| number:0}}<span style="font-size: 20px;">&#x2103</span></div>
+                        <div class="text" ng-if="appSettings.temperatureUnits=='faren'" style="position: absolute;width: 100%; z-index: 1;font-size: 90px;font-weight: bold;color: white;bottom:0;">{{setTempData.label| fahrenheit| number:0}}<span style="font-size: 20px;">&#x2109</span></div>
                     </div>
                     <div class="col col-25" style=" position: relative;">
                         <div class="" ng-click="incrTemp()" style="">
                             <i class="icon ion-android-arrow-dropup"></i>
                         </div>
-                        <div class="" ng-click="decrTemp()" style="    margin-bottom: -42px;">
+                        <div class="" ng-click="decrTemp()" style="margin-bottom: -42px;">
                             <i class="icon ion-android-arrow-dropdown"></i>
                         </div>
                     </div>
@@ -68,76 +68,76 @@
                     <div class="col col-75 setTemp center padd-0 degree1" id="setTemp" style="">
                         <span class="center" style="color: rgba(253, 255, 253, 0.62);">{{'Set Temp'|translate}}</span>
                     </div>
-                    <div class=" col col-25 " style=" position: relative; ">
+                    <div class="col col-25" style="position: relative;">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row bg-image-1 padd-0 " style="padding: 5px 10px 5px 10px;margin: 5%;width: 90%; margin-top: 8vh !important; ">
-            <div class="col padd-0 ">
-                <div class="row padd-0 " style="margin-bottom: -41px; ">
-                    <div class="col padd-0 ">
-                        <div class="row padd-0 ">
-                            <li class="item item-toggle toggle-auto " style="padding-right:51px ">
-                                <label class="toggle toggle-assertive ">
-                                    <input type="checkbox " ng-model="tempStatus.automode " ng-click="changeStatus( 'auto') " ng-checked="tempStatus.automode ">
-                                    <div class="track ">
-                                        <div class="handle "></div>
+        <div class="row bg-image-1 padd-0" style="padding: 5px 10px 5px 10px;margin: 5%;width: 90%; margin-top: 8vh !important;">
+            <div class="col padd-0">
+                <div class="row padd-0" style="margin-bottom: -41px;">
+                    <div class="col padd-0">
+                        <div class="row padd-0">
+                            <li class="item item-toggle toggle-auto" style="padding-right:51px">
+                                <label class="toggle toggle-assertive">
+                                    <input type="checkbox" ng-model="tempStatus.automode" ng-click="changeStatus('auto')" ng-checked="tempStatus.automode">
+                                    <div class="track">
+                                        <div class="handle"></div>
                                     </div>
                                 </label>
                             </li>
                         </div>
-                        <div class="row ">
+                        <div class="row">
                             <span> {{'Auto Mode'|translate}} </span>
                         </div>
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col relative-img " ng-click="changeStatus( 'low') ">
-                        <img class="img-triangle " ng-src="{{tempStatus.low? 'img/trianglegreen.png': 'img/trianglegray.png'}} ">
+                    <div class="col relative-img" ng-click="changeStatus('low')">
+                        <img class="img-triangle" ng-src="{{tempStatus.low?'img/trianglegreen.png':'img/trianglegray.png'}}">
                     </div>
-                    <div class="col relative-img " ng-click="changeStatus( 'medium') ">
-                        <img class="img-polygon-1 " ng-src="{{tempStatus.medium? 'img/polygon2green.png': 'img/polygon1gray.png'}} ">
+                    <div class="col relative-img" ng-click="changeStatus('medium')">
+                        <img class="img-polygon-1" ng-src="{{tempStatus.medium?'img/polygon2green.png':'img/polygon1gray.png'}}">
                     </div>
-                    <div class="col relative-img padd-10 " ng-click="changeStatus( 'high') ">
-                        <img class="img-polygon-2 " ng-src="{{tempStatus.high? 'img/polygon3green.png': 'img/polygon3gray.png'}} ">
+                    <div class="col relative-img padd-10" ng-click="changeStatus( 'high') ">
+                        <img class="img-polygon-2" ng-src="{{tempStatus.high?'img/polygon3green.png':'img/polygon3gray.png'}}">
                     </div>
-                    <div class="col center padd-left-25 ">
-                        <img class="img-fan " src="img/fan.png ">
+                    <div class="col center padd-left-25">
+                        <img class="img-fan " src="img/fan.png">
                     </div>
                 </div>
-                <div class="row ">
-                    <div class="col relative-img ">
+                <div class="row">
+                    <div class="col relative-img">
                         <span>Low</span>
                     </div>
-                    <div class="col relative-img ">
+                    <div class="col relative-img">
                         <span>Medium</span>
                     </div>
-                    <div class="col relative-img ">
+                    <div class="col relative-img">
                         <span>High</span>
                     </div>
                     <div class="col ">
-                        <span id="text " style="display:none ">&deg;C</span>
+                        <span id="text" style="display:none">&deg;C</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row bg-image-2 padd-0 " style="padding: 5px 10px 5px 10px;margin: 5%;width: 90%;margin-top: 8vh !important; ">
-            <div class="row margin-8 padd-0 ">
-                <div class="col col-33 padd-0 ">
-                    <div class="row center padd-0 ">
-                        <label class="blue-radio item item-radio ng-valid " ng-model="filter.cool " style=" ">
-                            <input type="checkbox " name="radio-group " disabled="true " ng-model="filter.cool " class="ng-pristine ng-valid ng-touched " value="on " style=" ">
-                            <div class="radio-content ">
-                                <div class="item-content disable-pointer-events " style="background-color: #5775df; ">
-                                </div><i class="radio-icon disable-pointer-events icon ion-checkmark "></i></div>
+        <div class="row bg-image-2 padd-0" style="padding: 5px 10px 5px 10px;margin: 5%;width: 90%;margin-top: 8vh !important;">
+            <div class="row margin-8 padd-0">
+                <div class="col col-50 padd-0">
+                    <div class="row center padd-0">
+                        <label class="blue-radio item item-radio ng-valid" ng-model="filter.cool" style="">
+                            <input type="checkbox" name="radio-group" disabled="true" ng-model="filter.cool" class="ng-pristine ng-valid ng-touched" value="on" style="">
+                            <div class="radio-content">
+                                <div class="item-content disable-pointer-events" style="background-color: #5775df;">
+                                </div><i class="radio-icon disable-pointer-events icon ion-checkmark"></i></div>
                         </label>
                     </div>
-                    <div class="row ">
-                        <span class="center padd-top-2 "> Cool</span>
+                    <div class="row  ">
+                        <span class="center padd-top-2"> Cool</span>
                     </div>
                 </div>
-                <div class="col col-33 padd-0 ">
+                <!--                 <div class="col col-33 padd-0 ">
                     <div class="row center padd-0 ">
                         <label class="orange-radio item item-radio ng-valid " ng-model="filter.sleep " style=" ">
                             <input type="checkbox " name="radio-group " disabled="true " ng-model="filter.hot " class="ng-pristine ng-valid ng-touched " value="on " style=" ">
@@ -149,27 +149,27 @@
                     <div class="row ">
                         <span class="center padd-top-2 "> Hot</span>
                     </div>
-                </div>
-                <div class="col col-33 padd-0 ">
-                    <div class="row center padd-0 ">
-                        <label class="red-radio item item-radio ng-valid " ng-model="filter.sleep " style=" ">
-                            <input type="checkbox " name="radio-group " ng-click="sleepToggle() " ng-model="filter.sleep " class="ng-pristine ng-valid ng-touched " value="on " style=" ">
-                            <div class="radio-content ">
-                                <div class="item-content disable-pointer-events " style="background-color: #fc456d; ">
-                                </div><i class="radio-icon disable-pointer-events icon ion-checkmark "></i></div>
+                </div> -->
+                <div class="col col-50 padd-0">
+                    <div class="row center padd-0">
+                        <label class="red-radio item item-radio ng-valid" ng-model="filter.sleep" style="">
+                            <input type="checkbox" name="radio-group" ng-click="sleepToggle()" ng-model="filter.sleep" class="ng-pristine ng-valid ng-touched" value="on" style="">
+                            <div class="radio-content">
+                                <div class="item-content disable-pointer-events" style="background-color: #fc456d;">
+                                </div><i class="radio-icon disable-pointer-events icon ion-checkmark"></i></div>
                         </label>
                     </div>
-                    <div class="row ">
-                        <span class="center padd-top-2 "> Sleep</span>
+                    <div class="row">
+                        <span class="center padd-top-2"> Sleep</span>
                     </div>
                 </div>
             </div>
         </div>
     </ion-content>
-    <ion-footer-bar align-title="left " class="bar-light " style="background-color: rgba(233, 236, 236, 0.44) !important; ">
-        <h1 class="title " ng-click="setPlan() " style="color: white; ">WEEKLY PLAN</h1>
-        <div class="buttons ">
-            <ion-toggle ng-model="sendWeeklyPlan.status " ng-click="sendWeekly() " style="border:none;background:none "></ion-toggle>
+    <ion-footer-bar align-title="left" class="bar-light" style="background-color: rgba(233, 236, 236, 0.44) !important;">
+        <h1 class="title" ng-click="setPlan()" style="color: white;">WEEKLY PLAN</h1>
+        <div class="buttons">
+            <ion-toggle ng-model="sendWeeklyPlan.status" ng-click="sendWeekly()" style="border:none;background:none"></ion-toggle>
         </div>
     </ion-footer-bar>
 </ion-view>

@@ -35,6 +35,7 @@ angular.module('thermostat.menu', [])
                 text: 'YES',
                 type: 'button-assertive',
                 onTap: function() {
+                    localStorage.clear();
                     $state.go('login');
 
                 }

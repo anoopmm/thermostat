@@ -41,6 +41,15 @@ angular.module('thermostat.factories', [])
 
                 });
             },
+            readPwd: function(wifiData) {
+                return $http({
+                    method: 'GET',
+                    //url: "http://192.168.4.1/sensomate",
+                    url: 'http://192.168.4.1/testreaddevpwd',
+                    timeout: 5000
+
+                });
+            },
             checkPassword: function(value) {
                 return $http({
                     method: 'GET',
@@ -55,7 +64,7 @@ angular.module('thermostat.factories', [])
                 return $http({
                     method: 'GET',
                     //url: "http://192.168.4.1/sensomate",
-                    url: 'http://192.168.4.1/olddevicepwd='+encodeURIComponent(data.old)+'&newdevicepwd='+encodeURIComponent(data.new)+'&',
+                    url: 'http://192.168.4.1/olddevicepwd=' + encodeURIComponent(data.old) + '&newdevicepwd=' + encodeURIComponent(data.new) + '&',
                     'Content-Type': 'application/x-www-form-urlencoded',
                     timeout: 5000
 

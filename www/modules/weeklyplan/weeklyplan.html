@@ -1,14 +1,15 @@
 <ion-view title="Weekly plan">
-    <ion-content class="weeklyplan has-footer">
-        <div class="row" style="color:white;">
-            <div class="col" style="background: rgba(255, 255, 255, 0.43);text-align:center;" ng-repeat="item in weeks2" ng-click="changeWeek($index)">
-                {{item.name}}
-                <div style="border-bottom: 2px solid red;" ng-if="item.tabSelected==true"></div>
-            </div>
+
+    <div class="row" style="color:white;margin-top:38px">
+        <div class="col" style="background: rgba(255, 255, 255, 0.43);text-align:center;" ng-repeat="item in weeks2" ng-click="changeWeek($index)">
+            {{item.name}}
+            <div style="border-bottom: 2px solid red;" ng-if="item.tabSelected==true"></div>
         </div>
-        <div>
-            <canvas style="    background: rgba(35, 36, 37, 0.22);" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick" chart-colors="colors" height="100"> </canvas>
-        </div>
+    </div>
+    <div style="height:150px">
+        <canvas style="    background: rgba(35, 36, 37, 0.22);" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick" chart-colors="colors" height="150"> </canvas>
+    </div>
+    <ion-content class="weeklyplan " style="margin-top:188px">
         <div class="">
             <div class="row padd_0" ng-repeat="item in timeSheetItems[0]">
                 <div class="col padd_0">
@@ -22,19 +23,19 @@
                     </div>
                     <div class="row">
                         <div class="col col-10">
-                            <p style="    padding-top: 15px;color:white;" ng-if="item.on==false"> OFF</p>
-                            <p style="    padding-top: 15px;color:white;" ng-if="item.on==true"> ON</p>
+                            <p style="    padding-top: 15px;color:#a00c25;    font-size: 12px;" ng-if="item.on==false"> OFF</p>
+                            <p style="    padding-top: 15px;color:#00f12d;" ng-if="item.on==true"> ON</p>
                         </div>
                         <div class="col col-90">
-                            <input type="text" id="{{item.elementId}}"  value="" class=" verticalline" />
+                            <input type="text" id="{{item.elementId}}" value="" class=" verticalline" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </ion-content>
-    <div class="bar bar-footer" style="background: #b66aea;">
+<!--     <div class="bar bar-footer" style="background: #b66aea;">
         <button class="button button-clear pull-right" style="    color: white;
     background: chocolate" ng-click="submit()">Set weekly plan</button>
-    </div>
+    </div> -->
 </ion-view>

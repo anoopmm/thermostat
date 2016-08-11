@@ -31,8 +31,8 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
         $scope.sendWeeklyPlan.status = false;
         $scope.deviceStatus = { on: true };
         $scope.filter = {
-            cool: false,
-            sleep: false,
+            cool: true,
+            sleep: true,
             autorun: false,
             hot: true
         }
@@ -578,7 +578,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     }
                     console.log(msg_str);
                     var message = new Messaging.Message(msg_str);
-                    message.destinationName = 'thermostat3/' + $scope.weeks[weekIndex].msgStr;
+                    message.destinationName = thermostatId+'/' + $scope.weeks[weekIndex].msgStr;
                     message.qos = 0;
                     client.send(message);
                 }

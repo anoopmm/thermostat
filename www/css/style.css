@@ -1,8 +1,10 @@
 /* Empty. Add your own CSS if you like */
 
 @font-face {
-    font-family: customdigital;
-    src: url('../fonts/digital-7.ttf') format('truetype');
+    font-family: 'carre';
+    src: url('../fonts/dg/Carre.eot') format('embedded-opentype'), url('../fonts/dg/Carre.woff') format('woff'), url('../fonts/dg/Carre.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 input::-webkit-input-placeholder {
@@ -1132,7 +1134,7 @@ ion-side-menu-content {
 /*sidemenu*/
 
 .sidemenu {
-    background-image: url("../img/bck3.jpg") !important;
+    background-image: url("../img/bck3.png") !important;
 }
 
 .sidemenu * {
@@ -1397,4 +1399,13 @@ ion-side-menu-content {
 .weeklyplan .slidingTabs ul {
     background: transparent;
     background-color: transparent;
+}
+
+.popup-buttons .button:last-child {
+    margin-right: 0px;
+    background-color: #3ab3ef;
+}
+
+.popup {
+    border-radius: 6px !important;
 }

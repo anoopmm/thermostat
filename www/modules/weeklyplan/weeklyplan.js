@@ -107,7 +107,7 @@ angular.module('thermostat.weeklyplan', ['ionic'])
         for (var i = 0; i < 7; i++) {
             var daydata = [];
             var hrs = 0;
-            var mts = 30;
+            var mts = 0;
             var timedata = {};
             for (var k = 0; k < 48; k++) {
                 timedata.elementId = $scope.weeks[i] + '_' + i + '_' + k;
