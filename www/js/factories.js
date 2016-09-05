@@ -23,6 +23,7 @@ angular.module('thermostat.factories', [])
         'use strict';
         return {
             connectWifi: function(wifiData) {
+                console.log('wifiData',wifiData);
                 console.log(wifiData);
                 return $http({
                     method: 'GET',

@@ -29,7 +29,7 @@ angular.module('starter', ['ionic',
         'tabSlideBox'
     ])
     .constant('appConfig', {
-        baseUrl: 'http://thermostat.sensomate.com/api/v1/',
+        baseUrl: 'http://thermostat.hospifi.co/api/v1/',
         baseUrl2: 'http://api.insmonitor.hospifi.co/ahu/deviceupdate/11/'
     })
     .run(function($ionicPlatform, $rootScope) {

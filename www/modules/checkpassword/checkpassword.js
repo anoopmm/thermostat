@@ -56,6 +56,7 @@ angular.module('thermostat.checkpassword', ['ionic'])
             // alert($scope.formStatus)
         }
         $scope.submit = function() {
+            localStorage.setItem('deviceDetails', JSON.stringify($scope.setpassword));
             if ($scope.toggle.formStatus == true) {
                 var data = {
                     old: $scope.setpassword.password_deafult,

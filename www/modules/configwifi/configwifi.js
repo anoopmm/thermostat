@@ -21,8 +21,9 @@ angular.module('thermostat.configwifi', ['ionic'])
         }
         if (window.localStorage.getItem('deviceDetails')) {
             var devicedetails = JSON.parse(window.localStorage.getItem('deviceDetails'));
-            $scope.configData.product_id = devicedetails.ThermostatID;
-            $scope.configData.groupId = devicedetails.Groupname;
+            console.log('++++++++++++++++++++++++++++++++',devicedetails);
+            $scope.configData.product_id = devicedetails.product_id;
+            $scope.configData.groupId = devicedetails.groupId;
         }
 
         $scope.openAddRoom = function() {

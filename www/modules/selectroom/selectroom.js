@@ -92,8 +92,8 @@ angular.module('thermostat.selectroom', ['ionic'])
         }
         if (window.localStorage.getItem('deviceDetails')) {
             var devicedetails = JSON.parse(window.localStorage.getItem('deviceDetails'));
-            $scope.configData.product_id = devicedetails.ThermostatID;
-            $scope.configData.groupId = devicedetails.Groupname;
+            $scope.configData.product_id = devicedetails.product_id;
+            $scope.configData.groupId = devicedetails.groupId;
         }
 
         // $localstorage.setObject('addedRooms', $scope.addedRooms);

@@ -138,8 +138,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     $scope.$apply();
                 };
                 if (method === "settemp") {
-                    alert();
-                    $scope.setTempData.label = parseInt(data.slice(0, 2));
+                     $scope.setTempData.label = parseInt(data.slice(0, 2));
                     console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                     $scope.$apply();
                 };
