@@ -25,6 +25,7 @@ angular.module('starter', ['ionic',
         'thermostat.checkpassword',
         'thermostat.settings',
         'thermostat.weeklyplan',
+        'thermostat.esptouch',
         'chart.js',
         'tabSlideBox'
     ])

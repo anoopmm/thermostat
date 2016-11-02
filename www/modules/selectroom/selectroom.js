@@ -36,6 +36,42 @@ angular.module('thermostat.selectroom', ['ionic'])
         $scope.delete = function(index) {
             $scope.items.splice(index, 1);
         }
+        $scope.zero = function() {
+            if (window.cordova) {
+                var zeroconf = cordova.plugins.zeroconf;
+                console.log('loged by anoop----------------------------');
+                zeroconf.getHostname(function success(hostname) {
+                    console.log('++++++++++++++++++++++++++++++++++++++++', hostname); // ipad-of-becvert.local.
+                });
+                zeroconf.watch('_http._tcp.', 'local.', function(result) {
+                    console.log('***************************',result);
+                    var action = result.action;
+                    var service = result.service;
+                    /* service : {
+                        'domain' : 'local.',
+                        'type' : '_http._tcp.',
+                        'name': 'Becvert\'s iPad',
+                        'port' : 80,
+                        'hostname' : 'ipad-of-becvert.local',
+                        'ipv4Addresses' : [ '192.168.1.125' ], 
+                        'ipv6Addresses' : [ '2001:0:5ef5:79fb:10cb:1dbf:3f57:feb0' ],
+                        'txtRecord' : {
+                            'foo' : 'bar'
+                        }
+                    } */
+                    if (action == 'added') {
+                      //  console.log('service added', service);
+                    } else {
+                        //console.log('service removed', service);
+                    }
+                });
+
+
+            }
+
+        }
+
+
         $scope.edit = function(index) {
             // Triggered on a button click, or some other target
             $scope.data = {};

@@ -61,6 +61,7 @@
                 </div>
             </li>
         </ul> -->
+        <button ng-click="zero()">test</button>
         <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe" >
             <ion-item ng-repeat="item in items" class="" on-swipe-left="onSwipeLeft()" on-swipe-right="onSwipeRight()" on-drag-right="onSwipeRight()" on-drag-left="onSwipeLeft()" on-hold="edit($index)" ng-click="openRooomDetails(item.product_product_id)">
                 <div class="row">
