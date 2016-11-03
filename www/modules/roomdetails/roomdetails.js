@@ -26,6 +26,11 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             fan: "00",
             autorun: "00"
         }
+        if (window.localStorage.getItem('currentItem')) {
+            $scope.currentDevicePwd = JSON.parse(window.localStorage.getItem('currentItem')).product.password_changed;
+            console.log('98898898898989889898898989', $scope.currentDevicePwd);
+        }
+        $scope.locallyConnected = false;
         var weekIndex = 0;
         $scope.sendWeeklyPlan = {};
         $scope.sendWeeklyPlan.status = false;
@@ -138,7 +143,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     $scope.$apply();
                 };
                 if (method === "settemp") {
-                     $scope.setTempData.label = parseInt(data.slice(0, 2));
+                    $scope.setTempData.label = parseInt(data.slice(0, 2));
                     console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                     $scope.$apply();
                 };
@@ -401,7 +406,13 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     var message = new Messaging.Message(msg_str);
                     message.destinationName = thermostatId + '/settemp';
                     message.qos = 0;
-                    client.send(message);
+                    if ($scope.locallyConnected == false) {
+
+
+                        client.send(message);
+                    } else {
+
+                    }
                     msgSend = true;
                     msgSendAndRply = true
                 } else {
@@ -416,7 +427,13 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         var message = new Messaging.Message(msg_str);
                         message.destinationName = thermostatId + '/settemp';
                         message.qos = 0;
-                        client.send(message);
+                        if ($scope.locallyConnected == false) {
+
+
+                            client.send(message);
+                        } else {
+
+                        }
                         msgSend = true;
                         msgSendAndRply = true;
                     }
@@ -439,7 +456,13 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     var message = new Messaging.Message(msg_str);
                     message.destinationName = thermostatId + '/settemp';
                     message.qos = 0;
-                    client.send(message);
+                    if ($scope.locallyConnected == false) {
+
+
+                        client.send(message);
+                    } else {
+
+                    }
                     msgSend = true;
                     msgSendAndRply = true;
                 } else {
@@ -453,6 +476,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         message.destinationName = thermostatId + '/settemp';
                         message.qos = 0;
                         client.send(message);
+
                         msgSend = true;
                         msgSendAndRply = true;
                     }
@@ -577,7 +601,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     }
                     console.log(msg_str);
                     var message = new Messaging.Message(msg_str);
-                    message.destinationName = thermostatId+'/' + $scope.weeks[weekIndex].msgStr;
+                    message.destinationName = thermostatId + '/' + $scope.weeks[weekIndex].msgStr;
                     message.qos = 0;
                     client.send(message);
                 }
@@ -585,5 +609,47 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
             }
         }
+        $scope.zero = function() {
+            if (window.cordova) {
+                var zeroconf = cordova.plugins.zeroconf;
+                console.log('loged by anoop----------------------------');
+                zeroconf.getHostname(function success(hostname) {
+                    console.log('++++++++++++++++++++++++++++++++++++++++', hostname); // ipad-of-becvert.local.
+                });
+                zeroconf.watch('_http._tcp.', 'local.', function(result) {
+                    console.log('***************************', result.service);
+                    var action = result.action;
+                    var service = result.service;
+                    /* service : {
+                        'domain' : 'local.',
+                        'type' : '_http._tcp.',
+                        'name': 'Becvert\'s iPad',
+                        'port' : 80,
+                        'hostname' : 'ipad-of-becvert.local',
+                        'ipv4Addresses' : [ '192.168.1.125' ], 
+                        'ipv6Addresses' : [ '2001:0:5ef5:79fb:10cb:1dbf:3f57:feb0' ],
+                        'txtRecord' : {
+                            'foo' : 'bar'
+                        }
+                    } */
+                    if ($stateParams.itemId == result.service.name.toUpperCase()) {
+                        alert(result.service.name.toUpperCase());
+                        $scope.locallyConnected = true;
+
+                    } else {
+
+                    }
+                    if (action == 'added') {
+                        //  console.log('service added', service);
+                    } else {
+                        //console.log('service removed', service);
+                    }
+                });
+
+
+            }
+
+        }
+        $scope.zero();
 
     }]);

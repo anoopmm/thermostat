@@ -23,7 +23,7 @@ angular.module('thermostat.factories', [])
         'use strict';
         return {
             connectWifi: function(wifiData) {
-                console.log('wifiData',wifiData);
+                console.log('wifiData', wifiData);
                 console.log(wifiData);
                 return $http({
                     method: 'GET',
@@ -106,6 +106,55 @@ angular.module('thermostat.factories', [])
                     data: {
                         TemperatureSetPoint: TemperatureSetPoint
                     },
+                    'Content-Type': 'application/json'
+                });
+            },
+            getDeviceId: function(ip) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://' + ip + '/Getid',
+                    'Content-Type': 'application/json'
+                });
+            },
+            createNewPswd: function(ip, deviceid, defaultpwd, newpwd) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://' + ip + '/Deviceconfig?Deviceid=' + deviceid + '&Defaultdevicepassword=' + defaultpwd + '&Newdevicepassword=' + newpwd,
+                    'Content-Type': 'application/json'
+                });
+            },
+            connectOldDevice: function(ip, deviceid, oldpwd) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://' + ip + '/Deviceconfig?Deviceid=' + deviceid + '&Olddevicepassword=' + oldpwd,
+                    'Content-Type': 'application/json'
+                });
+            },
+            updatePwd: function(id, pwd) {
+                return $http({
+                    method: 'GET',
+                    url: appConfig.baseUrl + 'product/changepassword/' + id + '/' + pwd,
+                    'Content-Type': 'application/json'
+                });
+            },
+            setTemp: function(ip, deviceid,pwd,temp) {
+                return $http({
+                    method: 'GET',
+                    url:'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Defaultdevicepassword=' + pwd + "&Settemperature="+temp,
+                    'Content-Type': 'application/json'
+                });
+            },
+            mode: function(ip, deviceid,pwd,mode,fan,autorun) {
+                return $http({
+                    method: 'GET',
+                    url:'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Defaultdevicepassword=' + pwd + "&Mode="+mode+"&Fan="+fan+"&Autorun="+autorun,
+                    'Content-Type': 'application/json'
+                });
+            },
+            onoff: function(ip, deviceid,pwd,onoff) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Defaultdevicepassword=' + pwd + "&Onoff="+onoff,
                     'Content-Type': 'application/json'
                 });
             }

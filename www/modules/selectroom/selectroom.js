@@ -44,7 +44,7 @@ angular.module('thermostat.selectroom', ['ionic'])
                     console.log('++++++++++++++++++++++++++++++++++++++++', hostname); // ipad-of-becvert.local.
                 });
                 zeroconf.watch('_http._tcp.', 'local.', function(result) {
-                    console.log('***************************',result);
+                    console.log('***************************', result);
                     var action = result.action;
                     var service = result.service;
                     /* service : {
@@ -60,7 +60,7 @@ angular.module('thermostat.selectroom', ['ionic'])
                         }
                     } */
                     if (action == 'added') {
-                      //  console.log('service added', service);
+                        //  console.log('service added', service);
                     } else {
                         //console.log('service removed', service);
                     }
@@ -70,8 +70,6 @@ angular.module('thermostat.selectroom', ['ionic'])
             }
 
         }
-
-
         $scope.edit = function(index) {
             // Triggered on a button click, or some other target
             $scope.data = {};
@@ -114,14 +112,19 @@ angular.module('thermostat.selectroom', ['ionic'])
         }];
         $scope.items = [];
         $scope.configData = {};
+        if (window.localStorage.getItem('deviceConfiguredForUser')) {
+            $scope.items = JSON.parse(window.localStorage.getItem('deviceConfiguredForUser'));
+        }
         if (window.localStorage.getItem('userdetails')) {
             var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
-            userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
-                console.log('responce', responce);
+            if (!window.localStorage.getItem('deviceConfiguredForUser')) {
+                userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
+                    console.log('responce', responce);
+                    $scope.items = responce.data;
+                    window.localStorage.setItem('deviceConfiguredForUser', JSON.stringify($scope.items));
 
-                $scope.items = responce.data;
-
-            });
+                });
+            }
         }
         if (window.localStorage.getItem('userdetails')) {
             var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
@@ -133,11 +136,12 @@ angular.module('thermostat.selectroom', ['ionic'])
         }
 
         // $localstorage.setObject('addedRooms', $scope.addedRooms);
-        $scope.openRooomDetails = function(itemId) {
+        $scope.openRooomDetails = function(item) {
+            window.localStorage.setItem('currentItem', JSON.stringify(item));
             $interval.cancel(interval);
-            if (itemId) {
+            if (item) {
                 $state.go('app.roomdetails', {
-                    itemId: itemId
+                    itemId: item.product_product_id
                 });
             } else {
                 var alertPopup = $ionicPopup.alert({
@@ -182,19 +186,6 @@ angular.module('thermostat.selectroom', ['ionic'])
             userProductFactory.assignProduct(data).then(function(res) {
                 window.localStorage.removeItem('configure');
 
-                // var alertPopup = $ionicPopup.alert({
-                //     title: 'Your device successfully configured',
-                //     template: 'Please connect to internet',
-                //     buttons: [{
-                //         text: 'OK',
-                //         type: 'button-assertive'
-                //     }]
-                // });
-                // alertPopup.then(function() {
-                //     $state.go('app.selectroom');
-
-                // });
-
                 if (window.localStorage.getItem('userdetails')) {
                     var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
                     userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
@@ -206,19 +197,6 @@ angular.module('thermostat.selectroom', ['ionic'])
                 }
 
             }).catch(function(error) {
-                // console.log('error', error);
-                // var alertPopup = $ionicPopup.alert({
-                //     title: 'Some error occcured',
-                //     template: 'Please reconfigure your device',
-                //     buttons: [{
-                //         text: 'OK',
-                //         type: 'button-assertive'
-                //     }]
-                // });
-                // alertPopup.then(function() {
-                //     $state.go('app.selectroom');
-
-                // });
 
             });
         }
@@ -243,7 +221,7 @@ angular.module('thermostat.selectroom', ['ionic'])
                     console.log('Connection type: ' + states[networkState]);
                     if (states[networkState] != 'none') {
                         if (window.localStorage.getItem('configure')) {
-                            assignProduct();
+                            // assignProduct();
                         }
                     }
                 }

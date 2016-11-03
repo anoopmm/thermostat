@@ -15,55 +15,8 @@
                 ISOLATOR
             </div>
         </div>
-        <!--       <ul class="list" style="padding:10px">
-            <li class="item " ng-repeat="item in items" ng-click="openRooomDetails(item.id)">
-                <div class="row">
-                    <div class="col col-10">
-                        <div style="    width: 14px; height: 14px;background-color: #5CFD5C; border-radius: 7px;margin-top: 50%;">
-                        </div>
-                    </div>
-                    <div class="col col-90">
-                        <div class="row padd_0">
-                            <div class="col col-25 padd_0">
-                                <p style="color:white;vertical-align: middle;font-weight:bold;    font-size: 21px;margin-top: 12%;">{{item.RoomName}}</p>
-                            </div>
-                            <div class="col col-25 padd_0">
-                                <p style="color:rgba(255, 255, 255, 0.46);vertical-align: middle;font-weight:bold;margin-top: 15%;">Cool</p>
-                            </div>
-                            <div class="col col-25 padd_0">
-                                <div class="row padd_0">
-                                    <div class="col padd_0">
-                                        <p style="color:white;vertical-align: middle;font-size: 22px;">{{item.TemperatureSetPoint}}&#x2103</p>
-                                    </div>
-                                </div>
-                                <div class="row padd_0">
-                                    <div class="col" style="padding-left: 0px;">
-                                        <div>
-                                            <img class="img-fan" src="img/fan.png" style="    width: 17%;"> Low
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-25 padd_0">
-                                <div class="row padd_0">
-                                    <div class="col padd_0">
-                                        <p style="color:white; vertical-align: middle;float:right;font-size: 22px;">{{item.CurrentTemperature}}&#x2103</p>
-                                    </div>
-                                </div>
-                                <div class="row padd_0">
-                                    <div class="col" style="font-size: 99px;">
-                                        <p style="color:rgba(255, 255, 255, 0.46); vertical-align: middle;font-weight:bold;float:right;">set</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul> -->
-        <button ng-click="zero()">test</button>
         <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe" >
-            <ion-item ng-repeat="item in items" class="" on-swipe-left="onSwipeLeft()" on-swipe-right="onSwipeRight()" on-drag-right="onSwipeRight()" on-drag-left="onSwipeLeft()" on-hold="edit($index)" ng-click="openRooomDetails(item.product_product_id)">
+            <ion-item ng-repeat="item in items" class="" on-swipe-left="onSwipeLeft()" on-swipe-right="onSwipeRight()" on-drag-right="onSwipeRight()" on-drag-left="onSwipeLeft()" on-hold="edit($index)" ng-click="openRooomDetails(item)">
                 <div class="row">
                     <div class="col col-10">
                         <div style="    width: 14px; height: 14px;background-color: #5CFD5C; border-radius: 7px;margin-top: 50%;">

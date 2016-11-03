@@ -1,16 +1,31 @@
 <ion-view title="Esp configure" cache-view='false'>
     <ion-content class="registration">
-        <div class="list">
-            <label class="item item-input">
-                <input type="text" placeholder="First Name">
-            </label>
-            <label class="item item-input">
-                <input type="text" placeholder="Last Name">
-            </label>
-            <label class="item item-input">
-                <textarea placeholder="Comments"></textarea>
-            </label>
-        </div>
-        {{data.response}}
+        <form name="registrationForm">
+            <div class="regdiv">
+                <div class="  list list-inset username-div">
+                    <label class="item item-input  username-label ">
+                        <input name="wifi_name" type="text" placeholder="Wifi name" ng-model="configData.wifi_name" class="username-text" ng-minlength="6" required>
+                    </label>
+                </div>
+                <div ng-messages="registrationForm.wifi_name.$error" class="form-errors" ng-if="registrationForm.wifi_name.$touched">
+                    <div class="form-error" ng-message="required">Please enter your wifi name</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                </div>
+                <div class="  list list-inset username-div">
+                    <label class="item item-input  username-label ">
+                        <input name="wifi_password" type="password" placeholder="Password" ng-model="configData.wifi_password" class="username-text" required>
+                    </label>
+                </div>
+                <div ng-messages="registrationForm.wifi_password.$error" class="form-errors" ng-if="registrationForm.wifi_password.$touched">
+                    <div class="form-error" ng-message="required">Please enter your Wi-fi passaword</div>
+                    <div class="form-error" ng-message="minlength">Your field is too short</div>
+                    <div class="form-error" ng-message="maxlength">Your field is too long</div>
+                </div>
+                <div class="btn-login-div">
+                    <button ng-click="submit()" type="submit" class="button btn-login" ng-disabled="registrationForm.$invalid">Create</button>
+                </div>
+            </div>
+        </form>
     </ion-content>
 </ion-view>
