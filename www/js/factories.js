@@ -137,24 +137,46 @@ angular.module('thermostat.factories', [])
                     'Content-Type': 'application/json'
                 });
             },
-            setTemp: function(ip, deviceid,pwd,temp) {
+            setTemp: function(ip, deviceid, pwd, temp) {
                 return $http({
                     method: 'GET',
-                    url:'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Defaultdevicepassword=' + pwd + "&Settemperature="+temp,
+                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Settemperature=" + temp,
                     'Content-Type': 'application/json'
                 });
             },
-            mode: function(ip, deviceid,pwd,mode,fan,autorun) {
+            mode: function(ip, deviceid, pwd, mode, fan, autorun) {
                 return $http({
                     method: 'GET',
-                    url:'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Defaultdevicepassword=' + pwd + "&Mode="+mode+"&Fan="+fan+"&Autorun="+autorun,
+                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Mode=" + mode + "&Fan=" + fan + "&Autorun=" + autorun,
                     'Content-Type': 'application/json'
                 });
             },
-            onoff: function(ip, deviceid,pwd,onoff) {
+            onoff: function(ip, deviceid, pwd, onoff) {
                 return $http({
                     method: 'GET',
-                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Defaultdevicepassword=' + pwd + "&Onoff="+onoff,
+                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Onoff=" + onoff,
+                    'Content-Type': 'application/json'
+                });
+            },
+            currentStatus: function(ip, deviceid, pwd) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Getcurrentstatus=20",
+                    'Content-Type': 'application/json'
+                });
+            },
+            changePwd: function(ip, deviceid, oldvalue,value) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://' + ip + '/Deviceconfig?Deviceid=' + deviceid + '&Defaultdevicepassword='+oldvalue+"&Newdevicepassword="+value,
+                    'Content-Type': 'application/json'
+                });
+            },
+
+            weeklypgm: function(ip, deviceid, pwd,data) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd +data,
                     'Content-Type': 'application/json'
                 });
             }

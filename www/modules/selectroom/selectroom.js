@@ -14,7 +14,7 @@ angular.module('thermostat.selectroom', ['ionic'])
             })
 
     }])
-    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', 'userProductFactory', '$ionicPlatform', '$interval', '$ionicPopup', '$timeout', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover, userProductFactory, $ionicPlatform, $interval, $ionicPopup, $timeout) {
+    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', 'userProductFactory', '$ionicPlatform', '$interval', '$ionicPopup', '$timeout', '$ionicPlatform','$ionicLoading', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover, userProductFactory, $ionicPlatform, $interval, $ionicPopup, $timeout, $ionicPlatform,$ionicLoading) {
         var interval;
         $scope.shouldShowDelete = false;
         $scope.shouldShowReorder = false;
@@ -37,47 +37,61 @@ angular.module('thermostat.selectroom', ['ionic'])
             $scope.items.splice(index, 1);
         }
         $scope.zero = function() {
-            if (window.cordova) {
-                var zeroconf = cordova.plugins.zeroconf;
-                console.log('loged by anoop----------------------------');
-                zeroconf.getHostname(function success(hostname) {
-                    console.log('++++++++++++++++++++++++++++++++++++++++', hostname); // ipad-of-becvert.local.
-                });
-                zeroconf.watch('_http._tcp.', 'local.', function(result) {
-                    console.log('***************************', result);
-                    var action = result.action;
-                    var service = result.service;
-                    /* service : {
-                        'domain' : 'local.',
-                        'type' : '_http._tcp.',
-                        'name': 'Becvert\'s iPad',
-                        'port' : 80,
-                        'hostname' : 'ipad-of-becvert.local',
-                        'ipv4Addresses' : [ '192.168.1.125' ], 
-                        'ipv6Addresses' : [ '2001:0:5ef5:79fb:10cb:1dbf:3f57:feb0' ],
-                        'txtRecord' : {
-                            'foo' : 'bar'
+            $ionicPlatform.ready(function() {
+                if (window.cordova) {
+                    var zeroconf = cordova.plugins.zeroconf;
+                    console.log('loged by anoop----------------------------');
+                    zeroconf.getHostname(function success(hostname) {
+                        console.log('++++++++++++++++++++++++++++++++++++++++', hostname); // ipad-of-becvert.local.
+                    });
+                    zeroconf.watch('_http._tcp.', 'local.', function(result) {
+                        console.log('***************************', result);
+                        var action = result.action;
+                        var service = result.service;
+                        /* service : {
+                            'domain' : 'local.',
+                            'type' : '_http._tcp.',
+                            'name': 'Becvert\'s iPad',
+                            'port' : 80,
+                            'hostname' : 'ipad-of-becvert.local',
+                            'ipv4Addresses' : [ '192.168.1.125' ], 
+                            'ipv6Addresses' : [ '2001:0:5ef5:79fb:10cb:1dbf:3f57:feb0' ],
+                            'txtRecord' : {
+                                'foo' : 'bar'
+                            }
+                        } */
+                        if (1) {
+                            for (var i = 0; i < $scope.items.length; i++) {
+                                if ($scope.items[i].product_product_id == result.service.name.toUpperCase()) {
+                                    // alert(result.service.name.toUpperCase());
+                                    $scope.locallyConnected = true;
+                                    $scope.items[i].ip = result.service.ipv4Addresses[0];
+                                    // $scope.$apply();
+                                    console.log($scope.items);
+
+                                } else {
+
+                                }
+                            }
                         }
-                    } */
-                    if (action == 'added') {
-                        //  console.log('service added', service);
-                    } else {
-                        //console.log('service removed', service);
-                    }
-                });
+
+                    });
 
 
-            }
+                }
+            });
 
         }
-        $scope.edit = function(index) {
+        $scope.zero();
+        $scope.edit = function(i) {
+            item = $scope.items[i];
             // Triggered on a button click, or some other target
             $scope.data = {};
-
+            console.log(item);
             // An elaborate, custom popup
             var myPopup = $ionicPopup.show({
-                template: '<input type="text" ng-model="data.wifi">',
-                title: 'Enter new room name',
+                template: 'Old password<input type="password" ng-model="data.wifi" placeholder="Old password " style="margin-bottom: 10px;">New password<input placeholder="New password "  type="password" ng-model="data.wifi2">',
+                title: 'Change',
                 subTitle: '',
                 scope: $scope,
                 buttons: [
@@ -85,11 +99,54 @@ angular.module('thermostat.selectroom', ['ionic'])
                         text: '<b>Save</b>',
                         type: 'button-positive',
                         onTap: function(e) {
-                            if (!$scope.data.wifi) {
+                            if (!$scope.data.wifi && !$scope.data.wifi2) {
                                 //don't allow the user to close unless he enters wifi password
                                 e.preventDefault();
                             } else {
-                                $scope.items[index].RoomName = $scope.data.wifi;
+                                //$scope.items[index].RoomName = $scope.data.wifi;
+                                if (item.ip) {
+                                    $ionicLoading.show({
+                                        template: 'Loading...'
+                                    });
+                                    thermostatFactory.changePwd(item.ip, item.product_product_id, $scope.data.wifi, $scope.data.wifi2).then(function() {
+                                        thermostatFactory.updatePwd(item.product_product_id, $scope.data.wifi2).then(function() {
+                                            $ionicLoading.hide();
+                                            $scope.items[i].product.password_changed = $scope.data.wifi2;
+                                            var alertPopup = $ionicPopup.alert({
+                                                title: 'Success',
+                                                template: 'Successfully configured..',
+                                                buttons: [{
+                                                    text: 'OK',
+                                                    type: 'button-assertive'
+                                                }]
+                                            });
+                                            alertPopup.then(function() {});
+
+                                        }).catch(function() {
+                                            $ionicLoading.hide();
+                                            var alertPopup = $ionicPopup.alert({
+                                                title: 'Network error',
+                                                template: 'Failed to configure device ',
+                                                buttons: [{
+                                                    text: 'OK',
+                                                    type: 'button-assertive'
+                                                }]
+                                            });
+                                            alertPopup.then(function() {});
+                                        });
+                                    }).catch(function() {
+                                        $ionicLoading.hide();
+                                        var alertPopup = $ionicPopup.alert({
+                                            title: 'Network error',
+                                            template: 'Failed to configure device ',
+                                            buttons: [{
+                                                text: 'OK',
+                                                type: 'button-assertive'
+                                            }]
+                                        });
+                                        alertPopup.then(function() {});
+                                    });
+                                }
                                 return $scope.data.wifi;
                             }
                         }

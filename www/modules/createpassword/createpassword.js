@@ -50,6 +50,7 @@ angular.module('thermostat.createpassword', ['ionic'])
                             "product_product_id": res.data.Deviceid,
                             "product": {
                                 "product_id": res.data.Deviceid,
+                                "ip": ip,
                                 "password_changed": $scope.configData.new_password,
                                 "values": {
                                     "mode": 0,
@@ -79,6 +80,15 @@ angular.module('thermostat.createpassword', ['ionic'])
                     }
                 }).catch(function() {
                     $ionicLoading.hide();
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Network error',
+                        template: 'Failed to configure device ',
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {});
                 });
             } else {
                 thermostatFactory.connectOldDevice(ip, $scope.configData.device_id, $scope.configData.old_password).then(function(res) {
@@ -98,6 +108,7 @@ angular.module('thermostat.createpassword', ['ionic'])
                         localStorage.setItem('configure', JSON.stringify(data1));
                         var newDeviceDetails = {
                             "product_product_id": res.data.Deviceid,
+                            "ip": ip,
                             "product": {
                                 "product_id": res.data.Deviceid,
                                 "password_changed": $scope.configData.old_password,
@@ -127,6 +138,15 @@ angular.module('thermostat.createpassword', ['ionic'])
                     }
                 }).catch(function() {
                     $ionicLoading.hide();
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Network error',
+                        template: 'Failed to configure device ',
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {});
                 });
             }
         }
@@ -136,35 +156,76 @@ angular.module('thermostat.createpassword', ['ionic'])
                 userId: userdetails.userId,
                 productId: $scope.configData.device_id
             };
-
+            $ionicLoading.show({
+                template: 'Assigning your device...'
+            });
 
             userProductFactory.assignProduct(data).then(function(res) {
-                window.localStorage.removeItem('configure');
 
-                if (window.localStorage.getItem('userdetails')) {
-                    var userdetails = JSON.parse(window.localStorage.getItem('userdetails'));
-                    userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
-                        console.log('responce', responce);
-
-                        $scope.items = responce.data;
-
-                    });
-                }
                 if ($scope.showCreatePswd == true) {
                     thermostatFactory.updatePwd($scope.configData.device_id, $scope.configData.new_password).then(function() {
+                        $ionicLoading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Success',
+                            template: 'Successfully configured..',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
 
                     }).catch(function() {
-
+                        $ionicLoading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Network error',
+                            template: 'Failed to configure device ',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
                     });
                 } else {
                     thermostatFactory.updatePwd($scope.configData.device_id, $scope.configData.old_password).then(function() {
+                        $ionicLoading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Success',
+                            template: 'Successfully configured..',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
 
                     }).catch(function() {
-
+                        $ionicLoading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Network error',
+                            template: 'Failed to configure device ',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
                     });
                 }
 
             }).catch(function(error) {
+                $ionicLoading.hide();
+
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Network error',
+                    template: 'Failed to configure device ',
+                    buttons: [{
+                        text: 'OK',
+                        type: 'button-assertive'
+                    }]
+                });
+                alertPopup.then(function() {});
 
             });
         }

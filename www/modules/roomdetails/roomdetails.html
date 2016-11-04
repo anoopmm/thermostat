@@ -38,6 +38,21 @@
             </div>
         </div> -->
         <div class="row">
+            <div class="col">
+                <!--       <div class="switch demo1">
+                    <input type="checkbox" ng-model="deviceStatus.on" ng-click="deviceOn()">
+                    <label></label>
+                </div> -->
+                <span style="    margin-left: 70%;">ON/OFF</span>
+                <label class="toggle toggle-assertive" style="float: right;">
+                    <input type="checkbox" ng-model="deviceStatus.on" ng-click="deviceOn()">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="row">
             <div class="col col-25 center" id="roomTemp" style="position:relative;font-family:sans-serif;">
                 <div class="text" style="position: absolute;width: 100%; z-index: 1;font-size: 35px;color: white;bottom:0;" ng-if="appSettings.temperatureUnits=='degree'">{{roomTempData.label| celsius| number:0}}<span style="font-size: 15px;">&#x2103</span></div>
                 <div class="text" style="position: absolute;width: 100%; z-index: 1;font-size: 35px;color: white;bottom:0;" ng-if="appSettings.temperatureUnits=='faren'">{{roomTempData.label | fahrenheit| number:0}}<span style="font-size: 15px;">&#x2109</span></div>
