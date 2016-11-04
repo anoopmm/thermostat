@@ -14,7 +14,7 @@ angular.module('thermostat.selectroom', ['ionic'])
             })
 
     }])
-    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', 'userProductFactory', '$ionicPlatform', '$interval', '$ionicPopup', '$timeout', '$ionicPlatform','$ionicLoading', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover, userProductFactory, $ionicPlatform, $interval, $ionicPopup, $timeout, $ionicPlatform,$ionicLoading) {
+    .controller('selectRoomCtrl', ['$scope', '$state', 'thermostatFactory', '$ionicPopup', '$ionicPopover', 'userProductFactory', '$ionicPlatform', '$interval', '$ionicPopup', '$timeout', '$ionicPlatform', '$ionicLoading', function($scope, $state, thermostatFactory, $ionicPopup, $ionicPopover, userProductFactory, $ionicPlatform, $interval, $ionicPopup, $timeout, $ionicPlatform, $ionicLoading) {
         var interval;
         $scope.shouldShowDelete = false;
         $scope.shouldShowReorder = false;
@@ -112,6 +112,12 @@ angular.module('thermostat.selectroom', ['ionic'])
                                         thermostatFactory.updatePwd(item.product_product_id, $scope.data.wifi2).then(function() {
                                             $ionicLoading.hide();
                                             $scope.items[i].product.password_changed = $scope.data.wifi2;
+                                            userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
+                                                console.log('responce', responce);
+                                                $scope.items = responce.data;
+                                                window.localStorage.setItem('deviceConfiguredForUser', JSON.stringify($scope.items));
+
+                                            });
                                             var alertPopup = $ionicPopup.alert({
                                                 title: 'Success',
                                                 template: 'Successfully configured..',

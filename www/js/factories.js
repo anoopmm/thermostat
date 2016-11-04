@@ -168,7 +168,7 @@ angular.module('thermostat.factories', [])
             changePwd: function(ip, deviceid, oldvalue,value) {
                 return $http({
                     method: 'GET',
-                    url: 'http://' + ip + '/Deviceconfig?Deviceid=' + deviceid + '&Defaultdevicepassword='+oldvalue+"&Newdevicepassword="+value,
+                    url: 'http://' + ip + '/Deviceconfig?Deviceid=' + deviceid + '&Changedevicepassword='+oldvalue+"&Newdevicepassword="+value,
                     'Content-Type': 'application/json'
                 });
             },
@@ -176,7 +176,7 @@ angular.module('thermostat.factories', [])
             weeklypgm: function(ip, deviceid, pwd,data) {
                 return $http({
                     method: 'GET',
-                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd +data,
+                    url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd+'&' +data,
                     'Content-Type': 'application/json'
                 });
             }
