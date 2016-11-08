@@ -18,19 +18,32 @@ angular.module('thermostat.registration', ['ionic'])
             $ionicLoading.show({
                 template: 'Loading...'
             });
-            userFactory.signUp($scope.regData).then(function() {
+            userFactory.signUp($scope.regData).then(function(res) {
                 $ionicLoading.hide();
-                alertPopup = $ionicPopup.alert({
-                    title: 'User registerd successfully',
-                    buttons: [{
-                        text: 'OK',
-                        type: 'button-assertive'
-                    }]
-                });
-                alertPopup.then(function() {
-                    $state.go('login');
-                   // $localStorage.setObject('registrationDetails', $scope.registrationDetails);
-                });
+
+                if (res.data.id) {
+                    alertPopup = $ionicPopup.alert({
+                        title: 'User registerd successfully',
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {
+                        $state.go('login');
+                        // $localStorage.setObject('registrationDetails', $scope.registrationDetails);
+                    });
+                } else {
+                    alertPopup = $ionicPopup.alert({
+                        title: res.data.message,
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {
+                    });
+                }
             }).catch(function(error) {
                 $ionicLoading.hide();
                 console.log('error', error);
