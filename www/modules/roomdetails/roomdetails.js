@@ -29,10 +29,9 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
         $scope.deviceip = undefined;
         if (window.localStorage.getItem('currentItem')) {
             $scope.currentDevicePwd = JSON.parse(window.localStorage.getItem('currentItem')).product.password_changed;
-            console.log('98898898898989889898898989', $scope.currentDevicePwd);
-            if (JSON.parse(window.localStorage.getItem('currentItem')).ip) {
-                $scope.deviceip = JSON.parse(window.localStorage.getItem('currentItem')).ip;
-            }
+            console.log('current password', $scope.currentDevicePwd);
+            $scope.deviceip = JSON.parse(window.localStorage.getItem('currentItem')).ip;
+            console.log('current ip', $scope.deviceip);
         }
         $scope.locallyConnected = false;
         var weekIndex = 0;
@@ -660,15 +659,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
             }
         };
-        // $scope.deviceOff = function() {
-        //     $scope.deviceStatus.on = false;
 
-        //     var msg_str = '01';
-        //     var message = new Messaging.Message(msg_str);
-        //     message.destinationName = 'thermostat4/onoff';
-        //     message.qos = 0;
-        //     client.send(message);
-        // };
         $scope.autorunToggle = function() {
             if ($scope.filter.autorun == true) {
                 $scope.settings.autorun = "01";
@@ -706,9 +697,6 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
         $scope.$watch('roomTempData', function(newValue, oldValue) {
             newValue.percentage = newValue.label / 3;
         }, true);
-        $scope.openAddRoom = function() {
-            $state.go('app.addroom');
-        };
         $scope.setPlan = function() {
             $state.go('app.weeklyplan');
         };

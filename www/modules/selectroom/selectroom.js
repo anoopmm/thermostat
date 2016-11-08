@@ -33,8 +33,68 @@ angular.module('thermostat.selectroom', ['ionic'])
             console.log(3);
             $("ion-option-button").removeClass("invisible")
         }
-        $scope.delete = function(index) {
-            $scope.items.splice(index, 1);
+        $scope.loadProducts = function() {
+            userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
+                console.log('responce', responce);
+                $scope.items = responce.data;
+                if (responce.data.length > 0) {
+
+                    window.localStorage.setItem('deviceConfiguredForUser', JSON.stringify($scope.items));
+                }
+
+            }).catch(function() {
+
+            });
+        }
+        $scope.delete = function(index, item) {
+            console.log(item);
+            var data = {
+                userId: item.user_id,
+                productId: item.product_product_id
+            }
+            $ionicLoading.show({
+                template: 'Deleting device...'
+            });
+            userProductFactory.deallocateProduct(data).then(function(res) {
+                $ionicLoading.hide();
+                console.log(res.status);
+                if (res.data.status == 200) {
+                    $scope.items.splice(index, 1);
+                    window.localStorage.removeItem('deviceConfiguredForUser');
+
+                    $scope.loadProducts();
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Success',
+                        template: 'Successfully deleted..',
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {});
+                } else {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: res.data.message,
+                        buttons: [{
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }]
+                    });
+                    alertPopup.then(function() {});
+                }
+            }).catch(function(res) {
+                $ionicLoading.hide();
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Some error occured',
+                    template: 'Check network connection....',
+                    buttons: [{
+                        text: 'OK',
+                        type: 'button-assertive'
+                    }]
+                });
+                alertPopup.then(function() {});
+            });
         }
         $scope.zero = function() {
             $ionicPlatform.ready(function() {
@@ -66,6 +126,8 @@ angular.module('thermostat.selectroom', ['ionic'])
                                     // alert(result.service.name.toUpperCase());
                                     $scope.locallyConnected = true;
                                     $scope.items[i].ip = result.service.ipv4Addresses[0];
+                                    $scope.items[i].locallyconnected = true;
+
                                     // $scope.$apply();
                                     console.log($scope.items);
 
@@ -89,50 +151,63 @@ angular.module('thermostat.selectroom', ['ionic'])
             $scope.data = {};
             console.log(item);
             // An elaborate, custom popup
-            var myPopup = $ionicPopup.show({
-                template: 'Old password<input type="password" ng-model="data.wifi" placeholder="Old password " style="margin-bottom: 10px;">New password<input placeholder="New password "  type="password" ng-model="data.wifi2">',
-                title: 'Change',
-                subTitle: '',
-                scope: $scope,
-                buttons: [
-                    { text: 'Cancel' }, {
-                        text: '<b>Save</b>',
-                        type: 'button-positive',
-                        onTap: function(e) {
-                            if (!$scope.data.wifi && !$scope.data.wifi2) {
-                                //don't allow the user to close unless he enters wifi password
-                                e.preventDefault();
-                            } else {
-                                //$scope.items[index].RoomName = $scope.data.wifi;
-                                if (item.ip) {
-                                    $ionicLoading.show({
-                                        template: 'Loading...'
-                                    });
-                                    thermostatFactory.changePwd(item.ip, item.product_product_id, $scope.data.wifi, $scope.data.wifi2).then(function() {
-                                        thermostatFactory.updatePwd(item.product_product_id, $scope.data.wifi2).then(function() {
-                                            $ionicLoading.hide();
-                                            $scope.items[i].product.password_changed = $scope.data.wifi2;
-                                            userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
-                                                console.log('responce', responce);
-                                                $scope.items = responce.data;
-                                                window.localStorage.setItem('deviceConfiguredForUser', JSON.stringify($scope.items));
+            if (item.locallyconnected == true) {
+                var myPopup = $ionicPopup.show({
+                    template: 'Old password<input type="password" ng-model="data.wifi" placeholder="Old password " style="margin-bottom: 10px;">New password<input placeholder="New password "  type="password" ng-model="data.wifi2">',
+                    title: 'Change password',
+                    subTitle: '',
+                    scope: $scope,
+                    buttons: [
+                        { text: 'Cancel' }, {
+                            text: '<b>Save</b>',
+                            type: 'button-positive',
+                            onTap: function(e) {
+                                if (!$scope.data.wifi && !$scope.data.wifi2) {
+                                    //don't allow the user to close unless he enters wifi password
+                                    e.preventDefault();
+                                } else {
+                                    //$scope.items[index].RoomName = $scope.data.wifi;
+                                    if (item.ip) {
+                                        $ionicLoading.show({
+                                            template: 'Loading...'
+                                        });
+                                        thermostatFactory.changePwd(item.ip, item.product_product_id, $scope.data.wifi, $scope.data.wifi2).then(function() {
+                                            thermostatFactory.updatePwd(item.product_product_id, $scope.data.wifi2).then(function() {
+                                                $ionicLoading.hide();
+                                                $scope.items[i].product.password_changed = $scope.data.wifi2;
+                                                userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
+                                                    console.log('responce', responce);
+                                                    $scope.items = responce.data;
+                                                    window.localStorage.setItem('deviceConfiguredForUser', JSON.stringify($scope.items));
 
-                                            });
-                                            var alertPopup = $ionicPopup.alert({
-                                                title: 'Success',
-                                                template: 'Successfully configured..',
-                                                buttons: [{
-                                                    text: 'OK',
-                                                    type: 'button-assertive'
-                                                }]
-                                            });
-                                            alertPopup.then(function() {});
+                                                });
+                                                var alertPopup = $ionicPopup.alert({
+                                                    title: 'Success',
+                                                    template: 'Password changed Successfully..',
+                                                    buttons: [{
+                                                        text: 'OK',
+                                                        type: 'button-assertive'
+                                                    }]
+                                                });
+                                                alertPopup.then(function() {});
 
+                                            }).catch(function() {
+                                                $ionicLoading.hide();
+                                                var alertPopup = $ionicPopup.alert({
+                                                    title: 'Network error',
+                                                    template: 'Some error occured .. ',
+                                                    buttons: [{
+                                                        text: 'OK',
+                                                        type: 'button-assertive'
+                                                    }]
+                                                });
+                                                alertPopup.then(function() {});
+                                            });
                                         }).catch(function() {
                                             $ionicLoading.hide();
                                             var alertPopup = $ionicPopup.alert({
                                                 title: 'Network error',
-                                                template: 'Failed to configure device ',
+                                                template: 'Some error occured .. ',
                                                 buttons: [{
                                                     text: 'OK',
                                                     type: 'button-assertive'
@@ -140,39 +215,23 @@ angular.module('thermostat.selectroom', ['ionic'])
                                             });
                                             alertPopup.then(function() {});
                                         });
-                                    }).catch(function() {
-                                        $ionicLoading.hide();
-                                        var alertPopup = $ionicPopup.alert({
-                                            title: 'Network error',
-                                            template: 'Failed to configure device ',
-                                            buttons: [{
-                                                text: 'OK',
-                                                type: 'button-assertive'
-                                            }]
-                                        });
-                                        alertPopup.then(function() {});
-                                    });
+                                    }
+                                    return $scope.data.wifi;
                                 }
-                                return $scope.data.wifi;
                             }
                         }
-                    }
-                ]
-            });
+                    ]
+                });
 
-            myPopup.then(function(res) {
-                console.log('Tapped!', res);
-            });
-
+                myPopup.then(function(res) {
+                    console.log('Tapped!', res);
+                });
+            }
             // $timeout(function() {
             //     myPopup.close(); //close the popup after 3 seconds for some reason
             // }, 8000);
         };
-        $scope.addedRooms = [{
-            thermostatId: '1',
-            imgURI: 'img/livingroom.png',
-            userName: ''
-        }];
+
         $scope.items = [];
         $scope.configData = {};
         if (window.localStorage.getItem('deviceConfiguredForUser')) {
@@ -184,7 +243,9 @@ angular.module('thermostat.selectroom', ['ionic'])
                 userProductFactory.getAssignedProducts(userdetails.userId).then(function(responce) {
                     console.log('responce', responce);
                     $scope.items = responce.data;
-                    window.localStorage.setItem('deviceConfiguredForUser', JSON.stringify($scope.items));
+                    if (responce.data.length > 0) {
+                        window.localStorage.setItem('deviceConfiguredForUser', JSON.stringify($scope.items));
+                    }
 
                 });
             }

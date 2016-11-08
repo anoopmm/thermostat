@@ -28,7 +28,7 @@ angular.module('thermostat.esptouch', ['ionic'])
                 res = res.substring(0, res.length - 1);
                 res = res.substring(1);
                 $scope.configData.wifi_name = res;
-                console.log('succees', res);
+                console.log('succees got wifi name', res);
                 $ionicLoading.hide();
 
 
@@ -50,18 +50,20 @@ angular.module('thermostat.esptouch', ['ionic'])
         }
         $scope.configData.wifi_password = 'S3sypt1dTCy;';
         $scope.submit = function() {
-            console.log($scope.configData.wifi_name);
-            console.log($scope.configData.wifi_password);
+            // console.log($scope.configData.wifi_name);
+            //console.log($scope.configData.wifi_password);
             $ionicLoading.show({
                 template: 'Trying to connect with device...'
             });
+            //get current device ip
             esptouchPlugin.smartConfig($scope.configData.wifi_name, 0, $scope.configData.wifi_password, false, 1, function(res) {
                     window.localStorage.setItem('currentip', res);
                     esptouchPlugin.cancelConfig(function(res) {});
-                     $ionicLoading.hide();
+                    $ionicLoading.hide();
                     $ionicLoading.show({
                         template: 'Getting device id...'
                     });
+                    //communicate with device and get device id
                     thermostatFactory.getDeviceId(res).then(function(res1) {
                         window.localStorage.setItem('currentdeviceId', res1.data.Deviceid);
                         $ionicLoading.hide();
@@ -78,9 +80,18 @@ angular.module('thermostat.esptouch', ['ionic'])
                         }
                     }).catch(function(res) {
                         $ionicLoading.hide();
-                        alert(res);
+                        esptouchPlugin.cancelConfig(function(res) {});
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'No responce from device ',
+                            template: 'Try to reconfigure device...',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
                     });
-                   
+
                     console.log(res);
 
                 },

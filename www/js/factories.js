@@ -215,6 +215,14 @@ angular.module('thermostat.factories', [])
                     url: appConfig.baseUrl + 'userproduct/allocate',
                     data: Details,
                 });
+            },  
+             deallocateProduct: function(Details) {
+                console.log('-------------------', Details);
+                return $http({
+                    method: 'POST',
+                    url: appConfig.baseUrl + 'userproduct/deallocate',
+                    data: Details,
+                });
             },
             getAssignedProducts: function(id) {
 
