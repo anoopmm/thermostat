@@ -83,21 +83,30 @@ angular.module('ionic-timepicker.provider', [])
       };
 
       function setMinSecs(ipTime, format) {
-        $scope.time.hours = ipTime / (60 * 60);
+        $scope.time.hours = Math.floor(ipTime / (60 * 60));
 
         var rem = ipTime % (60 * 60);
         if (format == 12) {
-          if ($scope.time.hours > 12) {
-            $scope.time.hours -= 12;
+          if ($scope.time.hours >= 12) {
             $scope.time.meridian = 'PM';
-          } else {
+
+            if($scope.time.hours > 12){
+              $scope.time.hours -= 12;
+            }
+          }
+           else {
             $scope.time.meridian = 'AM';
           }
         }
+
+        if ($scope.time.hours === 0) {
+          $scope.time.hours = 12;
+        }
+
         $scope.time.minutes = rem / 60;
 
-        $scope.time.hours = $scope.time.hours.toFixed(0);
-        $scope.time.minutes = $scope.time.minutes.toFixed(0);
+        $scope.time.hours = Math.floor($scope.time.hours);
+        $scope.time.minutes = Math.floor($scope.time.minutes);
 
         if ($scope.time.hours.toString().length == 1) {
           $scope.time.hours = '0' + $scope.time.hours;

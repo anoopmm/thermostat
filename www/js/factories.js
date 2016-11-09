@@ -141,28 +141,32 @@ angular.module('thermostat.factories', [])
                 return $http({
                     method: 'GET',
                     url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Settemperature=" + temp,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    timeout: 5000
                 });
             },
             mode: function(ip, deviceid, pwd, mode, fan, autorun) {
                 return $http({
                     method: 'GET',
                     url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Mode=" + mode + "&Fan=" + fan + "&Autorun=" + autorun,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    timeout: 5000
                 });
             },
             onoff: function(ip, deviceid, pwd, onoff) {
                 return $http({
                     method: 'GET',
                     url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Onoff=" + onoff,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    timeout: 5000
                 });
             },
             currentStatus: function(ip, deviceid, pwd) {
                 return $http({
                     method: 'GET',
                     url: 'http://' + ip + '/Devicedata?Deviceid=' + deviceid + '&Devicepassword=' + pwd + "&Getcurrentstatus=20",
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    timeout: 5000
                 });
             },
             changePwd: function(ip, deviceid, oldvalue,value) {

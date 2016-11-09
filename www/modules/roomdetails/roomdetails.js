@@ -18,7 +18,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             });
 
     }])
-    .controller('roomDetailsCtrl', ['$scope', '$state', 'thermostatFactory', '_', '$interval', '$stateParams', '$rootScope', '$timeout', function($scope, $state, thermostatFactory, _, $interval, $stateParams, $rootScope, $timeout) {
+    .controller('roomDetailsCtrl', ['$scope', '$state', 'thermostatFactory', '_', '$interval', '$stateParams', '$rootScope', '$timeout', '$ionicLoading', '$cordovaToast', function($scope, $state, thermostatFactory, _, $interval, $stateParams, $rootScope, $timeout, $ionicLoading, $cordovaToast) {
         'use strict';
         console.log('unit', $rootScope.appSettings.temperatureUnits)
         $scope.settings = {
@@ -112,21 +112,40 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 console.log("Connected");
                 client.subscribe(mqttTopic);
                 console.log("subscribed to " + mqttTopic);
+                var msg_str = '1';
+                var message = new Messaging.Message(msg_str);
+                message.destinationName = thermostatId + '/init';
+                message.qos = 0;
+                client.send(message);
+                $ionicLoading.hide();
             },
 
             //Gets Called if the connection could not be established
             onFailure: function(message) {
                 console.log("Connection failed: " + message.errorMessage);
+                $ionicLoading.hide();
+                connectMqtt();
             }
 
         };
 
         //Attempt to connect
-        client.connect(options)
+        function connectMqtt() {
+            $ionicLoading.show({
+                template: 'Connecting device...'
+            });
+            client.connect(options)
+
+        }
+        connectMqtt();
 
         function currentStatusFromLocal() {
             if ($scope.deviceip) {
+                $ionicLoading.show({
+                    template: 'sending...'
+                });
                 thermostatFactory.currentStatus($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd).then(function(res) {
+                    $ionicLoading.hide();
                     if (res.data.Settemperature) {
                         $scope.locallyConnected = true;
                         $scope.setTempData.label = parseInt(res.data.Settemperature);
@@ -169,7 +188,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         }
                     }
                 }).catch(function() {
-
+                    $ionicLoading.hide();
                 });
             }
         }
@@ -197,11 +216,66 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                         $scope.$apply();
                     };
-                    if (method === "settemp") {
+                    if (method === "temp") {
                         $scope.setTempData.label = parseInt(data.slice(0, 2));
                         console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                         $scope.$apply();
                     };
+                    if (method === "init") {
+                        // alert();
+                        $scope.setTempData.label = parseInt(data.slice(0, 2));
+                        $scope.roomTempData.label = parseInt(data.slice(2, 4));
+                        var onoffValue = parseInt(data.slice(4, 6));
+                        var modeValue = data1.slice(6, 8);
+                        var fanLevel = data1.slice(8, 10);
+                        var autorun = data1.slice(10, 12);
+                        console.log('++++++++++++++', fanLevel);
+                        if (onoffValue == 1) {
+                            $scope.deviceStatus.on = true;
+                        } else {
+                            $scope.deviceStatus.on = false;
+                        }
+                        if (modeValue === '00') {
+                            $scope.filter.cool = true;
+                            $scope.filter.sleep = false;
+                            $scope.filter.hot = false;
+
+                        } else if (modeValue == '01') {
+                            $scope.filter.sleep = true;
+                            $scope.filter.cool = false;
+                            $scope.filter.hot = true;
+                        }
+                        if (fanLevel === '00') {
+                            $scope.tempStatus.low = true;
+                            $scope.tempStatus.medium = false;
+                            $scope.tempStatus.high = false;
+                            $scope.tempStatus.automode = false;
+
+                        } else if (fanLevel === '01') {
+                            $scope.tempStatus.low = true;
+                            $scope.tempStatus.medium = true;
+                            $scope.tempStatus.high = false;
+                            $scope.tempStatus.automode = false;
+
+                        } else if (fanLevel === '02') {
+                            $scope.tempStatus.low = true;
+                            $scope.tempStatus.medium = true;
+                            $scope.tempStatus.high = true;
+                            $scope.tempStatus.automode = false;
+
+                        } else if (fanLevel === '03') {
+                            $scope.tempStatus.automode = true;
+                            $scope.tempStatus.low = false;
+                            $scope.tempStatus.medium = false;
+                            $scope.tempStatus.high = false;
+
+                        }
+                        if (autorun == '00') {
+                            $scope.filter.autorun = false;
+                        } else if (autorun === '01') {
+                            $scope.filter.autorun = true;
+                        }
+                    }
                     if (method === "mode") {
                         console.log('data', data);
                         var sleepOrCool = data.substr(0, 2);
@@ -267,7 +341,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         }
 
                     }
-                    if (method == 'Ack') {
+                    if (method == 'ack') {
                         if (data.indexOf('Program Updated') !== -1) {
 
                             sendWeeklyplans();
@@ -283,7 +357,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                         $scope.$apply();
                     };
-                    if (method === "settemp") {
+                    if (method === "temp") {
                         $scope.setTempData.label = parseInt(data.slice(0, 2));
                         console.log('values', typeof($scope.setTempData), $scope.roomTempData);
                         $scope.$apply();
@@ -343,7 +417,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 else if (topicLength === 4) {
 
                     var method = topic[3];
-                    if (method === "onoff" || method === "mode" || method === "roomtemp" || method === "weeklymon" || method === "weeklytue" || method === "weeklywed" || method === "weeklythurs" || method === "weeklyfri" || method === "weeklysat") {
+                    if (method === "onoff" || method === "mode" || method === "roomtemp" || method === "mon" || method === "tue" || method === "wed" || method === "thu" || method === "fri" || method === "sat" || method === "sun") {
 
                         $scope.setTempData = parseInt(data.slice(0, 2));
                         $scope.roomTempData = parseInt(data1.slice(2, 4));
@@ -362,7 +436,17 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
 
 
-
+        function showToast() {
+            if (window.cordova) {
+               // alert();
+                $cordovaToast.showShortBottom('Network error please try again....').then(function(success) {
+                    // success
+                }, function(error) {
+                    // error
+                });
+            }
+        };
+      //  showToast();
 
 
 
@@ -458,12 +542,18 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             if ($scope.locallyConnected == false) {
                 client.send(message);
             } else {
+                $ionicLoading.show({
+                    template: 'sending...'
+                });
                 thermostatFactory.mode($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.localDataForSend.mode, $scope.localDataForSend.fan, $scope.localDataForSend.autorun).then(function() {
                     //  alert('Updated');
+                    $ionicLoading.hide();
                 }).catch(function() {
                     $scope.locallyConnected = false;
-                    $scope.zero();
-                    //  alert('error');
+                    //  $scope.zero();
+                    $ionicLoading.hide();
+                    showToast()
+                        //  alert('error');
                 });
             }
         };
@@ -477,20 +567,31 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     console.log('msg-------------', msg_str);
 
                     var message = new Messaging.Message(msg_str);
-                    message.destinationName = thermostatId + '/settemp';
+                    message.destinationName = thermostatId + '/temp';
                     message.qos = 0;
                     if ($scope.locallyConnected == false) {
 
 
                         client.send(message);
                     } else {
+                        $ionicLoading.show({
+                            template: 'sending...'
+                        });
+                        thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function(res) {
+                            $ionicLoading.hide();
+                            if (res.data.Status == "Success") {
 
-                        thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function() {
+                            } else {
+                                $scope.locallyConnected = false;
+                                showToast();
+                            }
                             // alert('updates');
                         }).catch(function() {
+                            $ionicLoading.hide();
                             $scope.locallyConnected = false;
-                            $scope.zero();
-                            // alert('error');
+                            showToast();
+                            //  $scope.zero();
+                            //alert('error');
                         });
 
 
@@ -507,19 +608,30 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         console.log('msg-------------', msg_str);
 
                         var message = new Messaging.Message(msg_str);
-                        message.destinationName = thermostatId + '/settemp';
+                        message.destinationName = thermostatId + '/temp';
                         message.qos = 0;
                         if ($scope.locallyConnected == false) {
 
 
                             client.send(message);
                         } else {
-
-                            thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function() {
+                            $ionicLoading.show({
+                                template: 'sending...'
+                            });
+                            thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function(res) {
+                                $ionicLoading.hide();
                                 //  alert('updates');
+                                if (res.data.Status == "Success") {
+
+                                } else {
+                                    $scope.locallyConnected = false;
+                                    showToast();
+                                }
                             }).catch(function() {
+                                $ionicLoading.hide();
                                 $scope.locallyConnected = false;
-                                $scope.zero();
+                                showToast();
+                                // $scope.zero();
                                 // alert('error');
                             });
                         }
@@ -543,20 +655,31 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                     temp = $scope.setTempData.label;
                     var msg_str = temp.toString();
                     var message = new Messaging.Message(msg_str);
-                    message.destinationName = thermostatId + '/settemp';
+                    message.destinationName = thermostatId + '/temp';
                     message.qos = 0;
                     if ($scope.locallyConnected == false) {
 
 
                         client.send(message);
                     } else {
-
-                        thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function() {
+                        $ionicLoading.show({
+                            template: 'sending...'
+                        });
+                        thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function(res) {
+                            $ionicLoading.hide();
                             // alert('updates');
+                            if (res.data.Status == "Success") {
+
+                            } else {
+                                $scope.locallyConnected = false;
+                                showToast();
+                            }
                         }).catch(function() {
+                            $ionicLoading.hide();
                             $scope.locallyConnected = false;
-                            $scope.zero();
-                            // alert('error');
+                            showToast();
+                            // $scope.zero();
+                            //alert('error');
                         });
                     }
                     msgSend = true;
@@ -569,7 +692,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                             temp = $scope.setTempData.label;
                             var msg_str = temp.toString();
                             var message = new Messaging.Message(msg_str);
-                            message.destinationName = thermostatId + '/settemp';
+                            message.destinationName = thermostatId + '/temp';
                             message.qos = 0;
                             if ($scope.locallyConnected == false) {
 
@@ -577,12 +700,22 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                                 client.send(message);
                             } else {
 
+                                $ionicLoading.show({
+                                    template: 'sending...'
+                                });
+                                thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function(res) {
+                                    $ionicLoading.hide();
+                                    if (res.data.Status == "Success") {
 
-                                thermostatFactory.setTemp($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.setTempData.label).then(function() {
-                                    // alert('updates');
+                                    } else {
+                                        $scope.locallyConnected = false;
+                                        showToast();
+                                    }
                                 }).catch(function() {
+                                    $ionicLoading.hide();
                                     $scope.locallyConnected = false;
-                                    $scope.zero();
+                                    showToast();
+                                    //  $scope.zero();
                                     // alert('error');
                                 });
                             }
@@ -619,11 +752,23 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             if ($scope.locallyConnected == false) {
                 client.send(message);
             } else {
-                thermostatFactory.mode($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.localDataForSend.mode, $scope.localDataForSend.fan, $scope.localDataForSend.autorun).then(function() {
+                $ionicLoading.show({
+                    template: 'sending...'
+                });
+                thermostatFactory.mode($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.localDataForSend.mode, $scope.localDataForSend.fan, $scope.localDataForSend.autorun).then(function(res) {
                     // alert('Updated');
+                    $ionicLoading.hide();
+                    if (res.data.Status == "Success") {
+
+                    } else {
+                        $scope.locallyConnected = false;
+                        showToast();
+                    }
                 }).catch(function() {
+                    $ionicLoading.hide();
                     $scope.locallyConnected = false;
-                    $scope.zero();
+                    showToast();
+                    //   $scope.zero();
                     // alert('error');
                 });
             }
@@ -649,12 +794,24 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
                 client.send(message);
             } else {
-                thermostatFactory.onoff($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, onoffStat).then(function() {
+                $ionicLoading.show({
+                    template: 'sending...'
+                });
+                thermostatFactory.onoff($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, onoffStat).then(function(res) {
                     /// alert('Updated');
+                    $ionicLoading.hide();
+                    if (res.data.Status == "Success") {
+
+                    } else {
+                        $scope.locallyConnected = false;
+                        showToast();
+                    }
                 }).catch(function() {
+                    $ionicLoading.hide();
                     $scope.locallyConnected = false;
-                    $scope.zero();
-                    // alert('error');
+                    showToast();
+                    // $scope.zero();
+                    //alert('error');
                 });
 
             }
@@ -680,12 +837,24 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
                 client.send(message);
             } else {
-                thermostatFactory.mode($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.localDataForSend.mode, $scope.localDataForSend.fan, $scope.localDataForSend.autorun).then(function() {
+                $ionicLoading.show({
+                    template: 'sending...'
+                });
+                thermostatFactory.mode($scope.deviceip, $stateParams.itemId, $scope.currentDevicePwd, $scope.localDataForSend.mode, $scope.localDataForSend.fan, $scope.localDataForSend.autorun).then(function(res) {
                     // alert('Updated');
+                    $ionicLoading.hide();
+                    if (res.data.Status == "Success") {
+
+                    } else {
+                        $scope.locallyConnected = false;
+                        showToast();
+                    }
                 }).catch(function() {
+                    $ionicLoading.hide();
                     $scope.locallyConnected = false;
-                    $scope.zero();
-                    // alert('error');
+                    showToast();
+                    // $scope.zero();
+                    //alert('error');
                 });
 
             }
@@ -704,31 +873,31 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             $scope.weeks = [{
                 w: 'SUN',
                 msgStr: 'weeklysun',
-                msgStrl: 'Weeklysun'
+                msgStrl: 'sun'
             }, {
                 w: 'MON',
                 msgStr: 'weeklymon',
-                msgStrl: 'Weeklymon'
+                msgStrl: 'mon'
             }, {
                 w: 'TUE',
                 msgStr: 'weeklytue',
-                msgStrl: 'Weeklytue'
+                msgStrl: 'tue'
             }, {
                 w: 'WED',
                 msgStr: 'weeklywed',
-                msgStrl: 'Weeklywed'
+                msgStrl: 'wed'
             }, {
                 w: 'THU',
                 msgStr: 'weeklythurs',
-                msgStrl: 'Weeklythurs'
+                msgStrl: 'thu'
             }, {
                 w: 'FRI',
                 msgStr: 'weeklyfri',
-                msgStrl: 'Weeklyfri'
+                msgStrl: 'fri'
             }, {
                 w: 'SAT',
                 msgStr: 'weeklysat',
-                msgStrl: 'Weeklysat'
+                msgStrl: 'sat'
             }];
             if ($scope.sendWeeklyPlan.status) {
                 sendWeeklyplans();
@@ -768,7 +937,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
                         }).catch(function() {
                             $scope.locallyConnected = false;
-                            $scope.zero();
+                            // $scope.zero();
                         });
                     }
                 }
@@ -804,7 +973,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                         // alert(result.service.name.toUpperCase());
                         $scope.locallyConnected = true;
                         $scope.deviceip = result.service.ipv4Addresses[0];
-
+                        currentStatusFromLocal();
                     } else {
 
                     }

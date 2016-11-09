@@ -1,4 +1,4 @@
-angular.module('thermostat.weeklyplan', ['ionic'])
+angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
     .config(['$stateProvider', function($stateProvider) {
         'use strict';
         $stateProvider
@@ -13,7 +13,50 @@ angular.module('thermostat.weeklyplan', ['ionic'])
             })
 
     }])
-    .controller('weeklyplanCtrl', ['$scope', '$state', '$rootScope', '$translate', function($scope, $state, $rootScope, $translate) {
+    .controller('weeklyplanCtrl', ['$scope', '$state', '$rootScope', '$translate', 'ionicTimePicker', function($scope, $state, $rootScope, $translate,ionicTimePicker ) {
+
+
+
+
+
+
+        var ipObj1 = {
+            callback: function(val) { //Mandatory
+                if (typeof(val) === 'undefined') {
+                    console.log('Time not selected');
+                } else {
+                    var selectedTime = new Date(val * 1000);
+                    console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+                }
+            },
+            inputTime: 50400, //Optional
+            format: 24, //Optional
+            step: 15, //Optional
+            setLabel: 'Set2' //Optional
+        };
+
+
+
+
+
+
+        $scope.openTime = function() {
+            ionicTimePicker.openTimePicker(ipObj1);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];

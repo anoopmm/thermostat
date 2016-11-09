@@ -48,7 +48,7 @@ angular.module('thermostat.esptouch', ['ionic'])
             });
 
         }
-        $scope.configData.wifi_password = 'S3sypt1dTCy;';
+      //  $scope.configData.wifi_password = 'S3sypt1dTCy;';
         $scope.submit = function() {
             // console.log($scope.configData.wifi_name);
             //console.log($scope.configData.wifi_password);

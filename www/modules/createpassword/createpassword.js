@@ -67,6 +67,7 @@ angular.module('thermostat.createpassword', ['ionic'])
                             }
                         }
                         assignProduct();
+                        
 
 
                         if (window.localStorage.getItem('deviceConfiguredForUser')) {
@@ -76,7 +77,16 @@ angular.module('thermostat.createpassword', ['ionic'])
                         }
                         $state.go('app.selectroom');
                     } else {
-                        $state.go('app.selectroom');
+                        $ionicLoading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error',
+                            template: 'Failed to configure device check password ',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
                     }
                 }).catch(function() {
                     $ionicLoading.hide();
@@ -126,6 +136,7 @@ angular.module('thermostat.createpassword', ['ionic'])
                                 }
                             }
                         }
+                        console.log('new device',newDeviceDetails);
                         assignProduct();
                         if (window.localStorage.getItem('deviceConfiguredForUser')) {
                             var listfromlocal = JSON.parse(window.localStorage.getItem('deviceConfiguredForUser'));
@@ -134,7 +145,16 @@ angular.module('thermostat.createpassword', ['ionic'])
                         }
                         $state.go('app.selectroom');
                     } else {
-                        $state.go('app.selectroom');
+                        $ionicLoading.hide();
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error',
+                            template: 'Failed to configure device check password ',
+                            buttons: [{
+                                text: 'OK',
+                                type: 'button-assertive'
+                            }]
+                        });
+                        alertPopup.then(function() {});
                     }
                 }).catch(function() {
                     $ionicLoading.hide();

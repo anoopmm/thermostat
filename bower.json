@@ -8,7 +8,7 @@
     "ngCordova": "^0.1.27-alpha",
     "underscore": "^1.8.3",
     "angular-underscore-module": "^1.0.3",
-    "ionic-timepicker": "^0.5.1",
+    "ionic-timepicker": "^0.6.0",
     "angular-svg-round-progressbar": "^0.4.6",
     "moment": "^2.14.1",
     "ion.rangeSlider": "ionrangeslider#^2.1.4"
