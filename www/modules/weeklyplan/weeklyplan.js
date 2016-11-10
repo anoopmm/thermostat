@@ -21,12 +21,13 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
 
 
         var ipObj1 = {
-            callback: function(val) { //Mandatory
+            callback: function(val,val2) { //Mandatory
                 if (typeof(val) === 'undefined') {
                     console.log('Time not selected');
                 } else {
                     var selectedTime = new Date(val * 1000);
                     console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+                    console.log(val2);
                 }
             },
             inputTime: 50400, //Optional
@@ -195,6 +196,7 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
 
             }
             $scope.timeSheetItems[i] = daydata;
+            console.log('6666666',$scope.timeSheetItems);
         }
         $scope.daydataInit = $scope.timeSheetItems[0];
         $scope.populatePlan = $scope.timeSheetItems[1]
