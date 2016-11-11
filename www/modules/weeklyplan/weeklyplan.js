@@ -13,7 +13,7 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
             })
 
     }])
-    .controller('weeklyplanCtrl', ['$scope', '$state', '$rootScope', '$translate', 'ionicTimePicker', function($scope, $state, $rootScope, $translate,ionicTimePicker ) {
+    .controller('weeklyplanCtrl', ['$scope', '$state', '$rootScope', '$translate', 'ionicTimePicker', function($scope, $state, $rootScope, $translate, ionicTimePicker) {
 
 
 
@@ -21,19 +21,56 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
 
 
         var ipObj1 = {
-            callback: function(val,val2) { //Mandatory
+            callback: function(val, val2, val3) { //Mandatory
                 if (typeof(val) === 'undefined') {
                     console.log('Time not selected');
                 } else {
-                    var selectedTime = new Date(val * 1000);
-                    console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
-                    console.log(val2);
+                    var selectedStartTime = new Date(val * 1000);
+                    var selectedEndTime = new Date(val2 * 1000);
+                    //console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+                    var currentDay = $scope.timeSheetItems[0];
+                    for (var i = 0; i < currentDay.length; i++) {
+                        console.log('i', i);
+                        if (selectedStartTime.getUTCHours() == currentDay[i].hrs && selectedStartTime.getUTCMinutes() == currentDay[i].mts) {
+                            for (var j = i; j < currentDay.length; j++) {
+                                $('#' + currentDay[j].elementId).ionRangeSlider({
+                                    min: 14,
+                                    max: 30,
+                                    from: 14,
+                                    from_min: 14,
+                                    index: i,
+                                    onChange: function(data) {
+                                        if (data.from >= 15) {
+                                            var res = data.input[0].id.split("_");
+                                            $scope.data[res[2]] = data.from;
+                                            localStorage.setItem($scope.weeks[$scope.selectedWeekIndex], JSON.stringify($scope.data));
+                                            $scope.timeSheetItems[res[1]][res[2]].on = true;
+                                            $scope.timeSheetItems[res[1]][res[2]].value = data.from;
+                                            $scope.$apply();
+                                        } else {
+                                            var res = data.input[0].id.split("_");
+                                            $scope.timeSheetItems[res[1]][res[2]].on = false;
+                                            $scope.$apply();
+                                        }
+                                    }
+                                });
+                                if (selectedEndTime.getUTCHours() == currentDay[j].hrs && selectedEndTime.getUTCMinutes() == currentDay[j].mts) {
+                                    console.log('6666666666666666');
+                                    break;
+                                }
+
+                            }
+                        }
+                    }
+                    $scope.timeSheetItems[0] = currentDay;
+
+                    console.log($scope.timeSheetItems);
                 }
             },
             inputTime: 50400, //Optional
             format: 24, //Optional
-            step: 15, //Optional
-            setLabel: 'Set2' //Optional
+            step: 30, //Optional
+            setLabel: 'Set' //Optional
         };
 
 
@@ -157,7 +194,11 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
                 timedata.elementId = $scope.weeks[i] + '_' + i + '_' + k;
                 timedata.value = undefined;
                 timedata.on = false;
+
+
                 if (mts < 60) {
+                    timedata.hrs = hrs;
+                    timedata.mts = mts;
                     if (mts < 10) {
                         if (hrs < 10) {
                             timedata.time = '0' + hrs + ':' + '0' + mts;
@@ -174,6 +215,8 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
                 } else {
                     mts = 0;
                     hrs = hrs + 1;
+                    timedata.hrs = hrs;
+                    timedata.mts = mts;
                     if (mts < 10) {
                         if (hrs < 10) {
                             timedata.time = '0' + hrs + ':' + '0' + mts;
@@ -196,7 +239,7 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
 
             }
             $scope.timeSheetItems[i] = daydata;
-            console.log('6666666',$scope.timeSheetItems);
+            console.log('6666666', $scope.timeSheetItems);
         }
         $scope.daydataInit = $scope.timeSheetItems[0];
         $scope.populatePlan = $scope.timeSheetItems[1]

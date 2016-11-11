@@ -1,5 +1,4 @@
 <ion-view title="Weekly plan">
-
     <div class="row" style="color:white;margin-top:38px">
         <div class="col" style="background: rgba(255, 255, 255, 0.43);text-align:center;" ng-repeat="item in weeks2" ng-click="changeWeek($index)">
             {{item.name}}
@@ -10,8 +9,8 @@
         <canvas style="    background: rgba(35, 36, 37, 0.22);" id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick" chart-colors="colors" height="150"> </canvas>
     </div>
     <ion-content class="weeklyplan " style="margin-top:188px">
-<!--         <div class="">
-            <div class="row padd_0" ng-repeat="item in timeSheetItems[0]">
+        <div class="">
+            <div class="row padd_0" ng-if="item.value!=undefined" ng-repeat="item in timeSheetItems[0]">
                 <div class="col padd_0">
                     <div class="row">
                         <div class="col col-20 padd_0 whitetext">
@@ -32,12 +31,12 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div>
-<button ng-click="openTime()">add</button>
+            <button ng-click="openTime()">add</button>
         </div>
     </ion-content>
-<!--     <div class="bar bar-footer" style="background: #b66aea;">
+    <!--     <div class="bar bar-footer" style="background: #b66aea;">
         <button class="button button-clear pull-right" style="    color: white;
     background: chocolate" ng-click="submit()">Set weekly plan</button>
     </div> -->
