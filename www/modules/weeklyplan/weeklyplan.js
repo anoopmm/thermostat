@@ -15,7 +15,7 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
     }])
     .controller('weeklyplanCtrl', ['$scope', '$state', '$rootScope', '$translate', 'ionicTimePicker', function($scope, $state, $rootScope, $translate, ionicTimePicker) {
 
-
+        $scope.selectedSlot = [];
 
 
 
@@ -27,42 +27,46 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
                 } else {
                     var selectedStartTime = new Date(val * 1000);
                     var selectedEndTime = new Date(val2 * 1000);
+
                     //console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
-                    var currentDay = $scope.timeSheetItems[0];
+                    var currentDay = $scope.timeSheetItems[$scope.selectedWeekIndex];
                     for (var i = 0; i < currentDay.length; i++) {
                         console.log('i', i);
+                        var currentSlotData = {
+                            elementId: currentDay[i].elementId,
+                        }
                         if (selectedStartTime.getUTCHours() == currentDay[i].hrs && selectedStartTime.getUTCMinutes() == currentDay[i].mts) {
+
+                            $scope.selectedSlot.push(currentSlotData);
+                            $scope.timeSheetItems[$scope.selectedWeekIndex][i].value = val3;
+                            $scope.timeSheetItems[$scope.selectedWeekIndex][i].showSlider=true;
+                            localStorage.setItem('weeklyPlan', JSON.stringify($scope.timeSheetItems));
+                            $scope.data[i] = val3;
+                            var slider = $('#' + currentDay[i].elementId).data("ionRangeSlider");
+
+                            // Call sliders update method with any params
+                            slider.update({
+                                min: 14,
+                                max: 30,
+                                from: val3,
+                                from_min: 14,
+                                // etc.
+                            });
                             for (var j = i; j < currentDay.length; j++) {
-                                $('#' + currentDay[j].elementId).ionRangeSlider({
-                                    min: 14,
-                                    max: 30,
-                                    from: 14,
-                                    from_min: 14,
-                                    index: i,
-                                    onChange: function(data) {
-                                        if (data.from >= 15) {
-                                            var res = data.input[0].id.split("_");
-                                            $scope.data[res[2]] = data.from;
-                                            localStorage.setItem($scope.weeks[$scope.selectedWeekIndex], JSON.stringify($scope.data));
-                                            $scope.timeSheetItems[res[1]][res[2]].on = true;
-                                            $scope.timeSheetItems[res[1]][res[2]].value = data.from;
-                                            $scope.$apply();
-                                        } else {
-                                            var res = data.input[0].id.split("_");
-                                            $scope.timeSheetItems[res[1]][res[2]].on = false;
-                                            $scope.$apply();
-                                        }
-                                    }
-                                });
+                                $scope.timeSheetItems[$scope.selectedWeekIndex][j].value = val3;
+                                $scope.data[j] = val3;
                                 if (selectedEndTime.getUTCHours() == currentDay[j].hrs && selectedEndTime.getUTCMinutes() == currentDay[j].mts) {
                                     console.log('6666666666666666');
+                                    localStorage.setItem('weeklyPlan', JSON.stringify($scope.timeSheetItems));
+
                                     break;
                                 }
 
                             }
                         }
                     }
-                    $scope.timeSheetItems[0] = currentDay;
+                    $scope.timeSheetItems[$scope.selectedWeekIndex] = currentDay;
+                    // $scope.$apply();
 
                     console.log($scope.timeSheetItems);
                 }
@@ -254,6 +258,7 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
                         from_min: 14,
                         index: i,
                         onChange: function(data) {
+                            console.log('-------');
                             if (data.from >= 15) {
                                 var res = data.input[0].id.split("_");
                                 $scope.data[res[2]] = data.from;
@@ -288,9 +293,17 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
         };
         $scope.changeWeek = function(index) {
             $scope.selectedWeekIndex = index;
-            $scope.data = [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14];
+            ///$scope.data = [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14];
             for (var l = 0; l < 7; l++) {
                 $scope.weeks2[l].tabSelected = false;
+            }
+            var graphdata = $scope.timeSheetItems[index];
+            for (var i = 0; i < graphdata.length; i++) {
+                if (graphdata[i].value) {
+                    $scope.data[i] = graphdata[i].value;
+                } else {
+                    $scope.data[i] = 14;
+                }
             }
             $scope.weeks2[index].tabSelected = true;
             $scope.populatePlan = $scope.daydataInit;
