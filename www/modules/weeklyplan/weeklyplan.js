@@ -39,7 +39,7 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
 
                             $scope.selectedSlot.push(currentSlotData);
                             $scope.timeSheetItems[$scope.selectedWeekIndex][i].value = val3;
-                            $scope.timeSheetItems[$scope.selectedWeekIndex][i].showSlider=true;
+                            $scope.timeSheetItems[$scope.selectedWeekIndex][i].showSlider = true;
                             localStorage.setItem('weeklyPlan', JSON.stringify($scope.timeSheetItems));
                             $scope.data[i] = val3;
                             var slider = $('#' + currentDay[i].elementId).data("ionRangeSlider");
@@ -54,10 +54,12 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
                             });
                             for (var j = i; j < currentDay.length; j++) {
                                 $scope.timeSheetItems[$scope.selectedWeekIndex][j].value = val3;
+                                $scope.timeSheetItems[$scope.selectedWeekIndex][j].starttime = selectedStartTime;
                                 $scope.data[j] = val3;
                                 if (selectedEndTime.getUTCHours() == currentDay[j].hrs && selectedEndTime.getUTCMinutes() == currentDay[j].mts) {
                                     console.log('6666666666666666');
                                     localStorage.setItem('weeklyPlan', JSON.stringify($scope.timeSheetItems));
+                                    localStorage.setItem($scope.weeks[$scope.selectedWeekIndex], JSON.stringify($scope.data));
 
                                     break;
                                 }
@@ -265,6 +267,16 @@ angular.module('thermostat.weeklyplan', ['ionic', 'ionic-timepicker'])
                                 localStorage.setItem($scope.weeks[$scope.selectedWeekIndex], JSON.stringify($scope.data));
                                 $scope.timeSheetItems[res[1]][res[2]].on = true;
                                 $scope.timeSheetItems[res[1]][res[2]].value = data.from;
+                                var startTimeForSelectedIndex = $scope.timeSheetItems[res[1]][res[2]].starttime;
+                                var daydataforselected = $scope.timeSheetItems[res[1]];
+                                for (var count = res[2]; count < daydataforselected.length; count++) {
+                                    if (startTimeForSelectedIndex == $scope.timeSheetItems[res[1]][count].starttime) {
+                                        $scope.timeSheetItems[res[1]][count].value = data.from;
+                                        $scope.data[count] = data.from;
+                                    } else {
+                                        localStorage.setItem($scope.weeks[$scope.selectedWeekIndex], JSON.stringify($scope.data));
+                                    }
+                                }
                                 $scope.$apply();
                             } else {
                                 var res = data.input[0].id.split("_");

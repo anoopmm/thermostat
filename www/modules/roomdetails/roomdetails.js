@@ -26,6 +26,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
             fan: "00",
             autorun: "00"
         }
+        var sendplan;
         $scope.deviceip = undefined;
         if (window.localStorage.getItem('currentItem')) {
             $scope.currentDevicePwd = JSON.parse(window.localStorage.getItem('currentItem')).product.password_changed;
@@ -438,7 +439,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
 
         function showToast() {
             if (window.cordova) {
-               // alert();
+                // alert();
                 $cordovaToast.showShortBottom('Network error please try again....').then(function(success) {
                     // success
                 }, function(error) {
@@ -446,7 +447,7 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 });
             }
         };
-      //  showToast();
+        //  showToast();
 
 
 
@@ -872,47 +873,54 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
         $scope.sendWeekly = function() {
             $scope.weeks = [{
                 w: 'SUN',
-                msgStr: 'weeklysun',
+                msgStr: 'sun',
                 msgStrl: 'sun'
             }, {
                 w: 'MON',
-                msgStr: 'weeklymon',
+                msgStr: 'mon',
                 msgStrl: 'mon'
             }, {
                 w: 'TUE',
-                msgStr: 'weeklytue',
+                msgStr: 'tue',
                 msgStrl: 'tue'
             }, {
                 w: 'WED',
-                msgStr: 'weeklywed',
+                msgStr: 'wed',
                 msgStrl: 'wed'
             }, {
                 w: 'THU',
-                msgStr: 'weeklythurs',
+                msgStr: 'thurs',
                 msgStrl: 'thu'
             }, {
                 w: 'FRI',
-                msgStr: 'weeklyfri',
+                msgStr: 'fri',
                 msgStrl: 'fri'
             }, {
                 w: 'SAT',
-                msgStr: 'weeklysat',
+                msgStr: 'sat',
                 msgStrl: 'sat'
             }];
-            if ($scope.sendWeeklyPlan.status) {
-                sendWeeklyplans();
+            if (1) {
+              //  sendplan = setInterval(alert(), 1000);
+
+                 sendplan = $interval(function() {
+                    sendWeeklyplans();
+                }, 3000);
             }
 
 
         };
 
         function sendWeeklyplans() {
+               $ionicLoading.show({
+                    template: 'sending weekly plan...'
+                });
             if (weekIndex < 7) { //  if the counter < 10, call the loop function
                 console.log('+++++');
                 if (localStorage.getItem($scope.weeks[weekIndex].w)) {
                     var arrayToSend = JSON.parse(localStorage.getItem($scope.weeks[weekIndex].w));
                     var msg_str = '';
-                    var msg_strl = ''
+                    var msg_strl = '';
                     for (var m = 0; m < 48; m++) {
                         if (arrayToSend[m] >= 15) {
                             msg_strl = msg_strl + '&a[' + m + ']=' + arrayToSend[m];
@@ -943,7 +951,13 @@ angular.module('thermostat.roomdetails', ['ionic', 'angular.directives-round-pro
                 }
                 weekIndex++; //  increment the counter
 
+            } else {
+                $ionicLoading.hide()
+                clearTimeout(sendplan);
             }
+        }
+        $scope.sendweekly = function() {
+
         }
         $scope.zero = function() {
             if (window.cordova) {
